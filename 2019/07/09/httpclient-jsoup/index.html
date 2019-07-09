@@ -94,17 +94,17 @@
 
 
 
-  <meta name="description" content="1.下载NextNext主题是Github上Star最多的Hexo主题，有着丰富的界面设置选项，方便的配置在文件主目录的命令窗口里输入git clone https://github.com/theme-next/hexo-theme-next themes/next后面的路径不一定要这么填，但是在文件_config.yml里面要写绝对路径，如果按照我这么填就直接在配置文件里面写theme: ne">
+  <meta name="description" content="1.httpclient与jsoup简介HTTP 协议可能是现在 Internet 上使用得最多、最重要的协议了，越来越多的 Java 应用程序需要直接通过 HTTP 协议来访问网络资源。虽然在 JDK 的 java net包中已经提供了访问 HTTP 协议的基本功能，但是对于大部分应用程序来说，JDK 库本身提供的功能还不够丰富和灵活。 httpclient功能有：  1.实现了所有 HTTP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Beautify Hexo Blog">
-<meta property="og:url" content="http://yoursite.com/2019/07/08/next/index.html">
+<meta property="og:title" content="使用Httpclient和Jsoup 爬取网页信息">
+<meta property="og:url" content="http://yoursite.com/2019/07/09/httpclient-jsoup/index.html">
 <meta property="og:site_name" content="LuBin的个人博客">
-<meta property="og:description" content="1.下载NextNext主题是Github上Star最多的Hexo主题，有着丰富的界面设置选项，方便的配置在文件主目录的命令窗口里输入git clone https://github.com/theme-next/hexo-theme-next themes/next后面的路径不一定要这么填，但是在文件_config.yml里面要写绝对路径，如果按照我这么填就直接在配置文件里面写theme: ne">
+<meta property="og:description" content="1.httpclient与jsoup简介HTTP 协议可能是现在 Internet 上使用得最多、最重要的协议了，越来越多的 Java 应用程序需要直接通过 HTTP 协议来访问网络资源。虽然在 JDK 的 java net包中已经提供了访问 HTTP 协议的基本功能，但是对于大部分应用程序来说，JDK 库本身提供的功能还不够丰富和灵活。 httpclient功能有：  1.实现了所有 HTTP">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-08T15:08:55.465Z">
+<meta property="og:updated_time" content="2019-07-09T14:06:10.502Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Beautify Hexo Blog">
-<meta name="twitter:description" content="1.下载NextNext主题是Github上Star最多的Hexo主题，有着丰富的界面设置选项，方便的配置在文件主目录的命令窗口里输入git clone https://github.com/theme-next/hexo-theme-next themes/next后面的路径不一定要这么填，但是在文件_config.yml里面要写绝对路径，如果按照我这么填就直接在配置文件里面写theme: ne">
+<meta name="twitter:title" content="使用Httpclient和Jsoup 爬取网页信息">
+<meta name="twitter:description" content="1.httpclient与jsoup简介HTTP 协议可能是现在 Internet 上使用得最多、最重要的协议了，越来越多的 Java 应用程序需要直接通过 HTTP 协议来访问网络资源。虽然在 JDK 的 java net包中已经提供了访问 HTTP 协议的基本功能，但是对于大部分应用程序来说，JDK 库本身提供的功能还不够丰富和灵活。 httpclient功能有：  1.实现了所有 HTTP">
 
 
 
@@ -112,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/07/08/next/">
+  <link rel="canonical" href="http://yoursite.com/2019/07/09/httpclient-jsoup/">
 
 
 
@@ -122,7 +122,7 @@
   };
 </script>
 
-  <title>Beautify Hexo Blog | LuBin的个人博客</title>
+  <title>使用Httpclient和Jsoup 爬取网页信息 | LuBin的个人博客</title>
   
 
 
@@ -321,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/next/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/09/httpclient-jsoup/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陆 滨">
@@ -338,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Beautify Hexo Blog
+          <h1 class="post-title" itemprop="name headline">使用Httpclient和Jsoup 爬取网页信息
 
               
             
@@ -364,7 +364,7 @@
                 
               
 
-              <time title="创建时间：2019-07-08 22:14:47 / 修改时间：23:08:55" itemprop="dateCreated datePublished" datetime="2019-07-08T22:14:47+08:00">2019-07-08</time>
+              <time title="创建时间：2019-07-09 15:21:58 / 修改时间：22:06:10" itemprop="dateCreated datePublished" datetime="2019-07-09T15:21:58+08:00">2019-07-09</time>
             </span>
           
 
@@ -406,34 +406,29 @@
       
 
       
-        <h2 id="1-下载Next"><a href="#1-下载Next" class="headerlink" title="1.下载Next"></a>1.下载Next</h2><p>Next主题是Github上Star最多的Hexo主题，有着丰富的界面设置选项，方便的配置<br>在文件主目录的命令窗口里输入<br>git clone <a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">https://github.com/theme-next/hexo-theme-next</a> themes/next<br>后面的路径不一定要这么填，但是在文件_config.yml里面要写绝对路径，如果按照我这么填就直接在配置文件里面写<br>theme: next</p>
-<h2 id="2-主题的配置"><a href="#2-主题的配置" class="headerlink" title="2.主题的配置"></a>2.主题的配置</h2><p>主题有四种风格，有Muse、Mist、Pisces、Gemini<br>在themes/next/_config.yml文件里面找到以下内容写<br>scheme: Gemini</p>
-<p>在配置文件里面看到<br>menu: #设置博客各个页面的相对路径，默认根路径是blog/source<br>  home: / || home<br>  about: /about/ || user<br>  tags: /tags/ || tags<br>  categories: /categories/ || th<br>  archives: /archives/ || archive</p>
-<p>  #schedule: /schedule/ || calendar #日历</p>
-<p>  #sitemap: /sitemap.xml || sitemap #站点地图，供搜索引擎爬取</p>
-<p>  #commonweal: /404/ || heartbeat # 腾讯公益404</p>
-<p>  #Enable/Disable menu icons / item badges.<br>menu_settings:<br>  icons: true # 是否显示各个页面的图标<br>  badges: true # 是否显示分类/标签/归档页的内容量<br>如果自己需要的话就可以吧#注释删除，就可以使用了</p>
-<h2 id="3-动态背景"><a href="#3-动态背景" class="headerlink" title="3.动态背景"></a>3.动态背景</h2><p>#Canvas-nest</p>
-<p>#Dependencies: <a href="https://github.com/theme-next/theme-next-canvas-nest" target="_blank" rel="noopener">https://github.com/theme-next/theme-next-canvas-nest</a><br>canvas_nest: # 网络背景<br>  enable: true<br>  onmobile: true # display on mobile or not<br>  color: ‘0,0,0’ # RGB values, use ‘,’ to separate<br>  opacity: 0.5 # the opacity of line: 0~1<br>  zIndex: -1 # z-index property of the background<br>  count: 150 # the number of lines</p>
-<p>#JavaScript 3D library.</p>
-<p>#Dependencies: <a href="https://github.com/theme-next/theme-next-three" target="_blank" rel="noopener">https://github.com/theme-next/theme-next-three</a></p>
-<p>#three_waves<br>three_waves: false</p>
-<p>#canvas_lines<br>canvas_lines: false</p>
-<p>#canvas_sphere<br>canvas_sphere: false</p>
-<p>#Canvas-ribbon</p>
-<p>#Dependencies: <a href="https://github.com/theme-next/theme-next-canvas-ribbon" target="_blank" rel="noopener">https://github.com/theme-next/theme-next-canvas-ribbon</a></p>
-<p>#size: The width of the ribbon.</p>
-<p>#alpha: The transparency of the ribbon.</p>
-<p>#zIndex: The display level of the ribbon.<br>canvas_ribbon:<br>  enable: false<br>  size: 300<br>  alpha: 0.6<br>  zIndex: -1</p>
-<p>按照自己喜欢的来使用，但是只能让一个true，而且还需要下载相应的资源包，链接在注释里面，使用方式如下<br>git clone <a href="https://github.com/theme-next/theme-next-canvas-nest" target="_blank" rel="noopener">https://github.com/theme-next/theme-next-canvas-nest</a> themes/next/source/lib/canvas-nest</p>
-<h2 id="4-设置头像"><a href="#4-设置头像" class="headerlink" title="4.设置头像"></a>4.设置头像</h2><p>配置文件找到</p>
-<p>avatar:</p>
-<p>  #in theme directory(source/images): /images/avatar.gif</p>
-<p>  #in site  directory(source/uploads): /uploads/avatar.gif</p>
-<p>  #You can also use other linking images.<br>  url: /images/author.jpg  #将我们的头像图片放置在blog/themes/next/source/images目录下，填写具体地址</p>
-<p>  #If true, the avatar would be dispalyed in circle.<br>  rounded: true #鼠标放在头像上时是否旋转</p>
-<p>  #The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.<br>  opacity: 1 #头像放缩指数</p>
-<p>  #If true, the avatar would be rotated with the cursor.<br>  rotated: true #头像是否设为圆形，否则为矩形</p>
+        <h2 id="1-httpclient与jsoup简介"><a href="#1-httpclient与jsoup简介" class="headerlink" title="1.httpclient与jsoup简介"></a>1.httpclient与jsoup简介</h2><p>HTTP 协议可能是现在 Internet 上使用得最多、最重要的协议了，越来越多的 Java 应用程序需要直接通过 HTTP 协议来访问网络资源。虽然在 JDK 的 java net包中已经提供了访问 HTTP 协议的基本功能，但是对于大部分应用程序来说，JDK 库本身提供的功能还不够丰富和灵活。</p>
+<p>httpclient功能有：<br>  1.实现了所有 HTTP 的方法（GET,POST,PUT,HEAD 等）<br>  2.支持自动转向<br>  3.支持 HTTPS 协议<br>  4.支持代理服务器等</p>
+<p>jsoup是一款Java的HTML解析器，可直接解析某个URL地址、HTML文本内容。它提供了一套非常省力的API，可通过DOM，CSS以及类似于jQuery的操作方法来取出和操作数据。</p>
+<p>jsoup功能有：</p>
+<p>  1.从一个URL，文件或字符串中解析HTML；<br>  2.使用DOM或CSS选择器来查找、取出数据；<br>  3.可操作HTML元素、属性、文本；</p>
+<h2 id="2-httpclient和jsoup共同使用"><a href="#2-httpclient和jsoup共同使用" class="headerlink" title="2.httpclient和jsoup共同使用"></a>2.httpclient和jsoup共同使用</h2><p>httpClient 属于专业的抓取网页的库，可以设置代理，抓取失败可以重试抓取。jsoup也可以直接抓取网页，但是在抓取上，jsoup比较弱，API简单，功能也简单，主要是扩展htmlparser的功能吧，解析html。测试过程中jsoup抓取页面经常报错（time out等等）。所以使用httpclient抓取网页，然后使用jsoup解析html。</p>
+<h2 id="3-maven依赖"><a href="#3-maven依赖" class="headerlink" title="3.maven依赖"></a>3.maven依赖</h2><p>httpclient：<br>(```)</p>
+<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
+<dependency>
+    <groupid>org.apache.httpcomponents</groupid>
+    <artifactid>httpclient</artifactid>
+    <version>4.5.6</version>
+</dependency>
+(```)
+
+<p>jsoup:<br>(<code>)
+&lt;dependency&gt;
+    &lt;groupId&gt;org.jsoup&lt;/groupId&gt;
+    &lt;artifactId&gt;jsoup&lt;/artifactId&gt;
+    &lt;version&gt;1.8.3&lt;/version&gt;
+&lt;/dependency&gt;
+(</code>)</p>
+<h2 id="4-使用httpclient抓取网页步骤"><a href="#4-使用httpclient抓取网页步骤" class="headerlink" title="4.使用httpclient抓取网页步骤"></a>4.使用httpclient抓取网页步骤</h2><p>1.创建httpclient对象<br>2.创建请求对象，如果是get请求就创建 Httpget，如果是post就创建 HttpPost，并且参数传url地址字符串<br>3.发送请求，使用 httpClient 的 execute 方法发送，参数传请求对象，返回一个 HttpResponse 对象<br>4.获得页面内容，调用HttpResponse的getEntity()方法可获取HttpEntity对象，该对象包装了服务器的响应内容。程序可通过该对象获取服务器的响应内容<br>5.释放连接。无论执行方法是否成功，都必须释放连接</p>
 
       
     </div>
@@ -468,7 +463,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="http://yoursite.com/2019/07/08/next/" title="Beautify Hexo Blog">http://yoursite.com/2019/07/08/next/</a>
+    <a href="http://yoursite.com/2019/07/09/httpclient-jsoup/" title="使用Httpclient和Jsoup 爬取网页信息">http://yoursite.com/2019/07/09/httpclient-jsoup/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -488,8 +483,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/07/hexo-github/" rel="next" title="Use Github Deploy My Hexo Blog">
-                <i class="fa fa-chevron-left"></i> Use Github Deploy My Hexo Blog
+              <a href="/2019/07/08/next/" rel="next" title="Beautify Hexo Blog">
+                <i class="fa fa-chevron-left"></i> Beautify Hexo Blog
               </a>
             
           </div>
@@ -497,10 +492,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/09/httpclient-jsoup/" rel="prev" title="使用Httpclient和Jsoup 爬取网页信息">
-                使用Httpclient和Jsoup 爬取网页信息 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -649,7 +640,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-下载Next"><span class="nav-number">1.</span> <span class="nav-text">1.下载Next</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-主题的配置"><span class="nav-number">2.</span> <span class="nav-text">2.主题的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-动态背景"><span class="nav-number">3.</span> <span class="nav-text">3.动态背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-设置头像"><span class="nav-number">4.</span> <span class="nav-text">4.设置头像</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-httpclient与jsoup简介"><span class="nav-number">1.</span> <span class="nav-text">1.httpclient与jsoup简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-httpclient和jsoup共同使用"><span class="nav-number">2.</span> <span class="nav-text">2.httpclient和jsoup共同使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-maven依赖"><span class="nav-number">3.</span> <span class="nav-text">3.maven依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-使用httpclient抓取网页步骤"><span class="nav-number">4.</span> <span class="nav-text">4.使用httpclient抓取网页步骤</span></a></li></ol></div>
             
 
           </div>
