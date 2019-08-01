@@ -94,17 +94,17 @@
 
 
 
-  <meta name="description" content="线程和进程是什么1.进程：是执行中一段程序，即一旦程序被载入到内存中并准备执行，它就是一个进程。进程是表示资源分配的的基本概念，又是调度运行的基本单位，是系统中的并发执行的单位。2.线程：单个进程中执行中每个任务就是一个线程。线程是进程中执行运算的最小单位。 线程和进程的区别1.一个线程只能属于一个进程，但是一个进程可以拥有多个线程。多线程处理就是允许一个进程中在同一时刻执行多个任务。2.线程是一">
+  <meta name="description" content="异步和同步使用多线程不可避免的就是同步和异步的问题：    异步：就是开多个线程，然后同时执行各自的业务逻辑，这样使用可以让程序更加高效率的执行任务，相当于可以一边听歌一边写文档。（但是在系统内部线程执行的还是串行，只是我们视觉上察觉不到，所以宏观上是并发的）    同步：在我们写多线程代码时，有些时候我们需要让一个线程等待另一个线程执行完成后再继续执行，按照顺序执行线程，这样是为了保证异步带来的">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java多线程（一）">
-<meta property="og:url" content="http://yoursite.com/2019/07/28/java-theard/index.html">
+<meta property="og:title" content="java多线程（二）">
+<meta property="og:url" content="http://yoursite.com/2019/08/01/java-theard-2/index.html">
 <meta property="og:site_name" content="LuBin的个人博客">
-<meta property="og:description" content="线程和进程是什么1.进程：是执行中一段程序，即一旦程序被载入到内存中并准备执行，它就是一个进程。进程是表示资源分配的的基本概念，又是调度运行的基本单位，是系统中的并发执行的单位。2.线程：单个进程中执行中每个任务就是一个线程。线程是进程中执行运算的最小单位。 线程和进程的区别1.一个线程只能属于一个进程，但是一个进程可以拥有多个线程。多线程处理就是允许一个进程中在同一时刻执行多个任务。2.线程是一">
+<meta property="og:description" content="异步和同步使用多线程不可避免的就是同步和异步的问题：    异步：就是开多个线程，然后同时执行各自的业务逻辑，这样使用可以让程序更加高效率的执行任务，相当于可以一边听歌一边写文档。（但是在系统内部线程执行的还是串行，只是我们视觉上察觉不到，所以宏观上是并发的）    同步：在我们写多线程代码时，有些时候我们需要让一个线程等待另一个线程执行完成后再继续执行，按照顺序执行线程，这样是为了保证异步带来的">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-28T15:17:53.621Z">
+<meta property="og:updated_time" content="2019-08-01T14:55:26.330Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java多线程（一）">
-<meta name="twitter:description" content="线程和进程是什么1.进程：是执行中一段程序，即一旦程序被载入到内存中并准备执行，它就是一个进程。进程是表示资源分配的的基本概念，又是调度运行的基本单位，是系统中的并发执行的单位。2.线程：单个进程中执行中每个任务就是一个线程。线程是进程中执行运算的最小单位。 线程和进程的区别1.一个线程只能属于一个进程，但是一个进程可以拥有多个线程。多线程处理就是允许一个进程中在同一时刻执行多个任务。2.线程是一">
+<meta name="twitter:title" content="java多线程（二）">
+<meta name="twitter:description" content="异步和同步使用多线程不可避免的就是同步和异步的问题：    异步：就是开多个线程，然后同时执行各自的业务逻辑，这样使用可以让程序更加高效率的执行任务，相当于可以一边听歌一边写文档。（但是在系统内部线程执行的还是串行，只是我们视觉上察觉不到，所以宏观上是并发的）    同步：在我们写多线程代码时，有些时候我们需要让一个线程等待另一个线程执行完成后再继续执行，按照顺序执行线程，这样是为了保证异步带来的">
 
 
 
@@ -112,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/07/28/java-theard/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/01/java-theard-2/">
 
 
 
@@ -122,7 +122,7 @@
   };
 </script>
 
-  <title>java多线程（一） | LuBin的个人博客</title>
+  <title>java多线程（二） | LuBin的个人博客</title>
   
 
 
@@ -321,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/28/java-theard/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/01/java-theard-2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陆 滨">
@@ -338,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">java多线程（一）
+          <h1 class="post-title" itemprop="name headline">java多线程（二）
 
               
             
@@ -364,7 +364,7 @@
                 
               
 
-              <time title="创建时间：2019-07-28 20:48:01 / 修改时间：23:17:53" itemprop="dateCreated datePublished" datetime="2019-07-28T20:48:01+08:00">2019-07-28</time>
+              <time title="创建时间：2019-08-01 21:28:09 / 修改时间：22:55:26" itemprop="dateCreated datePublished" datetime="2019-08-01T21:28:09+08:00">2019-08-01</time>
             </span>
           
 
@@ -406,28 +406,17 @@
       
 
       
-        <h2 id="线程和进程是什么"><a href="#线程和进程是什么" class="headerlink" title="线程和进程是什么"></a>线程和进程是什么</h2><p>1.进程：是执行中一段程序，即一旦程序被载入到内存中并准备执行，它就是一个进程。进程是表示资源分配的的基本概念，又是调度运行的基本单位，是系统中的并发执行的单位。<br>2.线程：单个进程中执行中每个任务就是一个线程。线程是进程中执行运算的最小单位。</p>
-<h2 id="线程和进程的区别"><a href="#线程和进程的区别" class="headerlink" title="线程和进程的区别"></a>线程和进程的区别</h2><p>1.一个线程只能属于一个进程，但是一个进程可以拥有多个线程。多线程处理就是允许一个进程中在同一时刻执行多个任务。<br>2.线程是一种轻量级的进程，与进程相比，线程给操作系统带来侧创建、维护、和管理的负担要轻，意味着线程的代价或开销比较小。<br>3.线程没有地址空间，进程的地址空间包含线程。线程上下文只包含一个堆栈、一个寄存器、一个优先权，线程文本包含在他的进程的文本片段中，进程拥有的所有资源都属于线程。所有的线程共享进程的内存和资源。<br>4.同一进程中的多个线程共享代码段(代码和常量)，数据段(全局变量和静态变量)，扩展段(堆存储)。但是每个线程拥有自己的栈段， 寄存器的内容，栈段又叫运行时段，用来存放所有局部变量和临时变量。</p>
-<h2 id="进程的创建"><a href="#进程的创建" class="headerlink" title="进程的创建"></a>进程的创建</h2><p>1.在Windows系统中，创建进程的开销很大，因此Windows鼓励大家创建多线程。多线程学习重点是要大量面对资源争抢与同步方面的问题。<br>2.Linux系统中，创建进程的开销很小，因此Linux鼓励大家创建多进程。Linux的学习重点是要学习进程间通讯的方法。</p>
-<h2 id="线程的状态"><a href="#线程的状态" class="headerlink" title="线程的状态"></a>线程的状态</h2><p>1.创建状态（就是我们创建了线程，但是还没有运行start方法）<br>2.就绪状态（运行了start方法，但是由于系统的任务调度问题，没有获取到资源）<br>3.运行状态（得到了系统资源，开始运行run方法了）<br>4.销毁状态（运行结束，或者直接运行stop方法被迫结束）<br>5.等待状态（使用了sleep方法和wait方法，让线程让给系统资源，等待唤醒）</p>
-<h2 id="多线程的方式"><a href="#多线程的方式" class="headerlink" title="多线程的方式"></a>多线程的方式</h2><p>1.继承Thread类</p>
-<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test1</span> <span class="keyword">extends</span> <span class="title">Thread</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    public void run() &#123;</span><br><span class="line">        <span class="comment">//要执行的方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>2.实现Runnable接口</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Test1</span> <span class="keyword">implements</span> <span class="title">Runnable</span></span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//要执行的方法</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>3.匿名内部类</p>
+        <h2 id="异步和同步"><a href="#异步和同步" class="headerlink" title="异步和同步"></a>异步和同步</h2><p>使用多线程不可避免的就是同步和异步的问题：<br>    异步：就是开多个线程，然后同时执行各自的业务逻辑，这样使用可以让程序更加高效率的执行任务，相当于可以一边听歌一边写文档。（但是在系统内部线程执行的还是串行，只是我们视觉上察觉不到，所以宏观上是并发的）<br>    同步：在我们写多线程代码时，有些时候我们需要让一个线程等待另一个线程执行完成后再继续执行，按照顺序执行线程，这样是为了保证异步带来的数据不正确问题（线程安全问题）。</p>
+<h3 id="异步"><a href="#异步" class="headerlink" title="异步"></a>异步</h3><p>异步就是我们开了另一个线程，那个时候就是在异步执行代码了</p>
 <figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">             <span class="meta">@Override</span></span><br><span class="line">             <span class="keyword">public</span> <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                 <span class="comment">//要执行的方法</span></span><br><span class="line">             &#125;</span><br><span class="line">         &#125;);</span><br></pre></td></tr></table></figure>
 
-<p>4.线程池<br>5.callable</p>
-<h2 id="线程的启动"><a href="#线程的启动" class="headerlink" title="线程的启动"></a>线程的启动</h2><p>1.直接调用run()方法。<br>2.调用start()方法。</p>
-<p>两种方法的区别：<br>1.直接使用run()方法就如调用普通的方法一样，并没有创建新线程。<br>2.调用start()方法就会创建新的线程，主线程的结束不会影响新开的线程。</p>
-<h2 id="守护线程和非守护线程"><a href="#守护线程和非守护线程" class="headerlink" title="守护线程和非守护线程"></a>守护线程和非守护线程</h2><p>线程有分守护线程和非守护线程。<br>    1.守护线程里有：主线程和gc线程（主线程就是Java中的main方法，gc线程是指Java垃圾回收中的线程）<br>    2.非守护线程里有：用户自定义的线程</p>
-<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args)&#123;</span><br><span class="line">        Thread thread = <span class="keyword">new</span> Thread(<span class="keyword">new</span> Runnable()&#123;</span><br><span class="line"> </span><br><span class="line">            @Override</span><br><span class="line"> </span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="built_in">run</span>() &#123;</span><br><span class="line"> </span><br><span class="line">                <span class="built_in">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">90</span>; i++)&#123;</span><br><span class="line"> </span><br><span class="line">                    System.out.<span class="built_in">println</span>(i);</span><br><span class="line"> </span><br><span class="line">                &#125;</span><br><span class="line"> </span><br><span class="line">            &#125;</span><br><span class="line"> </span><br><span class="line">        &#125;);</span><br><span class="line">        thread.start();</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="同步"><a href="#同步" class="headerlink" title="同步"></a>同步</h3><p>普通的同步就是我们没有考虑全局变量和线程共享资源的情况下我们，就用线程Thread类join方法或者是sleep方法。<br>join方法是让调用的线程等待被调用的线程执行完毕后才继续执行。（注意调用的顺序，还有join方法调用要在线程类需要的方法里面去调用，如果是在建立对象后调用是无效的）<br>sleep是让线程等待的方法，里面的参数是时间，以毫秒为单位（wait方法也是让线程等待进入休眠状态，后面会将两者的区别）</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        Test1 test = <span class="keyword">new</span> Test1();</span><br><span class="line">        Thread t1 = <span class="keyword">new</span> Thread(test,<span class="string">"窗口1"</span>);</span><br><span class="line">        t1.start();</span><br><span class="line">        <span class="comment">//这里执行join方法后，主线程会等待t1线程执行结束后才继续执行后面的代码</span></span><br><span class="line">        t1.<span class="built_in">join</span>();</span><br><span class="line">        <span class="comment">//Thread.sleep(1000);这个是主线程休眠1秒后自动唤醒</span></span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="string">"执行完毕"</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-<p>在我写代码的时候这样写会出现一个问题，那就是要么打印台什么都不打印，要么打印台就打印一部分，没有完全打印。这就是创建线程时默认创建守护线程。<br>我们可以通过 thread.setDaemon(false); 转成非守护线程，这样主线程结束后我们的线程依然打印完数字，没有被影响。</p>
-<h2 id="Thread和Runnable源代码"><a href="#Thread和Runnable源代码" class="headerlink" title="Thread和Runnable源代码"></a>Thread和Runnable源代码</h2><p>我在看源代码的时候看到了native关键字，使用native关键字说明这个方法是原生函数，也就是这个方法是用C/C++语言实现的，并且被编译成了DLL，由java去调用。详细的后面专门来看。</p>
-<p>在源码中我们可以看到Runnable接口里面就只有一个run的抽象方法<br>在Thread里面可以看到很多方法，run()方法里面判断了构造函数设置的线程类是否存在，如果存在就调用方法，不存在就调用父类方法。里面还可以知道我们获取的currentThread方法是static和native的，是使用c语言来实现的。还有getId方法获取线程的id时，其实是有一个静态的变量来进行计数的，在线程创建的时候，构造方法调用后，会将这个变量加一，然后赋给这个线程类，再加入到线程列表里面。</p>
+<p>如果把join方法放在start方法后面，那么其实join方法没有用，线程没有同步，依然是异步的。</p>
+<h2 id="join方法源码"><a href="#join方法源码" class="headerlink" title="join方法源码"></a>join方法源码</h2><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="built_in">join</span>() <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">       <span class="built_in">join</span>(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="built_in">join</span>(<span class="keyword">long</span> <span class="built_in">millis</span>)</span><br><span class="line"></span><br><span class="line">   <span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">long</span> base = System.currentTimeMillis();</span><br><span class="line"></span><br><span class="line">       <span class="keyword">long</span> now = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (<span class="built_in">millis</span> &lt; <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"timeout value is negative"</span>);</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (<span class="built_in">millis</span> == <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">while</span> (isAlive()) &#123;</span><br><span class="line"></span><br><span class="line">               wait(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">       &#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">while</span> (isAlive()) &#123;</span><br><span class="line"></span><br><span class="line">               <span class="keyword">long</span> delay = <span class="built_in">millis</span> - now;</span><br><span class="line"></span><br><span class="line">               <span class="keyword">if</span> (delay &lt;= <span class="number">0</span>) &#123;</span><br><span class="line"></span><br><span class="line">                   <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">               &#125;</span><br><span class="line"></span><br><span class="line">               wait(delay);</span><br><span class="line"></span><br><span class="line">               now = System.currentTimeMillis() - base;</span><br><span class="line"></span><br><span class="line">           &#125;</span><br><span class="line"></span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个我们可以看出join方法是无法别子类继承改写的方法（final修饰），方法做了判断时间是否正确，负的抛出异常，其实代码也是调用了wait的方法。</p>
 
       
     </div>
@@ -462,7 +451,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="http://yoursite.com/2019/07/28/java-theard/" title="java多线程（一）">http://yoursite.com/2019/07/28/java-theard/</a>
+    <a href="http://yoursite.com/2019/08/01/java-theard-2/" title="java多线程（二）">http://yoursite.com/2019/08/01/java-theard-2/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -482,8 +471,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/25/spring/" rel="next" title="spring注解开发">
-                <i class="fa fa-chevron-left"></i> spring注解开发
+              <a href="/2019/07/31/computer/" rel="next" title="电脑组装">
+                <i class="fa fa-chevron-left"></i> 电脑组装
               </a>
             
           </div>
@@ -491,10 +480,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/31/computer/" rel="prev" title="电脑组装">
-                电脑组装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -643,7 +628,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#线程和进程是什么"><span class="nav-number">1.</span> <span class="nav-text">线程和进程是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程和进程的区别"><span class="nav-number">2.</span> <span class="nav-text">线程和进程的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程的创建"><span class="nav-number">3.</span> <span class="nav-text">进程的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的状态"><span class="nav-number">4.</span> <span class="nav-text">线程的状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程的方式"><span class="nav-number">5.</span> <span class="nav-text">多线程的方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程的启动"><span class="nav-number">6.</span> <span class="nav-text">线程的启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#守护线程和非守护线程"><span class="nav-number">7.</span> <span class="nav-text">守护线程和非守护线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Thread和Runnable源代码"><span class="nav-number">8.</span> <span class="nav-text">Thread和Runnable源代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#异步和同步"><span class="nav-number">1.</span> <span class="nav-text">异步和同步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#异步"><span class="nav-number">1.1.</span> <span class="nav-text">异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步"><span class="nav-number">1.2.</span> <span class="nav-text">同步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#join方法源码"><span class="nav-number">2.</span> <span class="nav-text">join方法源码</span></a></li></ol></div>
             
 
           </div>
