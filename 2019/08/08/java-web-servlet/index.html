@@ -94,17 +94,17 @@
 
 
 
-  <meta name="description" content="1.下载NextNext主题是Github上Star最多的Hexo主题，有着丰富的界面设置选项，方便的配置在文件主目录的命令窗口里输入git clone https://github.com/theme-next/hexo-theme-next themes/next后面的路径不一定要这么填，但是在文件_config.yml里面要写绝对路径，如果按照我这么填就直接在配置文件里面写theme: ne">
+  <meta name="description" content="servlet介绍servlet是web应用的一个十分重要的角色，负责动态创建网页以及对客户端的请求进行处理和响应。它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。 servlet的生命周期servlet是统一由web容器来进行管理，无需用户自己创建。1.servlet创建以及实例化。容器先在内存中找servlet是否已经实例化，如果">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Beautify Hexo Blog">
-<meta property="og:url" content="http://yoursite.com/2019/07/08/next/index.html">
+<meta property="og:title" content="web应用Servlet详解">
+<meta property="og:url" content="http://yoursite.com/2019/08/08/java-web-servlet/index.html">
 <meta property="og:site_name" content="LuBin的个人博客">
-<meta property="og:description" content="1.下载NextNext主题是Github上Star最多的Hexo主题，有着丰富的界面设置选项，方便的配置在文件主目录的命令窗口里输入git clone https://github.com/theme-next/hexo-theme-next themes/next后面的路径不一定要这么填，但是在文件_config.yml里面要写绝对路径，如果按照我这么填就直接在配置文件里面写theme: ne">
+<meta property="og:description" content="servlet介绍servlet是web应用的一个十分重要的角色，负责动态创建网页以及对客户端的请求进行处理和响应。它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。 servlet的生命周期servlet是统一由web容器来进行管理，无需用户自己创建。1.servlet创建以及实例化。容器先在内存中找servlet是否已经实例化，如果">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-08T15:08:55.465Z">
+<meta property="og:updated_time" content="2019-08-08T15:42:25.939Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Beautify Hexo Blog">
-<meta name="twitter:description" content="1.下载NextNext主题是Github上Star最多的Hexo主题，有着丰富的界面设置选项，方便的配置在文件主目录的命令窗口里输入git clone https://github.com/theme-next/hexo-theme-next themes/next后面的路径不一定要这么填，但是在文件_config.yml里面要写绝对路径，如果按照我这么填就直接在配置文件里面写theme: ne">
+<meta name="twitter:title" content="web应用Servlet详解">
+<meta name="twitter:description" content="servlet介绍servlet是web应用的一个十分重要的角色，负责动态创建网页以及对客户端的请求进行处理和响应。它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。 servlet的生命周期servlet是统一由web容器来进行管理，无需用户自己创建。1.servlet创建以及实例化。容器先在内存中找servlet是否已经实例化，如果">
 
 
 
@@ -112,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/07/08/next/">
+  <link rel="canonical" href="http://yoursite.com/2019/08/08/java-web-servlet/">
 
 
 
@@ -122,7 +122,7 @@
   };
 </script>
 
-  <title>Beautify Hexo Blog | LuBin的个人博客</title>
+  <title>web应用Servlet详解 | LuBin的个人博客</title>
   
 
 
@@ -321,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/08/next/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/08/java-web-servlet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陆 滨">
@@ -338,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Beautify Hexo Blog
+          <h1 class="post-title" itemprop="name headline">web应用Servlet详解
 
               
             
@@ -364,7 +364,7 @@
                 
               
 
-              <time title="创建时间：2019-07-08 22:14:47 / 修改时间：23:08:55" itemprop="dateCreated datePublished" datetime="2019-07-08T22:14:47+08:00">2019-07-08</time>
+              <time title="创建时间：2019-08-08 23:01:25 / 修改时间：23:42:25" itemprop="dateCreated datePublished" datetime="2019-08-08T23:01:25+08:00">2019-08-08</time>
             </span>
           
 
@@ -406,34 +406,15 @@
       
 
       
-        <h2 id="1-下载Next"><a href="#1-下载Next" class="headerlink" title="1.下载Next"></a>1.下载Next</h2><p>Next主题是Github上Star最多的Hexo主题，有着丰富的界面设置选项，方便的配置<br>在文件主目录的命令窗口里输入<br>git clone <a href="https://github.com/theme-next/hexo-theme-next" target="_blank" rel="noopener">https://github.com/theme-next/hexo-theme-next</a> themes/next<br>后面的路径不一定要这么填，但是在文件_config.yml里面要写绝对路径，如果按照我这么填就直接在配置文件里面写<br>theme: next</p>
-<h2 id="2-主题的配置"><a href="#2-主题的配置" class="headerlink" title="2.主题的配置"></a>2.主题的配置</h2><p>主题有四种风格，有Muse、Mist、Pisces、Gemini<br>在themes/next/_config.yml文件里面找到以下内容写<br>scheme: Gemini</p>
-<p>在配置文件里面看到<br>menu: #设置博客各个页面的相对路径，默认根路径是blog/source<br>  home: / || home<br>  about: /about/ || user<br>  tags: /tags/ || tags<br>  categories: /categories/ || th<br>  archives: /archives/ || archive</p>
-<p>  #schedule: /schedule/ || calendar #日历</p>
-<p>  #sitemap: /sitemap.xml || sitemap #站点地图，供搜索引擎爬取</p>
-<p>  #commonweal: /404/ || heartbeat # 腾讯公益404</p>
-<p>  #Enable/Disable menu icons / item badges.<br>menu_settings:<br>  icons: true # 是否显示各个页面的图标<br>  badges: true # 是否显示分类/标签/归档页的内容量<br>如果自己需要的话就可以吧#注释删除，就可以使用了</p>
-<h2 id="3-动态背景"><a href="#3-动态背景" class="headerlink" title="3.动态背景"></a>3.动态背景</h2><p>#Canvas-nest</p>
-<p>#Dependencies: <a href="https://github.com/theme-next/theme-next-canvas-nest" target="_blank" rel="noopener">https://github.com/theme-next/theme-next-canvas-nest</a><br>canvas_nest: # 网络背景<br>  enable: true<br>  onmobile: true # display on mobile or not<br>  color: ‘0,0,0’ # RGB values, use ‘,’ to separate<br>  opacity: 0.5 # the opacity of line: 0~1<br>  zIndex: -1 # z-index property of the background<br>  count: 150 # the number of lines</p>
-<p>#JavaScript 3D library.</p>
-<p>#Dependencies: <a href="https://github.com/theme-next/theme-next-three" target="_blank" rel="noopener">https://github.com/theme-next/theme-next-three</a></p>
-<p>#three_waves<br>three_waves: false</p>
-<p>#canvas_lines<br>canvas_lines: false</p>
-<p>#canvas_sphere<br>canvas_sphere: false</p>
-<p>#Canvas-ribbon</p>
-<p>#Dependencies: <a href="https://github.com/theme-next/theme-next-canvas-ribbon" target="_blank" rel="noopener">https://github.com/theme-next/theme-next-canvas-ribbon</a></p>
-<p>#size: The width of the ribbon.</p>
-<p>#alpha: The transparency of the ribbon.</p>
-<p>#zIndex: The display level of the ribbon.<br>canvas_ribbon:<br>  enable: false<br>  size: 300<br>  alpha: 0.6<br>  zIndex: -1</p>
-<p>按照自己喜欢的来使用，但是只能让一个true，而且还需要下载相应的资源包，链接在注释里面，使用方式如下<br>git clone <a href="https://github.com/theme-next/theme-next-canvas-nest" target="_blank" rel="noopener">https://github.com/theme-next/theme-next-canvas-nest</a> themes/next/source/lib/canvas-nest</p>
-<h2 id="4-设置头像"><a href="#4-设置头像" class="headerlink" title="4.设置头像"></a>4.设置头像</h2><p>配置文件找到</p>
-<p>avatar:</p>
-<p>  #in theme directory(source/images): /images/avatar.gif</p>
-<p>  #in site  directory(source/uploads): /uploads/avatar.gif</p>
-<p>  #You can also use other linking images.<br>  url: /images/author.jpg  #将我们的头像图片放置在blog/themes/next/source/images目录下，填写具体地址</p>
-<p>  #If true, the avatar would be dispalyed in circle.<br>  rounded: true #鼠标放在头像上时是否旋转</p>
-<p>  #The value of opacity should be choose from 0 to 1 to set the opacity of the avatar.<br>  opacity: 1 #头像放缩指数</p>
-<p>  #If true, the avatar would be rotated with the cursor.<br>  rotated: true #头像是否设为圆形，否则为矩形</p>
+        <h2 id="servlet介绍"><a href="#servlet介绍" class="headerlink" title="servlet介绍"></a>servlet介绍</h2><p>servlet是web应用的一个十分重要的角色，负责动态创建网页以及对客户端的请求进行处理和响应。它是作为来自 Web 浏览器或其他 HTTP 客户端的请求和 HTTP 服务器上的数据库或应用程序之间的中间层。</p>
+<h2 id="servlet的生命周期"><a href="#servlet的生命周期" class="headerlink" title="servlet的生命周期"></a>servlet的生命周期</h2><p>servlet是统一由web容器来进行管理，无需用户自己创建。<br>1.servlet创建以及实例化。容器先在内存中找servlet是否已经实例化，如果有直接从内存中拿出来用，如果没有才自己进行创建以及实例化。<br>2.servlet初始化，它只在servlet被创建后执行一次，无法再次调用。<br>3.服务，执行servlet的service()方法，service方法里面调用的是实现的servlet的doGet或者doPost方法。<br>4.销毁，当servlet执行完毕后，会释放资源，由容器来进行自动回收和销毁，调用destroy()方法。</p>
+<h2 id="servlet的代码示例"><a href="#servlet的代码示例" class="headerlink" title="servlet的代码示例"></a>servlet的代码示例</h2><p>创建servlet有三种方式：<br>    1.实现Servlet接口<br>    2.继承HttpServlet类<br>    3.继承GenericServlet类<br>HttpServlet是继承了GenericServlet，但是HttpServlet多出了一些方法，具体可以查看API文档</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public <span class="class"><span class="keyword">class</span> <span class="title">MyServlet</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> void doGet(<span class="type">HttpServletRequest</span> request,<span class="type">HttpServletResponse</span> response)</span><br><span class="line">    <span class="keyword">throws</span> <span class="type">ServletException</span>，<span class="type">IOException</span>&#123;</span><br><span class="line">        <span class="comment">//...逻辑代码，处理请求</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> void doPost(<span class="type">HttpServletRequest</span> request,<span class="type">HttpServletResponse</span> response)</span><br><span class="line">    <span class="keyword">throws</span> <span class="type">ServletException</span>，<span class="type">IOException</span>&#123;</span><br><span class="line">        <span class="comment">//...逻辑代码，处理请求</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>虽然我们写了servlet的类，但是我们运行后容器并不能找到servlet文件，因为我们没有在web.xml文件里面写配置</p>
+<h2 id="servlet的配置"><a href="#servlet的配置" class="headerlink" title="servlet的配置"></a>servlet的配置</h2><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>内部名称<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>serlvet包名+类名（文件地址）<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>内部名称<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>映射地址（地址栏输入）<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>地址匹配的模式可以有精确（/xxxx），路径（/xx/<em>），扩展名（</em>.do）</p>
 
       
     </div>
@@ -468,7 +449,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="http://yoursite.com/2019/07/08/next/" title="Beautify Hexo Blog">http://yoursite.com/2019/07/08/next/</a>
+    <a href="http://yoursite.com/2019/08/08/java-web-servlet/" title="web应用Servlet详解">http://yoursite.com/2019/08/08/java-web-servlet/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -488,8 +469,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/07/hexo-github/" rel="next" title="Use Github Deploy My Hexo Blog">
-                <i class="fa fa-chevron-left"></i> Use Github Deploy My Hexo Blog
+              <a href="/2019/08/01/java-theard-2/" rel="next" title="java多线程（二）">
+                <i class="fa fa-chevron-left"></i> java多线程（二）
               </a>
             
           </div>
@@ -497,10 +478,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/09/httpclient-jsoup/" rel="prev" title="使用Httpclient和Jsoup 爬取网页信息">
-                使用Httpclient和Jsoup 爬取网页信息 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -649,7 +626,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-下载Next"><span class="nav-number">1.</span> <span class="nav-text">1.下载Next</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-主题的配置"><span class="nav-number">2.</span> <span class="nav-text">2.主题的配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-动态背景"><span class="nav-number">3.</span> <span class="nav-text">3.动态背景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-设置头像"><span class="nav-number">4.</span> <span class="nav-text">4.设置头像</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#servlet介绍"><span class="nav-number">1.</span> <span class="nav-text">servlet介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#servlet的生命周期"><span class="nav-number">2.</span> <span class="nav-text">servlet的生命周期</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#servlet的代码示例"><span class="nav-number">3.</span> <span class="nav-text">servlet的代码示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#servlet的配置"><span class="nav-number">4.</span> <span class="nav-text">servlet的配置</span></a></li></ol></div>
             
 
           </div>
