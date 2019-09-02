@@ -94,17 +94,17 @@
 
 
 
-  <meta name="description" content="spring介绍1.spring是什么Spring是一个开源框架，Spring是于2003 年兴起的一个轻量级的Java 开发框架，它是为了解决企业应用开发的复杂性而创建的。框架的主要优势之一就是其分层架构，分层架构允许使用者选择使用哪一个组件，同时为 J2EE 应用程序开发提供集成的框架。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。Spring的核心是控制反转（Io">
+  <meta name="description" content="介绍RESTful服务中很重要的一个特性即是同一资源,多种表述我们使用ContentNegotiatingViewResolver就可以做到，这个视图解析器允许你用同样的内容数据来呈现不同的view。 有三种格式：    http://www.test.com/user.xml    Accept:application/xml    http://www.test.com/user?format">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spring注解开发">
-<meta property="og:url" content="http://yoursite.com/2019/07/25/spring/index.html">
+<meta property="og:title" content="多视图解析器ContentNegotiatingViewResolver">
+<meta property="og:url" content="http://yoursite.com/2019/09/02/ContentNegotiatingViewResolver/index.html">
 <meta property="og:site_name" content="LuBin的个人博客">
-<meta property="og:description" content="spring介绍1.spring是什么Spring是一个开源框架，Spring是于2003 年兴起的一个轻量级的Java 开发框架，它是为了解决企业应用开发的复杂性而创建的。框架的主要优势之一就是其分层架构，分层架构允许使用者选择使用哪一个组件，同时为 J2EE 应用程序开发提供集成的框架。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。Spring的核心是控制反转（Io">
+<meta property="og:description" content="介绍RESTful服务中很重要的一个特性即是同一资源,多种表述我们使用ContentNegotiatingViewResolver就可以做到，这个视图解析器允许你用同样的内容数据来呈现不同的view。 有三种格式：    http://www.test.com/user.xml    Accept:application/xml    http://www.test.com/user?format">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-28T12:47:30.593Z">
+<meta property="og:updated_time" content="2019-09-02T05:50:17.305Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="spring注解开发">
-<meta name="twitter:description" content="spring介绍1.spring是什么Spring是一个开源框架，Spring是于2003 年兴起的一个轻量级的Java 开发框架，它是为了解决企业应用开发的复杂性而创建的。框架的主要优势之一就是其分层架构，分层架构允许使用者选择使用哪一个组件，同时为 J2EE 应用程序开发提供集成的框架。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。Spring的核心是控制反转（Io">
+<meta name="twitter:title" content="多视图解析器ContentNegotiatingViewResolver">
+<meta name="twitter:description" content="介绍RESTful服务中很重要的一个特性即是同一资源,多种表述我们使用ContentNegotiatingViewResolver就可以做到，这个视图解析器允许你用同样的内容数据来呈现不同的view。 有三种格式：    http://www.test.com/user.xml    Accept:application/xml    http://www.test.com/user?format">
 
 
 
@@ -112,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/07/25/spring/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/02/ContentNegotiatingViewResolver/">
 
 
 
@@ -122,7 +122,7 @@
   };
 </script>
 
-  <title>spring注解开发 | LuBin的个人博客</title>
+  <title>多视图解析器ContentNegotiatingViewResolver | LuBin的个人博客</title>
   
 
 
@@ -321,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/spring/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/02/ContentNegotiatingViewResolver/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陆 滨">
@@ -338,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">spring注解开发
+          <h1 class="post-title" itemprop="name headline">多视图解析器ContentNegotiatingViewResolver
 
               
             
@@ -364,23 +364,13 @@
                 
               
 
-              <time title="创建时间：2019-07-25 21:24:32" itemprop="dateCreated datePublished" datetime="2019-07-25T21:24:32+08:00">2019-07-25</time>
+              <time title="创建时间：2019-09-02 13:32:22 / 修改时间：13:50:17" itemprop="dateCreated datePublished" datetime="2019-09-02T13:32:22+08:00">2019-09-02</time>
             </span>
           
 
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-07-28 20:47:30" itemprop="dateModified" datetime="2019-07-28T20:47:30+08:00">2019-07-28</time>
-              </span>
             
           
 
@@ -416,8 +406,20 @@
       
 
       
-        <h2 id="spring介绍"><a href="#spring介绍" class="headerlink" title="spring介绍"></a>spring介绍</h2><h3 id="1-spring是什么"><a href="#1-spring是什么" class="headerlink" title="1.spring是什么"></a>1.spring是什么</h3><p>Spring是一个开源框架，Spring是于2003 年兴起的一个轻量级的Java 开发框架，它是为了解决企业应用开发的复杂性而创建的。框架的主要优势之一就是其分层架构，分层架构允许使用者选择使用哪一个组件，同时为 J2EE 应用程序开发提供集成的框架。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。Spring的核心是控制反转（IoC）和面向切面（AOP）。</p>
-<h3 id="2-spring优点"><a href="#2-spring优点" class="headerlink" title="2.spring优点"></a>2.spring优点</h3><p>1.方便解耦，简化开发 （高内聚低耦合），Spring就是一个大工厂（容器），可以将所有对象创建和依赖关系维护，交给Spring管理，spring工厂是用于生成bean<br>2.AOP编程的支持，Spring提供面向切面编程，可以方便的实现对程序进行权限拦截、运行监控等功能<br>3.声明式事务的支持，只需要通过配置就可以完成对事务的管理，而无需手动编程<br>4.方便程序的测试，Spring对Junit4支持，可以通过注解方便的测试Spring程序<br>5.方便集成各种优秀框架，Spring不排斥各种优秀的开源框架，其内部提供了对各种优秀框架（如：Struts、Hibernate、MyBatis、Quartz等）的直接支持<br>6.降低JavaEE API的使用难度，Spring 对JavaEE开发中非常难用的一些API（JDBC、JavaMail、远程调用等），都提供了封装，使这些API应用难度大大降低</p>
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>RESTful服务中很重要的一个特性即是同一资源,多种表述我们使用ContentNegotiatingViewResolver就可以做到，这个视图解析器允许你用同样的内容数据来呈现不同的view。</p>
+<p>有三种格式：<br>    <a href="http://www.test.com/user.xml" target="_blank" rel="noopener">http://www.test.com/user.xml</a><br>    Accept:application/xml<br>    <a href="http://www.test.com/user?format=xml" target="_blank" rel="noopener">http://www.test.com/user?format=xml</a></p>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>order：如果有多个的解析器，用于设置解析器的执行顺序。</p>
+<p>defaultContentType：如果所有的mediaType都没匹配上，就会使用defaultContentType设置的类型。</p>
+<p>avorPathExtension：是否启用扩展名支持，默认是true。</p>
+<p>favorParameter：是否启用参数支持，默认是true。</p>
+<p>ignoreAcceptHeader：是否忽略掉accept header，默认是false。</p>
+<p>mediaTypes：扩展名到mimeType的映射，里面是map。</p>
+<h2 id="出现的问题"><a href="#出现的问题" class="headerlink" title="出现的问题"></a>出现的问题</h2><p>我今天在配置多视图解析器的时候，发现里面的属性不一样了，根本没有mediaTypes属性，所以我百度一下后，发现全是没用的信息，我就去看了一下官方文档，官方文档里面并没有说为什么替换了mediaTypes，<br>但是写了可以用ContentNegotiationManager去配置扩展名的映射。</p>
+<p>然后我看了一下源码，发现有些头疼，我又百度了一下ContentNegotiationManager，找到了样例。</p>
+<p>从spring 3.1.0升级到spring 3.2.0时， spring3.2开始不推荐使用setMediaTypes等直接设置这些数据， 而是通过ContentNegotiationManager（ContentNegotiationManagerFactoryBean），所以采用map标签的方式直接转换会出现异常信息。 </p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;bean <span class="built_in">class</span>=<span class="string">"org.springframework.web.servlet.view.ContentNegotiatingViewResolver"</span>&gt;  </span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"ignoreAcceptHeader"</span> value=<span class="string">"true"</span>/&gt;  </span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"defaultContentType"</span> value=<span class="string">"text/html"</span>/&gt;  </span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"contentNegotiationManager"</span>&gt;  </span><br><span class="line">            &lt;bean <span class="built_in">class</span>=<span class="string">"org.springframework.web.accept.ContentNegotiationManagerFactoryBean"</span>&gt;  </span><br><span class="line">                &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"ignoreAcceptHeader"</span> value=<span class="string">"true"</span>/&gt;  </span><br><span class="line">                &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"defaultContentType"</span> value=<span class="string">"text/html"</span>/&gt;  </span><br><span class="line">                &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"mediaTypes"</span>&gt;  </span><br><span class="line">                    &lt;props&gt;  </span><br><span class="line">                        &lt;<span class="keyword">prop</span> key=<span class="string">"json"</span>&gt;<span class="built_in">application</span>/json&lt;/<span class="keyword">prop</span>&gt;  </span><br><span class="line">                        &lt;<span class="keyword">prop</span> key=<span class="string">"xml"</span>&gt;<span class="built_in">application</span>/xml&lt;/<span class="keyword">prop</span>&gt;  </span><br><span class="line">                    &lt;/props&gt;  </span><br><span class="line">                &lt;/<span class="keyword">property</span>&gt;  </span><br><span class="line">            &lt;/bean&gt;  </span><br><span class="line">        &lt;/<span class="keyword">property</span>&gt;  </span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"viewResolvers"</span>&gt;  </span><br><span class="line">            &lt;<span class="built_in">list</span>&gt;  </span><br><span class="line">                &lt;bean <span class="built_in">class</span>=<span class="string">"org.springframework.web.servlet.view.BeanNameViewResolver"</span> /&gt;  </span><br><span class="line">                &lt;bean <span class="built_in">class</span>=<span class="string">"org.springframework.web.servlet.view.InternalResourceViewResolver"</span>&gt;  </span><br><span class="line">                    &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"viewClass"</span> value=<span class="string">"org.springframework.web.servlet.view.JstlView"</span>/&gt;  </span><br><span class="line">                    &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"prefix"</span> value=<span class="string">"/WEB-INF/pages/"</span>/&gt;  </span><br><span class="line">                    &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"suffix"</span> value=<span class="string">".jsp"</span>&gt;&lt;/<span class="keyword">property</span>&gt;  </span><br><span class="line">                &lt;/bean&gt;  </span><br><span class="line">            &lt;/<span class="built_in">list</span>&gt;  </span><br><span class="line">        &lt;/<span class="keyword">property</span>&gt;  </span><br><span class="line">        &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"defaultViews"</span>&gt;  </span><br><span class="line">            &lt;<span class="built_in">list</span>&gt;  </span><br><span class="line">                &lt;bean <span class="built_in">class</span>=<span class="string">"org.springframework.web.servlet.view.json.MappingJacksonJsonView"</span> /&gt;  </span><br><span class="line">                &lt;bean <span class="built_in">class</span>=<span class="string">"org.springframework.web.servlet.view.xml.MarshallingView"</span> &gt;  </span><br><span class="line">                    &lt;<span class="keyword">property</span> <span class="built_in">name</span>=<span class="string">"marshaller"</span>&gt;  </span><br><span class="line">                        &lt;bean <span class="built_in">class</span>=<span class="string">"org.springframework.oxm.xstream.XStreamMarshaller"</span>/&gt;  </span><br><span class="line">                    &lt;/<span class="keyword">property</span>&gt;  </span><br><span class="line">                &lt;/bean&gt;  </span><br><span class="line">            &lt;/<span class="built_in">list</span>&gt;  </span><br><span class="line">        &lt;/<span class="keyword">property</span>&gt;  </span><br><span class="line">    &lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+<p>参考链接：<a href="https://www.iteye.com/blog/langmnm-2082005" target="_blank" rel="noopener">https://www.iteye.com/blog/langmnm-2082005</a></p>
 
       
     </div>
@@ -452,7 +454,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="http://yoursite.com/2019/07/25/spring/" title="spring注解开发">http://yoursite.com/2019/07/25/spring/</a>
+    <a href="http://yoursite.com/2019/09/02/ContentNegotiatingViewResolver/" title="多视图解析器ContentNegotiatingViewResolver">http://yoursite.com/2019/09/02/ContentNegotiatingViewResolver/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -472,8 +474,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/24/mp-weixin/" rel="next" title="微信公众号开发-java版（一）">
-                <i class="fa fa-chevron-left"></i> 微信公众号开发-java版（一）
+              <a href="/2019/08/22/hashmap/" rel="next" title="hashmap详解">
+                <i class="fa fa-chevron-left"></i> hashmap详解
               </a>
             
           </div>
@@ -481,10 +483,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/28/java-theard/" rel="prev" title="java多线程（一）">
-                java多线程（一） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -633,7 +631,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring介绍"><span class="nav-number">1.</span> <span class="nav-text">spring介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-spring是什么"><span class="nav-number">1.1.</span> <span class="nav-text">1.spring是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-spring优点"><span class="nav-number">1.2.</span> <span class="nav-text">2.spring优点</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性"><span class="nav-number">2.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#出现的问题"><span class="nav-number">3.</span> <span class="nav-text">出现的问题</span></a></li></ol></div>
             
 
           </div>
