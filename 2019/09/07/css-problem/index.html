@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="LuBin的个人博客">
 <meta property="og:description" content="前言我是非常喜欢css样式代码的，因为我觉得简单，快捷，高效，做的好还非常好看，所以我一直崇尚着css编写样式和动画，能不用js代码操作的，绝不用。所以以下记录的是我在写样式时遇到的问题。 div框里文字不能垂直居中我的解决方案是在 div的样式代码里添加 line-height：100%; 然后就可以垂直居中了，当然仅限文字。 当两个div框使用浮动样式后，不能并排一列我的解决方案是在左边的 d">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-06T16:22:41.391Z">
+<meta property="og:updated_time" content="2019-09-11T03:36:39.712Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用css编写样式出现的问题">
 <meta name="twitter:description" content="前言我是非常喜欢css样式代码的，因为我觉得简单，快捷，高效，做的好还非常好看，所以我一直崇尚着css编写样式和动画，能不用js代码操作的，绝不用。所以以下记录的是我在写样式时遇到的问题。 div框里文字不能垂直居中我的解决方案是在 div的样式代码里添加 line-height：100%; 然后就可以垂直居中了，当然仅限文字。 当两个div框使用浮动样式后，不能并排一列我的解决方案是在左边的 d">
@@ -364,13 +364,23 @@
                 
               
 
-              <time title="创建时间：2019-09-07 00:08:33 / 修改时间：00:22:41" itemprop="dateCreated datePublished" datetime="2019-09-07T00:08:33+08:00">2019-09-07</time>
+              <time title="创建时间：2019-09-07 00:08:33" itemprop="dateCreated datePublished" datetime="2019-09-07T00:08:33+08:00">2019-09-07</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-09-11 11:36:39" itemprop="dateModified" datetime="2019-09-11T11:36:39+08:00">2019-09-11</time>
+              </span>
             
           
 
@@ -411,6 +421,13 @@
 <h2 id="当两个div框使用浮动样式后，不能并排一列"><a href="#当两个div框使用浮动样式后，不能并排一列" class="headerlink" title="当两个div框使用浮动样式后，不能并排一列"></a>当两个div框使用浮动样式后，不能并排一列</h2><p>我的解决方案是在左边的 div 的样式代码里添加 display: inherit; 这样是因为将左边的div从块级元素改变成内联元素。</p>
 <h2 id="使用绝对定位相对于父元素"><a href="#使用绝对定位相对于父元素" class="headerlink" title="使用绝对定位相对于父元素"></a>使用绝对定位相对于父元素</h2><p>在使用绝对定位的时候，如果父元素没有设置成相对定位的话，那么元素将相对于窗口的位置来进行绝对定位，也就是左上角。</p>
 <h2 id="使用elementui的卡片组件时，有默认的padding"><a href="#使用elementui的卡片组件时，有默认的padding" class="headerlink" title="使用elementui的卡片组件时，有默认的padding"></a>使用elementui的卡片组件时，有默认的padding</h2><p>在使用elementui框架的时候，el-card 组件会有一个默认的padding，如果我们在css里面直接写 padding: 0px; 不会有作用的，需要在标签里添加属性 :body-style=”{ padding: ‘0px’ } 才可以。</p>
+<h2 id="实现背景模糊效果"><a href="#实现背景模糊效果" class="headerlink" title="实现背景模糊效果"></a>实现背景模糊效果</h2><p>我有需要一个效果，就是背景模糊化，如果是单纯使用 filter() 来实现模糊效果，那么在里面的内容也会被模糊化，我需要的是里面的字不模糊，背景模糊，所以查了一下，可以使用选择器:after来实现<br>效果。就是建一个模来盖住原本的背景，但是子元素不会受到这个模的模糊影响。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">.<span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(<span class="string">'../assets/chat-group-bg.jpg'</span>);</span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">2</span>;</span><br><span class="line">    <span class="attribute">color</span>: black;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:after</span> &#123;</span><br><span class="line">    <span class="attribute">content</span>: <span class="string">""</span>;</span><br><span class="line">    <span class="attribute">width</span>:<span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">left</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">top</span>:<span class="number">0</span>;</span><br><span class="line">    <span class="attribute">background</span>: inherit;</span><br><span class="line">    <span class="attribute">filter</span>: <span class="built_in">blur</span>(3px);</span><br><span class="line">    <span class="attribute">z-index</span>: <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要使用定位，来遮盖原本的元素，content为空字符串，然后在里面写filter方法</p>
+<h2 id="鼠标移入，显示元素"><a href="#鼠标移入，显示元素" class="headerlink" title="鼠标移入，显示元素"></a>鼠标移入，显示元素</h2><p>我要一个鼠标移入后，在本元素上出现一个框。将显示元素的display默认为none，使用hover选择器，然后在里面将要显示的框的display设置为block，这样就完成这种效果了。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.box</span> &#123;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="comment">/* 这是让子元素能使用绝对定位 */</span></span><br><span class="line">    <span class="attribute">position</span>: relative;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.box</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.child-box</span>&#123;</span><br><span class="line">    <span class="attribute">display</span>: block;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.child-box</span>&#123;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">30%</span>;</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">position</span>: absolute;</span><br><span class="line">    <span class="attribute">left</span>: <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">top</span>: <span class="number">70%</span>;</span><br><span class="line">    <span class="attribute">background</span>: white;</span><br><span class="line">    <span class="comment">/* 设置为none后，将不会显示 */</span></span><br><span class="line">    <span class="attribute">display</span>: none;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -548,7 +565,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">21</span>
+                    <span class="site-state-item-count">22</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -626,7 +643,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#div框里文字不能垂直居中"><span class="nav-number">2.</span> <span class="nav-text">div框里文字不能垂直居中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#当两个div框使用浮动样式后，不能并排一列"><span class="nav-number">3.</span> <span class="nav-text">当两个div框使用浮动样式后，不能并排一列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用绝对定位相对于父元素"><span class="nav-number">4.</span> <span class="nav-text">使用绝对定位相对于父元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用elementui的卡片组件时，有默认的padding"><span class="nav-number">5.</span> <span class="nav-text">使用elementui的卡片组件时，有默认的padding</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#div框里文字不能垂直居中"><span class="nav-number">2.</span> <span class="nav-text">div框里文字不能垂直居中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#当两个div框使用浮动样式后，不能并排一列"><span class="nav-number">3.</span> <span class="nav-text">当两个div框使用浮动样式后，不能并排一列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用绝对定位相对于父元素"><span class="nav-number">4.</span> <span class="nav-text">使用绝对定位相对于父元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用elementui的卡片组件时，有默认的padding"><span class="nav-number">5.</span> <span class="nav-text">使用elementui的卡片组件时，有默认的padding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现背景模糊效果"><span class="nav-number">6.</span> <span class="nav-text">实现背景模糊效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#鼠标移入，显示元素"><span class="nav-number">7.</span> <span class="nav-text">鼠标移入，显示元素</span></a></li></ol></div>
             
 
           </div>

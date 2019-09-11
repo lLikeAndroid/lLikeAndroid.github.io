@@ -94,17 +94,17 @@
 
 
 
-  <meta name="description" content="spring介绍1.spring是什么Spring是一个开源框架，Spring是于2003 年兴起的一个轻量级的Java 开发框架，它是为了解决企业应用开发的复杂性而创建的。框架的主要优势之一就是其分层架构，分层架构允许使用者选择使用哪一个组件，同时为 J2EE 应用程序开发提供集成的框架。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。Spring的核心是控制反转（Io">
+  <meta name="description" content="mysql锁当多线程并发操作数据库时，锁用来让数据库的数据保持一致性和完整性，mysql提供了不同的锁来应对不同的情况。 mysql里面有多种存储引擎（engine）,比较常见的是MYISAM,INNODB,BDB三种引擎，其中有不同的锁来进行对数据的加锁。 表级锁MYISAM里默认的就是表级锁，锁定粒度最大，但是由于是将整张表都进行加锁，所以逻辑非常简单，以至于加锁要快于其他锁，对系统的操作影响">
 <meta property="og:type" content="article">
-<meta property="og:title" content="spring注解开发">
-<meta property="og:url" content="http://yoursite.com/2019/07/25/spring/index.html">
+<meta property="og:title" content="mysql里面的锁分析">
+<meta property="og:url" content="http://yoursite.com/2019/09/11/mysql-lock/index.html">
 <meta property="og:site_name" content="LuBin的个人博客">
-<meta property="og:description" content="spring介绍1.spring是什么Spring是一个开源框架，Spring是于2003 年兴起的一个轻量级的Java 开发框架，它是为了解决企业应用开发的复杂性而创建的。框架的主要优势之一就是其分层架构，分层架构允许使用者选择使用哪一个组件，同时为 J2EE 应用程序开发提供集成的框架。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。Spring的核心是控制反转（Io">
+<meta property="og:description" content="mysql锁当多线程并发操作数据库时，锁用来让数据库的数据保持一致性和完整性，mysql提供了不同的锁来应对不同的情况。 mysql里面有多种存储引擎（engine）,比较常见的是MYISAM,INNODB,BDB三种引擎，其中有不同的锁来进行对数据的加锁。 表级锁MYISAM里默认的就是表级锁，锁定粒度最大，但是由于是将整张表都进行加锁，所以逻辑非常简单，以至于加锁要快于其他锁，对系统的操作影响">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-28T12:47:30.593Z">
+<meta property="og:updated_time" content="2019-09-11T15:14:35.670Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="spring注解开发">
-<meta name="twitter:description" content="spring介绍1.spring是什么Spring是一个开源框架，Spring是于2003 年兴起的一个轻量级的Java 开发框架，它是为了解决企业应用开发的复杂性而创建的。框架的主要优势之一就是其分层架构，分层架构允许使用者选择使用哪一个组件，同时为 J2EE 应用程序开发提供集成的框架。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。Spring的核心是控制反转（Io">
+<meta name="twitter:title" content="mysql里面的锁分析">
+<meta name="twitter:description" content="mysql锁当多线程并发操作数据库时，锁用来让数据库的数据保持一致性和完整性，mysql提供了不同的锁来应对不同的情况。 mysql里面有多种存储引擎（engine）,比较常见的是MYISAM,INNODB,BDB三种引擎，其中有不同的锁来进行对数据的加锁。 表级锁MYISAM里默认的就是表级锁，锁定粒度最大，但是由于是将整张表都进行加锁，所以逻辑非常简单，以至于加锁要快于其他锁，对系统的操作影响">
 
 
 
@@ -112,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/07/25/spring/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/11/mysql-lock/">
 
 
 
@@ -122,7 +122,7 @@
   };
 </script>
 
-  <title>spring注解开发 | LuBin的个人博客</title>
+  <title>mysql里面的锁分析 | LuBin的个人博客</title>
   
 
 
@@ -321,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/25/spring/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/11/mysql-lock/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陆 滨">
@@ -338,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">spring注解开发
+          <h1 class="post-title" itemprop="name headline">mysql里面的锁分析
 
               
             
@@ -364,23 +364,13 @@
                 
               
 
-              <time title="创建时间：2019-07-25 21:24:32" itemprop="dateCreated datePublished" datetime="2019-07-25T21:24:32+08:00">2019-07-25</time>
+              <time title="创建时间：2019-09-11 11:52:31 / 修改时间：23:14:35" itemprop="dateCreated datePublished" datetime="2019-09-11T11:52:31+08:00">2019-09-11</time>
             </span>
           
 
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-07-28 20:47:30" itemprop="dateModified" datetime="2019-07-28T20:47:30+08:00">2019-07-28</time>
-              </span>
             
           
 
@@ -416,8 +406,26 @@
       
 
       
-        <h2 id="spring介绍"><a href="#spring介绍" class="headerlink" title="spring介绍"></a>spring介绍</h2><h3 id="1-spring是什么"><a href="#1-spring是什么" class="headerlink" title="1.spring是什么"></a>1.spring是什么</h3><p>Spring是一个开源框架，Spring是于2003 年兴起的一个轻量级的Java 开发框架，它是为了解决企业应用开发的复杂性而创建的。框架的主要优势之一就是其分层架构，分层架构允许使用者选择使用哪一个组件，同时为 J2EE 应用程序开发提供集成的框架。Spring使用基本的JavaBean来完成以前只可能由EJB完成的事情。Spring的核心是控制反转（IoC）和面向切面（AOP）。</p>
-<h3 id="2-spring优点"><a href="#2-spring优点" class="headerlink" title="2.spring优点"></a>2.spring优点</h3><p>1.方便解耦，简化开发 （高内聚低耦合），Spring就是一个大工厂（容器），可以将所有对象创建和依赖关系维护，交给Spring管理，spring工厂是用于生成bean<br>2.AOP编程的支持，Spring提供面向切面编程，可以方便的实现对程序进行权限拦截、运行监控等功能<br>3.声明式事务的支持，只需要通过配置就可以完成对事务的管理，而无需手动编程<br>4.方便程序的测试，Spring对Junit4支持，可以通过注解方便的测试Spring程序<br>5.方便集成各种优秀框架，Spring不排斥各种优秀的开源框架，其内部提供了对各种优秀框架（如：Struts、Hibernate、MyBatis、Quartz等）的直接支持<br>6.降低JavaEE API的使用难度，Spring 对JavaEE开发中非常难用的一些API（JDBC、JavaMail、远程调用等），都提供了封装，使这些API应用难度大大降低</p>
+        <h2 id="mysql锁"><a href="#mysql锁" class="headerlink" title="mysql锁"></a>mysql锁</h2><p>当多线程并发操作数据库时，锁用来让数据库的数据保持一致性和完整性，mysql提供了不同的锁来应对不同的情况。</p>
+<p>mysql里面有多种存储引擎（engine）,比较常见的是MYISAM,INNODB,BDB三种引擎，其中有不同的锁来进行对数据的加锁。</p>
+<h2 id="表级锁"><a href="#表级锁" class="headerlink" title="表级锁"></a>表级锁</h2><p>MYISAM里默认的就是表级锁，锁定粒度最大，但是由于是将整张表都进行加锁，所以逻辑非常简单，以至于加锁要快于其他锁，对系统的操作影响最小，并<br>且死锁的发生率非常小，其他锁的冲突发生就很大。</p>
+<p>使用表级锁的引擎MyISAM、MEMORY、CSV 等一些非事务性存储引擎。</p>
+<p>使用方式是</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Lock</span> <span class="keyword">tables</span> 表名 <span class="keyword">read</span> <span class="keyword">local</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="页级锁"><a href="#页级锁" class="headerlink" title="页级锁"></a>页级锁</h2><p>页级锁是锁定一段范围的数据，粒度在表锁和行锁之间，所以性能是一般的，介于两者之间，使用的引擎是BDB</p>
+<h2 id="行级锁"><a href="#行级锁" class="headerlink" title="行级锁"></a>行级锁</h2><p>行级锁是对一行或者是多行进行上锁，粒度最小，但是消耗性能非常大，并且锁的冲突最大，发生死锁的概率最大，使用的引擎是INNODB，但是并发度很高</p>
+<h2 id="InnoDB锁的操作"><a href="#InnoDB锁的操作" class="headerlink" title="InnoDB锁的操作"></a>InnoDB锁的操作</h2><p>共享锁和排他锁</p>
+<p>共享锁: 是能多线程读取数据，但是不能修改数据<br>排它锁：是能修改数据，但是也能读取数据</p>
+<p>InnoDB支持多种锁粒度，允许使用行锁和表锁同时存在，为了支持这种操作，引入了另一种锁，叫意向锁（intention lock）。<br>意向锁是将对象分为多个层次，希望可在不同粒度上加锁。<br>InnoDB意向锁为表级别的锁，设计目的主要是为了在一个事务中揭示下一行将被请求的锁类型。</p>
+<pre><code>意向共享锁（ intention shared lock, Is），事务有意向对表中的某些行加共享锁
+
+意向排它锁（intention exclusive lock,IX），事务有意向对表中的某些行加排他锁</code></pre><p>在InnoDB里，默认是行级锁，如果是索引普通列或者是没有索引列，那么就会使用表级锁，如果是索引索引列或者是主键，那么就上行级锁。</p>
+<p>上锁的方式，一般mysql是自动上锁的，如果是有特殊的要求，可以手动上锁</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> ... <span class="keyword">lock</span> <span class="keyword">in</span> <span class="keyword">share</span> <span class="keyword">mode</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> ... <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+
+<p>上面一句是上共享锁，下面一句是上排他锁</p>
+<p>间隙锁（next-key lock）或者叫gap锁，就是当使用范围检索条件时并上锁时，InnoDB会给符合条件的已有数据记录的 索引项加锁；对于键值在条件范围内但并不存在的记录，叫<br>做“间隙（GAP)”，InnoDB也会对这个“间隙”加锁，这种锁机制就是所谓的间隙锁 （Next-Key锁）。<br>例如：select * from table where id&gt;100 for update; 这个语句不仅会100以内已有的数据，那些没有的数据也会上锁，也就是如果有id（101,102,103），那么会上锁101,102，<br>103，那些104,105,106…尽管不存在，也依然上锁 </p>
 
       
     </div>
@@ -452,7 +460,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="http://yoursite.com/2019/07/25/spring/" title="spring注解开发">http://yoursite.com/2019/07/25/spring/</a>
+    <a href="http://yoursite.com/2019/09/11/mysql-lock/" title="mysql里面的锁分析">http://yoursite.com/2019/09/11/mysql-lock/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -472,8 +480,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/07/24/mp-weixin/" rel="next" title="微信公众号开发-java版（一）">
-                <i class="fa fa-chevron-left"></i> 微信公众号开发-java版（一）
+              <a href="/2019/09/08/java-api-access/" rel="next" title="java后台调用第三方api接口">
+                <i class="fa fa-chevron-left"></i> java后台调用第三方api接口
               </a>
             
           </div>
@@ -481,10 +489,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/07/28/java-theard/" rel="prev" title="java多线程（一）">
-                java多线程（一） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -633,7 +637,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring介绍"><span class="nav-number">1.</span> <span class="nav-text">spring介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-spring是什么"><span class="nav-number">1.1.</span> <span class="nav-text">1.spring是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-spring优点"><span class="nav-number">1.2.</span> <span class="nav-text">2.spring优点</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql锁"><span class="nav-number">1.</span> <span class="nav-text">mysql锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表级锁"><span class="nav-number">2.</span> <span class="nav-text">表级锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页级锁"><span class="nav-number">3.</span> <span class="nav-text">页级锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行级锁"><span class="nav-number">4.</span> <span class="nav-text">行级锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InnoDB锁的操作"><span class="nav-number">5.</span> <span class="nav-text">InnoDB锁的操作</span></a></li></ol></div>
             
 
           </div>
