@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="orcle介绍Oracle的关系数据库是世界第一个支持SQL语言的数据库。Oracle属于甲骨文公司，是全球最大的企业级软件公司，总部位于美国加利福尼亚州的红木滩。1989年正式进入中国市场。2013年，甲骨文已超越 IBM ，成为继 Microsoft 后全球第二大软件公司。Oracle是一个大型的数据库的，里面的提供了用户很多便捷的操作，但是由于过于庞大以及收费，所以小型公司都会选择小型的数据">
+<meta property="og:type" content="article">
+<meta property="og:title" content="orcle的使用">
+<meta property="og:url" content="http://yoursite.com/2019/09/15/orcl/index.html">
+<meta property="og:site_name" content="LuBin的个人博客">
+<meta property="og:description" content="orcle介绍Oracle的关系数据库是世界第一个支持SQL语言的数据库。Oracle属于甲骨文公司，是全球最大的企业级软件公司，总部位于美国加利福尼亚州的红木滩。1989年正式进入中国市场。2013年，甲骨文已超越 IBM ，成为继 Microsoft 后全球第二大软件公司。Oracle是一个大型的数据库的，里面的提供了用户很多便捷的操作，但是由于过于庞大以及收费，所以小型公司都会选择小型的数据">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-15T05:51:55.646Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="orcle的使用">
+<meta name="twitter:description" content="orcle介绍Oracle的关系数据库是世界第一个支持SQL语言的数据库。Oracle属于甲骨文公司，是全球最大的企业级软件公司，总部位于美国加利福尼亚州的红木滩。1989年正式进入中国市场。2013年，甲骨文已超越 IBM ，成为继 Microsoft 后全球第二大软件公司。Oracle是一个大型的数据库的，里面的提供了用户很多便捷的操作，但是由于过于庞大以及收费，所以小型公司都会选择小型的数据">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/09/15/orcl/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>orcle的使用 | LuBin的个人博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LuBin的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">记录自己的学习经历</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/15/orcl/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陆 滨">
+      <meta itemprop="description" content="努力最后收获的就是失望？等待最后得到的就是幻想？">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuBin的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">orcle的使用
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-15 11:37:06 / 修改时间：13:51:55" itemprop="dateCreated datePublished" datetime="2019-09-15T11:37:06+08:00">2019-09-15</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="orcle介绍"><a href="#orcle介绍" class="headerlink" title="orcle介绍"></a>orcle介绍</h2><p>Oracle的关系数据库是世界第一个支持SQL语言的数据库。Oracle属于甲骨文公司，是全球最大的企业级软件公司，总部位于美国加利福尼亚州的红木滩。1989年正式进入中国市场。<br>2013年，甲骨文已超越 IBM ，成为继 Microsoft 后全球第二大软件公司。Oracle是一个大型的数据库的，里面的提供了用户很多便捷的操作，但是由于过于庞大以及收费，所以小<br>型公司都会选择小型的数据库。</p>
+<h2 id="Oracle与MySQL的区别"><a href="#Oracle与MySQL的区别" class="headerlink" title="Oracle与MySQL的区别"></a>Oracle与MySQL的区别</h2><p>1.Oracle是大型数据库而Mysql是中小型数据库，同时Mysql是开源的而Oracle价格非常高。<br>2.主键上面Mysql一般使用自动增长类型，在创建表时只要指定表的主键为auto increment,插入记录时，不需要再指定该记录的主键值，Mysql将自动增长；Oracle没有自动增长类型，<br>    主键一般使用的序列，插入记录时将序列号的下一个值付给该字段即可；只是ORM框架是只要是native主键生成策略即可。<br>3.单引号的处理 MYSQL里可以用双引号包起字符串，ORACLE里只可以用单引号包起字符串。在插入和修改字符串前必须做单引号的替换：把所有出现的一个单引号替换成两个单引号。ORACLE不能使用引号（包括单双引      号）将数字括起来。双引号被用来将包含特定字符或者空格的列别名括起来。<br>4.翻页的SQL语句的处理 MYSQL处理翻页的SQL语句比较简单，用LIMIT 开始位置, 记录个数；ORACLE处理翻页的SQL语句就比较繁琐了。每个结果集只有一个ROWNUM字段标明它的位置, 并且只能用ROWNUM&lt;100, 不用      ROWNUM&gt;80<br>5.数据类型不一样，ORACLE有独特的数据类型，例如CLOB类型。<br>6.空字符的处理 MYSQL的非空字段也有空的内容，ORACLE里定义了非空字段就不容许有空的内容。按MYSQL的NOT NULL来定义ORACLE表结构, 导数据的时候会产生错误。因此导数据时要对空字符进行判断，如果为NULL   或空字符，需要把它改成一个空格的字符串。<br>7.在函数的使用里，ORACLE有更多的函数方法使用。</p>
+<h2 id="ORACLE的数据类型"><a href="#ORACLE的数据类型" class="headerlink" title="ORACLE的数据类型"></a>ORACLE的数据类型</h2><p>char，varchar2，nchar，xvarchar2，number，date，timestamp，blob，clob，bfile</p>
+<p>其中nchar，xvarchar2是使用的unicode字符集，blob是二进制对象，clob是字符串对象，bfile是二进制存储在操作系统文件中。<br>number是可以整数也可以浮点数，number(p,s) 前一个是数据（从非零开始），后一个是小数点后面多少位。</p>
+<p>伪列ROWID和ROWNUM，ROWID存储着表行的存储地址，使用它可以快速的定位到表中某一行。ROWID格式，数据对象编号+文件编号+块编号+行编号。<br>ROWNUM是查询结果集的一个序号。使用伪列可以像使用普通列一样，但是没有在表中存储。</p>
+<h2 id="sql语言"><a href="#sql语言" class="headerlink" title="sql语言"></a>sql语言</h2><p>ddl:create,alter,drop,truncate<br>dml:insert,update,delete,select<br>tcl:commit,savepoint,rollback<br>dcl:grant,revoke</p>
+<h2 id="sql语法"><a href="#sql语法" class="headerlink" title="sql语法"></a>sql语法</h2><p>在使用条件查询的时候，一般不推荐使用 &gt; 符号，因为在使用这个条件时，数据会出现错误，查询的时候，如果不满足条件会进行抛弃，然后在下一行比较，但是ROWNUM不会改变。例如：10行数据，如果使用ROWNUM&gt;5来查询后，发现没有查询数据，因为在第一行比较时发现ROWNUM=1&lt;5，不满足条件，抛弃，那么下一行将还是ROWNUM=1，所以是空的。也就是先有结果，再有ROWNUM。</p>
+<p>orcle进行分页就很麻烦：</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> (</span><br><span class="line">    <span class="keyword">select</span> <span class="built_in">e</span>.*,rownum rn <span class="keyword">from</span> (</span><br><span class="line">        <span class="keyword">select</span> * <span class="keyword">from</span> emp <span class="keyword">order</span> <span class="keyword">by</span> sal <span class="keyword">desc</span></span><br><span class="line">    ) <span class="built_in">e</span></span><br><span class="line">) <span class="keyword">where</span> rn&gt;<span class="number">5</span> <span class="keyword">and</span> rn&lt;<span class="number">10</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>排序是在rownum赋值之后。</p>
+<p>利用现有表创建新表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> new_t <span class="keyword">as</span> <span class="keyword">select</span> * <span class="keyword">from</span> old_t;</span><br><span class="line"></span><br><span class="line">//筛选列</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> new_t <span class="keyword">as</span> <span class="keyword">select</span> <span class="keyword">name</span>,<span class="keyword">no</span>,age <span class="keyword">from</span> old_t;</span><br><span class="line"></span><br><span class="line">//可以不要数据，只要表结构</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> new_t <span class="keyword">as</span> <span class="keyword">select</span> * <span class="keyword">from</span> old_t <span class="keyword">where</span> <span class="number">1</span>=<span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+<p>可以使用检查点来回滚到那个检查点</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//一整套流程，必须这么做</span><br><span class="line"><span class="keyword">savepoint</span> a;</span><br><span class="line"><span class="keyword">rollback</span> <span class="keyword">to</span> <span class="keyword">savepoint</span> a;</span><br><span class="line"><span class="keyword">commit</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="操作符与函数"><a href="#操作符与函数" class="headerlink" title="操作符与函数"></a>操作符与函数</h2><p>算术操作符，逻辑操作符，比较操作符和MySQL一样，例如+，-，*，/，&amp;，|，&gt;,&lt;</p>
+<p>但是集合操作符有新的，union是并集，minus是差集，intersect，例如：</p>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//没有出现重复的数据行</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> t1 <span class="built_in">union</span> <span class="keyword">select</span> * <span class="keyword">from</span> t2</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果需要出现重复的数据行</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> t1 <span class="built_in">union</span> <span class="built_in">all</span> <span class="keyword">select</span> * <span class="keyword">from</span> t2</span><br></pre></td></tr></table></figure>
+
+<p>连接字符串和数字使用 || 方法，mysql中使用concat()。 </p>
+<p>函数：单行函数，分组函数，分析函数。<br>sqrt()算出平方根，lower()转换成小写字符串，to_char()转换成字符串，to_date()转换成带格式的时间，to_number()转换成数字,nvl()对空值进行操作,decode()对值进行转换</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> to_char(<span class="keyword">sysdate</span>,<span class="string">'YYYY"年"MM"月"dd"日"'</span>) <span class="keyword">from</span> dual;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="keyword">to_date</span>(<span class="string">'2015-09-10'</span>,<span class="string">'yyyy-mm-dd'</span>) <span class="keyword">from</span> dual;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> to_number(<span class="string">'100'</span>) <span class="keyword">from</span> dual;</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> ename,sal+nvl(comm,<span class="number">0</span>) sal,<span class="keyword">decode</span>(to_char(hiredate,<span class="string">'MM'</span>),</span><br><span class="line"><span class="string">'01'</span>,<span class="string">'一月'</span>,<span class="string">'02'</span>,<span class="string">'二月'</span>,...) mon <span class="keyword">from</span> emp;</span><br></pre></td></tr></table></figure>
+
+<h2 id="表空间"><a href="#表空间" class="headerlink" title="表空间"></a>表空间</h2><p>表空间：永久性，临时性，撤销。<br>使用表空间给不同的子系统创建不同的表空间，这样会增加效率和性能。</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create TABLESPACE name datafile 'filename' [<span class="string">size</span>][<span class="symbol">autoextend(off|on)</span>];</span><br></pre></td></tr></table></figure>
+
+<p>调整表空间</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">TABLESPACE</span> <span class="keyword">name</span> <span class="keyword">add</span> <span class="keyword">datafile</span> <span class="string">'filename'</span> <span class="keyword">size</span> <span class="number">80</span>M;</span><br><span class="line"></span><br><span class="line"><span class="keyword">alter</span> datebase <span class="keyword">datafile</span> <span class="string">'filename'</span> <span class="keyword">resize</span> <span class="number">80</span>M;</span><br></pre></td></tr></table></figure>
+
+<p>删除表空间</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">TABLESPACE</span> <span class="keyword">name</span> [<span class="keyword">including</span> <span class="keyword">contents</span>];</span><br></pre></td></tr></table></figure>
+
+<h2 id="角色权限"><a href="#角色权限" class="headerlink" title="角色权限"></a>角色权限</h2><p>角色是带有以些权限的名称，有connect，resource，dba,select,update…</p>
+<p>授予权限</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grant privileges <span class="keyword">or</span> role <span class="keyword">to</span> user;</span><br><span class="line"></span><br><span class="line">grant select on scott.emp <span class="keyword">to</span> marrin;</span><br></pre></td></tr></table></figure>
+
+<p>撤销权限</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">revoke</span> <span class="keyword">privileges</span> <span class="keyword">or</span> <span class="keyword">role</span> <span class="keyword">from</span> <span class="keyword">user</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="序列"><a href="#序列" class="headerlink" title="序列"></a>序列</h2><p>在mysql中使用主键，里面有自动增长的选择，但是在orcle里面没有这个操作，需要使用序列来进行同样的功能。<br>语法：</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">create sequence name start_with <span class="keyword">val</span> <span class="comment">//开始序列值</span></span><br><span class="line">increment <span class="keyword">by</span> <span class="keyword">val</span>      <span class="comment">//增长步长</span></span><br><span class="line">maxvalue <span class="keyword">val</span>         <span class="comment">//最大序列值</span></span><br><span class="line">minvalue <span class="keyword">val</span></span><br><span class="line">nocycle     <span class="comment">//到达最大值后停止产生下一个序列</span></span><br><span class="line">cache <span class="keyword">val</span>;  <span class="comment">//预先分配多少个序列</span></span><br></pre></td></tr></table></figure>
+
+<p>通过序列的伪列来访问值：nextval 下一个值，currval 当前值。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陆 滨</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://yoursite.com/2019/09/15/orcl/" title="orcle的使用">http://yoursite.com/2019/09/15/orcl/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/12/encryption/" rel="next" title="java中常用的加密方法">
+                <i class="fa fa-chevron-left"></i> java中常用的加密方法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/author.jpg" alt="陆 滨">
+            
+              <p class="site-author-name" itemprop="name">陆 滨</p>
+              <div class="site-description motion-element" itemprop="description">努力最后收获的就是失望？等待最后得到的就是幻想？</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ILikeAndroid" title="GitHub &rarr; https://github.com/ILikeAndroid" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:978203264@qq.com" title="E-Mail &rarr; mailto:978203264@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=556058208&auto=1&height=66"></iframe>
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#orcle介绍"><span class="nav-number">1.</span> <span class="nav-text">orcle介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Oracle与MySQL的区别"><span class="nav-number">2.</span> <span class="nav-text">Oracle与MySQL的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ORACLE的数据类型"><span class="nav-number">3.</span> <span class="nav-text">ORACLE的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sql语言"><span class="nav-number">4.</span> <span class="nav-text">sql语言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sql语法"><span class="nav-number">5.</span> <span class="nav-text">sql语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作符与函数"><span class="nav-number">6.</span> <span class="nav-text">操作符与函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表空间"><span class="nav-number">7.</span> <span class="nav-text">表空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#角色权限"><span class="nav-number">8.</span> <span class="nav-text">角色权限</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列"><span class="nav-number">9.</span> <span class="nav-text">序列</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陆 滨</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
