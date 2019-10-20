@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="加密介绍在对用户的一些重要信息和隐私信息，或者是公司的信息进行保存的时候，又或者是在发送信息的时候，我们不希望别人能看见这些信息是什么东西，或者是被别人抓包获取或者是截取到信息时，是一些意义不明的字符，所以也就需要加密方法。 加密，是以某种特殊的算法改变原有的信息数据，使得未授权的用户即使获得了已加密的信息，但因不知解密的方法，仍然无法了解信息的内容。 越重要的信息，所需要的加密算法就越是复杂，计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java中常用的加密方法">
+<meta property="og:url" content="http://yoursite.com/2019/10/20/encryption/index.html">
+<meta property="og:site_name" content="LuBin的个人博客">
+<meta property="og:description" content="加密介绍在对用户的一些重要信息和隐私信息，或者是公司的信息进行保存的时候，又或者是在发送信息的时候，我们不希望别人能看见这些信息是什么东西，或者是被别人抓包获取或者是截取到信息时，是一些意义不明的字符，所以也就需要加密方法。 加密，是以某种特殊的算法改变原有的信息数据，使得未授权的用户即使获得了已加密的信息，但因不知解密的方法，仍然无法了解信息的内容。 越重要的信息，所需要的加密算法就越是复杂，计">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-12T03:03:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java中常用的加密方法">
+<meta name="twitter:description" content="加密介绍在对用户的一些重要信息和隐私信息，或者是公司的信息进行保存的时候，又或者是在发送信息的时候，我们不希望别人能看见这些信息是什么东西，或者是被别人抓包获取或者是截取到信息时，是一些意义不明的字符，所以也就需要加密方法。 加密，是以某种特殊的算法改变原有的信息数据，使得未授权的用户即使获得了已加密的信息，但因不知解密的方法，仍然无法了解信息的内容。 越重要的信息，所需要的加密算法就越是复杂，计">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/10/20/encryption/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>java中常用的加密方法 | LuBin的个人博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LuBin的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">记录自己的学习经历</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/20/encryption/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陆 滨">
+      <meta itemprop="description" content="努力最后收获的就是失望？等待最后得到的就是幻想？">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuBin的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">java中常用的加密方法
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-20 20:29:43" itemprop="dateCreated datePublished" datetime="2019-10-20T20:29:43+08:00">2019-10-20</time>
+            </span>
+          
+
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-09-12 11:03:24" itemprop="dateModified" datetime="2019-09-12T11:03:24+08:00">2019-09-12</time>
+              </span>
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="加密介绍"><a href="#加密介绍" class="headerlink" title="加密介绍"></a>加密介绍</h2><p>在对用户的一些重要信息和隐私信息，或者是公司的信息进行保存的时候，又或者是在发送信息的时候，我们不希望别人能看见这些信息<br>是什么东西，或者是被别人抓包获取或者是截取到信息时，是一些意义不明的字符，所以也就需要加密方法。</p>
+<p>加密，是以某种特殊的算法改变原有的信息数据，使得未授权的用户即使获得了已加密的信息，但因不知解密的方法，仍然无法了解信息<br>的内容。</p>
+<p>越重要的信息，所需要的加密算法就越是复杂，计算量就越大，时间就越长，破解也就越麻烦。</p>
+<h2 id="加密的分类"><a href="#加密的分类" class="headerlink" title="加密的分类"></a>加密的分类</h2><p>加密分为单向加密以及双向加密，而双向加密又分为对称加密和非对称加密。</p>
+<p>单向加密：是对信息进行了摘要计算，不能通过算法生成明文，单向加密从严格意思上说不能算是加密的一种，应该算是摘要算法。<br>双向加密：明文加密后形成密文，可以通过算法还原成明文。<br>    对称加密：双方使用的秘钥是同一把秘钥。<br>    非对称加密：双方使用的是不同的秘钥，或者是都有各自的一把钥匙。</p>
+<h2 id="单向加密"><a href="#单向加密" class="headerlink" title="单向加密"></a>单向加密</h2><p>java的jdk中有提供基础的加密算法，在Apache公司提供的org.apache.commons.codec里，基本使用jdk的加密方法就够了。</p>
+<h3 id="Base64加密"><a href="#Base64加密" class="headerlink" title="Base64加密"></a>Base64加密</h3><p>采用Base64编码具有不可读性，即所编码的数据不会被人用肉眼所直接看到。就是将信息每个字符都转变成定义的64个字符，这样就隐藏了信息。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.amuro.strategy.base64;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.util.Base64;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> com.amuro.strategy.IStrategy;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Base64算法基于64个基本字符，加密后的string中只包含这64个字符</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Base64Strategy</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">IStrategy</span></span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> encode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> byte[] encodeBytes = Base64.getEncoder().encode(src.getBytes());</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">String</span>(encodeBytes);</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> decode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> byte[] decodeBytes = Base64.getDecoder().decode(src.getBytes());</span><br><span class="line"> <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">String</span>(decodeBytes);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="md5消息摘要"><a href="#md5消息摘要" class="headerlink" title="md5消息摘要"></a>md5消息摘要</h3><p>消息摘要（Message Digest）又称为数字摘要(Digital Digest)。它是一个唯一对应一个消息或文本的固定长度的值，它由一个单向Hash加密函数<br>对消息进行作用而产生。HASH函数的抗冲突性使得如果一段明文稍有变化，哪怕只更改该段落的一个字母，通过哈希算法作用后都将产生不同的值。而<br>HASH算法的单向性使得要找到哈希值相同的两个不同的输入消息，在计算上是不可能的。所以数据的哈希值，即消息摘要，可以检验数据的完整性。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.amuro.strategy.message_digest;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.security.MessageDigest;</span><br><span class="line"><span class="keyword">import</span> java.security.NoSuchAlgorithmException;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Hex;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> com.amuro.strategy.IStrategy;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 消息摘要算法</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MD5Strategy</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">IStrategy</span></span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> encode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  MessageDigest md = MessageDigest.getInstance(<span class="string">"MD5"</span>);</span><br><span class="line">  byte[] encodeBytes = md.digest(src.getBytes());</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> Hex.encodeHexString(encodeBytes);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span> (NoSuchAlgorithmException e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> decode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">RuntimeException</span>(<span class="string">"MD5 no decode"</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="sha-1消息摘要"><a href="#sha-1消息摘要" class="headerlink" title="sha-1消息摘要"></a>sha-1消息摘要</h3><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.amuro.strategy.message_digest;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.security.MessageDigest;</span><br><span class="line"><span class="keyword">import</span> java.security.NoSuchAlgorithmException;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Hex;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> com.amuro.strategy.IStrategy;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 安全散列算法</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SHAStrategy</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">IStrategy</span></span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> encode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  MessageDigest md = MessageDigest.getInstance(<span class="string">"SHA"</span>);</span><br><span class="line">  md.update(src.getBytes());</span><br><span class="line">  <span class="keyword">return</span> Hex.encodeHexString(md.digest());</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span> (NoSuchAlgorithmException e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> decode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">throw</span> <span class="keyword">new</span> <span class="type">RuntimeException</span>(<span class="string">"SHA no decode"</span>);</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="对称加密"><a href="#对称加密" class="headerlink" title="对称加密"></a>对称加密</h2><h3 id="DES"><a href="#DES" class="headerlink" title="DES"></a>DES</h3><p>DES，全称为“Data Encryption Standard”，中文名为“数据加密标准”，是一种使用密钥加密的块算法。DES 算法为密码体制中的对称密码体制，又被<br>称为美国数据加密标准，是 1972 年美国 IBM 公司研制的对称密码体制加密算法。 明文按 64 位进行分组，密钥长 64 位，密钥事实上是 56 位参与<br>DES 运算（第8、16、24、32、40、48、56、64 位是校验位， 使得每个密钥都有奇数个 1）分组后的明文组和 56 位的密钥按位替代或交换的方法形成<br>密文组的加密方法。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.amuro.strategy.des;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.KeyGenerator;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKey;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKeyFactory;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.DESKeySpec;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Hex;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> com.amuro.strategy.IStrategy;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DESStrategy</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">IStrategy</span></span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> <span class="keyword">private</span> Cipher cipher;</span><br><span class="line"> <span class="keyword">private</span> SecretKey generateKey;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> encode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  KeyGenerator keyGenerator = KeyGenerator.getInstance(<span class="string">"DES"</span>);</span><br><span class="line">  keyGenerator.init(<span class="number">56</span>);<span class="comment">//size</span></span><br><span class="line">  SecretKey secretKey = keyGenerator.generateKey();</span><br><span class="line">  byte[] keyBytes = secretKey.getEncoded();</span><br><span class="line"> </span><br><span class="line">  DESKeySpec desKeySpec = <span class="keyword">new</span> <span class="type">DESKeySpec</span>(keyBytes);</span><br><span class="line">  SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(<span class="string">"DES"</span>);</span><br><span class="line">  generateKey = secretKeyFactory.generateSecret(desKeySpec);</span><br><span class="line"> </span><br><span class="line">  cipher = Cipher.getInstance(<span class="string">"DES/ECB/PKCS5Padding"</span>);</span><br><span class="line">  cipher.init(Cipher.ENCRYPT_MODE, generateKey);</span><br><span class="line">  byte[] resultBytes = cipher.doFinal(src.getBytes());</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> Hex.encodeHexString(resultBytes);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span> (Exception e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> decode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  cipher.init(Cipher.DECRYPT_MODE, generateKey);</span><br><span class="line">  byte[] result = Hex.decodeHex(src.toCharArray());</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">String</span>(cipher.doFinal(result));</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span>(Exception e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3DES3DES"><a href="#3DES3DES" class="headerlink" title="3DES3DES"></a>3DES3DES</h3><p>Triple DES，中文名“三重数据加密算法”，它相当于是对每个数据块应用三次 DES 加密算法。由于计算机运算能力的增强，原版 DES 密码的密<br>钥长度变得容易被暴力破解；3DES 即是设计用来提供一种相对简单的方法，即通过增加 DES 的密钥长度来避免类似的攻击，而不是设计一种全新<br>的块密码算法。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.amuro.strategy.des;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.KeyGenerator;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKey;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKeyFactory;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.DESedeKeySpec;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Hex;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> com.amuro.strategy.IStrategy;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> _3<span class="title">DESStrategy</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">IStrategy</span></span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> <span class="keyword">private</span> Cipher cipher;</span><br><span class="line"> <span class="keyword">private</span> SecretKey generateKey;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> encode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  KeyGenerator keyGenerator = KeyGenerator.getInstance(<span class="string">"DESede"</span>);</span><br><span class="line">  keyGenerator.init(<span class="number">168</span>);<span class="comment">//size</span></span><br><span class="line">  SecretKey secretKey = keyGenerator.generateKey();</span><br><span class="line">  byte[] keyBytes = secretKey.getEncoded();</span><br><span class="line"> </span><br><span class="line">  DESedeKeySpec desKeySpec = <span class="keyword">new</span> <span class="type">DESedeKeySpec</span>(keyBytes);</span><br><span class="line">  SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(<span class="string">"DESede"</span>);</span><br><span class="line">  generateKey = secretKeyFactory.generateSecret(desKeySpec);</span><br><span class="line"> </span><br><span class="line">  cipher = Cipher.getInstance(<span class="string">"DESede/ECB/PKCS5Padding"</span>);</span><br><span class="line">  cipher.init(Cipher.ENCRYPT_MODE, generateKey);</span><br><span class="line">  byte[] resultBytes = cipher.doFinal(src.getBytes());</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> Hex.encodeHexString(resultBytes);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span> (Exception e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> decode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  cipher.init(Cipher.DECRYPT_MODE, generateKey);</span><br><span class="line">  byte[] result = Hex.decodeHex(src.toCharArray());</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">String</span>(cipher.doFinal(result));</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span>(Exception e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="AESAES"><a href="#AESAES" class="headerlink" title="AESAES"></a>AESAES</h3><p>全称为“Advanced Encryption Standard”，中文名“高级加密标准”，在密码学中又称 Rijndael 加密法，是美国联邦政府采用的一种区块加密标<br>准。AES 加密算法作为新一代的数据加密标准汇聚了强安全性、高性能、高效率、易用和灵活等优点。AES 设计有三个密钥长度：128，192，256 位。<br>相对而言，AES 的 128 密钥比 DES 的 56 密钥强了 1021 倍。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.amuro.strategy.des;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.KeyGenerator;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKey;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.SecretKeySpec;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Hex;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> com.amuro.strategy.IStrategy;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AESStrategy</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">IStrategy</span></span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> <span class="keyword">private</span> Cipher cipher;</span><br><span class="line"> <span class="keyword">private</span> SecretKey generateKey;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> encode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  KeyGenerator keyGenerator = KeyGenerator.getInstance(<span class="string">"AES"</span>);</span><br><span class="line">  keyGenerator.init(<span class="number">128</span>);<span class="comment">//size</span></span><br><span class="line">  SecretKey secretKey = keyGenerator.generateKey();</span><br><span class="line">  byte[] keyBytes = secretKey.getEncoded();</span><br><span class="line"> </span><br><span class="line">  generateKey = <span class="keyword">new</span> <span class="type">SecretKeySpec</span>(keyBytes, <span class="string">"AES"</span>);</span><br><span class="line"> </span><br><span class="line">  cipher = Cipher.getInstance(<span class="string">"AES/ECB/PKCS5Padding"</span>);</span><br><span class="line">  cipher.init(Cipher.ENCRYPT_MODE, generateKey);</span><br><span class="line">  byte[] resultBytes = cipher.doFinal(src.getBytes());</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> Hex.encodeHexString(resultBytes);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span> (Exception e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> decode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  cipher.init(Cipher.DECRYPT_MODE, generateKey);</span><br><span class="line">  byte[] result = Hex.decodeHex(src.toCharArray());</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">String</span>(cipher.doFinal(result));</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span>(Exception e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="PBE"><a href="#PBE" class="headerlink" title="PBE"></a>PBE</h3><p>PBE，全称为“Password Base Encryption”，中文名“基于口令加密”，是一种基于密码的加密算法，其特点是使用口令代替了密钥，<br>而口令由用户自己掌管，采用随机数杂凑多重加密等方法保证数据的安全性。PBE算法没有密钥的概念，把口令当做密钥了。因为密钥<br>长短影响算法安全性，还不方便记忆，这里我们直接换成我们自己常用的口令就大大不同了，便于我们的记忆。但是单纯的口令很容易<br>被字典法给穷举出来，所以我们这里给口令加了点“盐”，这个盐和口令组合，想破解就难了。同时我们将盐和口令合并后用消息摘要算<br>法进行迭代很多次来构建密钥初始化向量的基本材料，使破译更加难了。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.amuro.strategy.pbe;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.security.SecureRandom;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKey;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKeyFactory;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.PBEKeySpec;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.PBEParameterSpec;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Hex;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> com.amuro.strategy.IStrategy;</span><br><span class="line"> </span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 基于口令的加密（password），对称 + 消息摘要</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PBEStrategy</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">IStrategy</span></span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> <span class="keyword">private</span> Cipher cipher;</span><br><span class="line"> <span class="keyword">private</span> SecretKey generateKey;</span><br><span class="line"> <span class="keyword">private</span> PBEParameterSpec pbeParameterSpec;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> encode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  SecureRandom secureRandom = <span class="keyword">new</span> <span class="type">SecureRandom</span>();</span><br><span class="line">  byte[] salt = secureRandom.generateSeed(<span class="number">8</span>);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">String</span> password = <span class="string">"amuro"</span>;</span><br><span class="line">  PBEKeySpec pbeKeySpec = <span class="keyword">new</span> <span class="type">PBEKeySpec</span>(password.toCharArray());</span><br><span class="line">  SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(<span class="string">"PBEWITHMD5andDES"</span>);</span><br><span class="line">  generateKey = secretKeyFactory.generateSecret(pbeKeySpec);</span><br><span class="line"> </span><br><span class="line">  pbeParameterSpec = <span class="keyword">new</span> <span class="type">PBEParameterSpec</span>(salt, <span class="number">100</span>);</span><br><span class="line">  cipher = Cipher.getInstance(<span class="string">"PBEWITHMD5andDES"</span>);</span><br><span class="line">  cipher.init(Cipher.ENCRYPT_MODE, generateKey, pbeParameterSpec);</span><br><span class="line">  byte[] resultBytes = cipher.doFinal(src.getBytes());</span><br><span class="line">  <span class="keyword">return</span> Hex.encodeHexString(resultBytes);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span>(Exception e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> decode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  cipher.init(Cipher.DECRYPT_MODE, generateKey, pbeParameterSpec);</span><br><span class="line">  byte[] result = Hex.decodeHex(src.toCharArray());</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">String</span>(cipher.doFinal(result));</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span>(Exception e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h2><p>非对称加密算法需要两个密钥来进行加密和解密，分别是公钥和私钥。需要注意的一点，这个公钥和私钥必须是一对的，如果用公钥对数据进行加<br>密，那么只有使用对应的私钥才能解密，反之亦然。由于加密和解密使用的是两个不同的密钥，因此，这种算法叫做非对称加密算法。</p>
+<h3 id="RSA"><a href="#RSA" class="headerlink" title="RSA"></a>RSA</h3><p>在 1978 年的时候，RSA就已经出现了，它是第一个既能用于数据加密也能用于数字签名的算法。它易于理解和操作，也很流行。其原理就如上面<br>的工作过程所述。RSA 算法基于一个十分简单的数论事实：将两个大素数相乘十分容易，但是想要对其乘积进行因式分解却极其困难，因此可以将<br>乘积公开作为加密密钥。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.amuro.strategy.asymmetric;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.security.KeyFactory;</span><br><span class="line"><span class="keyword">import</span> java.security.KeyPair;</span><br><span class="line"><span class="keyword">import</span> java.security.KeyPairGenerator;</span><br><span class="line"><span class="keyword">import</span> java.security.PrivateKey;</span><br><span class="line"><span class="keyword">import</span> java.security.PublicKey;</span><br><span class="line"><span class="keyword">import</span> java.security.interfaces.RSAPrivateKey;</span><br><span class="line"><span class="keyword">import</span> java.security.interfaces.RSAPublicKey;</span><br><span class="line"><span class="keyword">import</span> java.security.spec.PKCS8EncodedKeySpec;</span><br><span class="line"><span class="keyword">import</span> java.security.spec.X509EncodedKeySpec;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Hex;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> com.amuro.strategy.IStrategy;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RSAStrategy</span> <span class="keyword"><span class="keyword">implements</span> <span class="type">IStrategy</span></span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> <span class="keyword">private</span> RSAPublicKey rsaPublicKey;</span><br><span class="line"> <span class="keyword">private</span> RSAPrivateKey rsaPrivateKey;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> encode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  <span class="comment">//初始化密钥</span></span><br><span class="line">  KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(<span class="string">"RSA"</span>);</span><br><span class="line">  keyPairGenerator.initialize(<span class="number">512</span>);</span><br><span class="line">  KeyPair keyPair = keyPairGenerator.generateKeyPair();</span><br><span class="line">  rsaPublicKey = (RSAPublicKey)keyPair.getPublic();</span><br><span class="line">  rsaPrivateKey = (RSAPrivateKey)keyPair.getPrivate();</span><br><span class="line"> </span><br><span class="line">  <span class="comment">//私钥加密 公钥解密</span></span><br><span class="line">  PKCS8EncodedKeySpec pkcs8EncodedKeySpec</span><br><span class="line">  = <span class="keyword">new</span> <span class="type">PKCS8EncodedKeySpec</span>(rsaPrivateKey.getEncoded());</span><br><span class="line">  KeyFactory keyFactory = KeyFactory.getInstance(<span class="string">"RSA"</span>);</span><br><span class="line">  PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);</span><br><span class="line">  Cipher cipher = Cipher.getInstance(<span class="string">"RSA"</span>);</span><br><span class="line">  cipher.init(Cipher.ENCRYPT_MODE, privateKey);</span><br><span class="line">  byte[] resultBytes = cipher.doFinal(src.getBytes());</span><br><span class="line"> </span><br><span class="line">  <span class="comment">//私钥解密 公钥加密</span></span><br><span class="line"><span class="comment">//  X509EncodedKeySpec x509EncodedKeySpec =</span></span><br><span class="line"><span class="comment">//   new X509EncodedKeySpec(rsaPublicKey.getEncoded());</span></span><br><span class="line"><span class="comment">//  KeyFactory keyFactory = KeyFactory.getInstance("RSA");</span></span><br><span class="line"><span class="comment">//  PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);</span></span><br><span class="line"><span class="comment">//  Cipher cipher = Cipher.getInstance("RSA");</span></span><br><span class="line"><span class="comment">//  cipher.init(Cipher.ENCRYPT_MODE, publicKey);</span></span><br><span class="line"><span class="comment">//  byte[] resultBytes = cipher.doFinal(src.getBytes());</span></span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> Hex.encodeHexString(resultBytes);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span>(Exception e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">String</span> decode(<span class="keyword">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  <span class="comment">//私钥加密 公钥解密</span></span><br><span class="line">  X509EncodedKeySpec x509EncodedKeySpec =</span><br><span class="line">   <span class="keyword">new</span> <span class="type">X509EncodedKeySpec</span>(rsaPublicKey.getEncoded());</span><br><span class="line">  KeyFactory keyFactory = KeyFactory.getInstance(<span class="string">"RSA"</span>);</span><br><span class="line">  PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec);</span><br><span class="line">  Cipher cipher = Cipher.getInstance(<span class="string">"RSA"</span>);</span><br><span class="line">  cipher.init(Cipher.DECRYPT_MODE, publicKey);</span><br><span class="line">  byte[] resultBytes = cipher.doFinal(Hex.decodeHex(src.toCharArray()));</span><br><span class="line"> </span><br><span class="line">  <span class="comment">//私钥解密 公钥加密</span></span><br><span class="line"><span class="comment">//  PKCS8EncodedKeySpec pkcs8EncodedKeySpec</span></span><br><span class="line"><span class="comment">//  = new PKCS8EncodedKeySpec(rsaPrivateKey.getEncoded());</span></span><br><span class="line"><span class="comment">//  KeyFactory keyFactory = KeyFactory.getInstance("RSA");</span></span><br><span class="line"><span class="comment">//  PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);</span></span><br><span class="line"><span class="comment">//  Cipher cipher = Cipher.getInstance("RSA");</span></span><br><span class="line"><span class="comment">//  cipher.init(Cipher.DECRYPT_MODE, privateKey);</span></span><br><span class="line"><span class="comment">//  byte[] resultBytes = cipher.doFinal(Hex.decodeHex(src.toCharArray()));</span></span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="type">String</span>(resultBytes);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span>(Exception e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="DH算法"><a href="#DH算法" class="headerlink" title="DH算法"></a>DH算法</h3><p>DH，全称为“Diffie-Hellman”，他是一种确保共享KEY安全穿越不安全网络的方法，也就是常说的密钥一致协议。由公开密钥密码体制的奠基人Diffie和<br>Hellman所提出的一种思想。简单的说就是允许两名用户在公开媒体上交换信息以生成“一致”的、可以共享的密钥。也就是由甲方产出一对密钥（公钥、私钥），<br>乙方依照甲方公钥产生乙方密钥对（公钥、私钥）。以此为基线，作为数据传输保密基础，同时双方使用同一种对称加密算法构建本地密钥（SecretKey）对<br>数据加密。这样，在互通了本地密钥（SecretKey）算法后，甲乙双方公开自己的公钥，使用对方的公钥和刚才产生的私钥加密数据，同时可以使用对方的公<br>钥和自己的私钥对数据解密。不单单是甲乙双方两方，可以扩展为多方共享数据通讯，这样就完成了网络交互数据的安全通讯！</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><span class="line">package com.amuro.strategy.asymmetric;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> java.security.KeyFactory;</span><br><span class="line"><span class="keyword">import</span> java.security.KeyPair;</span><br><span class="line"><span class="keyword">import</span> java.security.KeyPairGenerator;</span><br><span class="line"><span class="keyword">import</span> java.security.PrivateKey;</span><br><span class="line"><span class="keyword">import</span> java.security.PublicKey;</span><br><span class="line"><span class="keyword">import</span> java.security.spec.X509EncodedKeySpec;</span><br><span class="line"><span class="keyword">import</span> java.util.Objects;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.KeyAgreement;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKey;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.interfaces.DHPublicKey;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.DHParameterSpec;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> org.apache.commons.codec.binary.Hex;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> com.amuro.strategy.IStrategy;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DHStrategy</span> <span class="title">implements</span> <span class="title">IStrategy</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line"> <span class="keyword">private</span> <span class="type">Cipher</span> cipher;</span><br><span class="line"> <span class="keyword">private</span> <span class="type">SecretKey</span> receiverSecretKey;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="type">String</span> encode(<span class="type">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  <span class="comment">//初始化发送方密钥</span></span><br><span class="line">  <span class="type">KeyPairGenerator</span> senderKeyPairGenerator = <span class="type">KeyPairGenerator</span>.getInstance(<span class="string">"DH"</span>);</span><br><span class="line">  senderKeyPairGenerator.initialize(<span class="number">512</span>);</span><br><span class="line">  <span class="type">KeyPair</span> senderkeyPair = senderKeyPairGenerator.generateKeyPair();</span><br><span class="line">  <span class="type">PrivateKey</span> senderPrivateKey = senderkeyPair.getPrivate();</span><br><span class="line">  byte[] senderPublicKeyBytes = senderkeyPair.getPublic().getEncoded();<span class="comment">//发送方的公钥</span></span><br><span class="line"> </span><br><span class="line">  <span class="comment">//初始化接收方密钥,用发送方的公钥</span></span><br><span class="line">  <span class="type">KeyFactory</span> receiverKeyFactory = <span class="type">KeyFactory</span>.getInstance(<span class="string">"DH"</span>);</span><br><span class="line">  <span class="type">X509EncodedKeySpec</span> x509EncodedKeySpec = new <span class="type">X509EncodedKeySpec</span>(senderPublicKeyBytes);</span><br><span class="line">  <span class="type">PublicKey</span> receiverPublicKey = receiverKeyFactory.generatePublic(x509EncodedKeySpec);</span><br><span class="line">  <span class="type">DHParameterSpec</span> dhParameterSpec =</span><br><span class="line">   ((<span class="type">DHPublicKey</span>)receiverPublicKey).getParams();</span><br><span class="line">  <span class="type">KeyPairGenerator</span> receiverKeyPairGenerator = <span class="type">KeyPairGenerator</span>.getInstance(<span class="string">"DH"</span>);</span><br><span class="line">  receiverKeyPairGenerator.initialize(dhParameterSpec);</span><br><span class="line">  <span class="type">KeyPair</span> receiverKeyPair = receiverKeyPairGenerator.generateKeyPair();</span><br><span class="line">  <span class="type">PrivateKey</span> receiverPrivateKey = receiverKeyPair.getPrivate();</span><br><span class="line">  byte[] receiverPublicKeyBytes = receiverKeyPair.getPublic().getEncoded();</span><br><span class="line"> </span><br><span class="line">  <span class="type">KeyAgreement</span> receiverKeyAgreement = <span class="type">KeyAgreement</span>.getInstance(<span class="string">"DH"</span>);</span><br><span class="line">  receiverKeyAgreement.<span class="keyword">init</span>(receiverPrivateKey);</span><br><span class="line">  receiverKeyAgreement.doPhase(receiverPublicKey, <span class="literal">true</span>);</span><br><span class="line">  receiverSecretKey = receiverKeyAgreement.generateSecret(<span class="string">"DES"</span>);</span><br><span class="line"> </span><br><span class="line">  <span class="comment">//发送方拿到接收方的public key就可以做加密了</span></span><br><span class="line">  <span class="type">KeyFactory</span> senderKeyFactory = <span class="type">KeyFactory</span>.getInstance(<span class="string">"DH"</span>);</span><br><span class="line">  x509EncodedKeySpec = new <span class="type">X509EncodedKeySpec</span>(receiverPublicKeyBytes);</span><br><span class="line">  <span class="type">PublicKey</span> senderPublicKey = senderKeyFactory.generatePublic(x509EncodedKeySpec);</span><br><span class="line">  <span class="type">KeyAgreement</span> senderKeyAgreement = <span class="type">KeyAgreement</span>.getInstance(<span class="string">"DH"</span>);</span><br><span class="line">  senderKeyAgreement.<span class="keyword">init</span>(senderPrivateKey);</span><br><span class="line">  senderKeyAgreement.doPhase(senderPublicKey, <span class="literal">true</span>);</span><br><span class="line">  <span class="type">SecretKey</span> senderSecretKey = senderKeyAgreement.generateSecret(<span class="string">"DES"</span>);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">if</span>(<span class="type">Objects</span>.equals(receiverSecretKey, senderSecretKey))</span><br><span class="line">  &#123;</span><br><span class="line">  cipher = <span class="type">Cipher</span>.getInstance(<span class="string">"DES"</span>);</span><br><span class="line">  cipher.<span class="keyword">init</span>(<span class="type">Cipher</span>.<span class="type">ENCRYPT_MODE</span>, senderSecretKey);</span><br><span class="line">  byte[] result = cipher.doFinal(src.getBytes());</span><br><span class="line">  <span class="keyword">return</span> <span class="type">Hex</span>.encodeHexString(result);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span>(<span class="type">Exception</span> e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> null;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">public</span> <span class="type">String</span> decode(<span class="type">String</span> src)</span><br><span class="line"> &#123;</span><br><span class="line"> <span class="keyword">try</span></span><br><span class="line"> &#123;</span><br><span class="line">  cipher.<span class="keyword">init</span>(<span class="type">Cipher</span>.<span class="type">DECRYPT_MODE</span>, receiverSecretKey);</span><br><span class="line">  byte[] result = <span class="type">Hex</span>.decodeHex(src.toCharArray());</span><br><span class="line">  <span class="keyword">return</span> new <span class="type">String</span>(cipher.doFinal(result));</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">catch</span>(<span class="type">Exception</span> e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace();</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">return</span> null;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="数字签名证书"><a href="#数字签名证书" class="headerlink" title="数字签名证书"></a>数字签名证书</h3><p>非对称加密已经灰常安全了，但是还有一个破绽：<br>服务器A公布了自己的公钥，我的电脑是用服务器A的公钥加密数据后再发给服务器A的；这时候服务器B侵入了我的电脑，把我用来加密的公钥换成了它的公钥，于是我发出去的数据就会被服务器B的私钥破解了。肿么防止公钥被篡改呢？<br>对，我们想到了前面的消息摘要，服务器A把公钥丢给我的时候，同时去CA申请一份数字证书，其实主要就是公钥的消息摘要，有了这份证书，当我再用公钥加密的时候，我就可以先验证一下当前的公钥是否确定是服务器A发送给我的。<br>这里就贴一种RSA的：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">package com.amuro.strategy.signature<span class="comment">;</span></span><br><span class="line"> </span><br><span class="line">import java.security.KeyFactory<span class="comment">;</span></span><br><span class="line">import java.security.KeyPair<span class="comment">;</span></span><br><span class="line">import java.security.KeyPairGenerator<span class="comment">;</span></span><br><span class="line">import java.security.PrivateKey<span class="comment">;</span></span><br><span class="line">import java.security.PublicKey<span class="comment">;</span></span><br><span class="line">import java.security.Signature<span class="comment">;</span></span><br><span class="line">import java.security.interfaces.RSAPrivateKey<span class="comment">;</span></span><br><span class="line">import java.security.interfaces.RSAPublicKey<span class="comment">;</span></span><br><span class="line">import java.security.spec.PKCS8EncodedKeySpec<span class="comment">;</span></span><br><span class="line">import java.security.spec.X509EncodedKeySpec<span class="comment">;</span></span><br><span class="line"> </span><br><span class="line">public class RSASign</span><br><span class="line">&#123;</span><br><span class="line"> public static boolean verifySign(String src)</span><br><span class="line"> &#123;</span><br><span class="line"> try</span><br><span class="line"> &#123;</span><br><span class="line">  KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance(<span class="string">"RSA"</span>)<span class="comment">;</span></span><br><span class="line">  keyPairGenerator.initialize(<span class="number">512</span>)<span class="comment">;</span></span><br><span class="line">  KeyPair keyPair = keyPairGenerator.generateKeyPair()<span class="comment">;</span></span><br><span class="line">  PublicKey rsaPublicKey = (RSAPublicKey)keyPair.getPublic()<span class="comment">;</span></span><br><span class="line">  PrivateKey rsaPrivateKey = (RSAPrivateKey)keyPair.getPrivate()<span class="comment">;</span></span><br><span class="line"> </span><br><span class="line">  PKCS8EncodedKeySpec pkcs8EncodedKeySpec</span><br><span class="line">  = new PKCS8EncodedKeySpec(rsaPrivateKey.getEncoded())<span class="comment">;</span></span><br><span class="line">  KeyFactory keyFactory = KeyFactory.getInstance(<span class="string">"RSA"</span>)<span class="comment">;</span></span><br><span class="line">  PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec)<span class="comment">;</span></span><br><span class="line">  Signature signature = Signature.getInstance(<span class="string">"MD5withRSA"</span>)<span class="comment">;</span></span><br><span class="line">  signature.initSign(privateKey)<span class="comment">;</span></span><br><span class="line">  signature.update(src.getBytes())<span class="comment">;</span></span><br><span class="line">  //生成签名bytes</span><br><span class="line">  byte[] signBytes = signature.sign()<span class="comment">;</span></span><br><span class="line"> </span><br><span class="line">  X509EncodedKeySpec x509EncodedKeySpec =</span><br><span class="line">   new X509EncodedKeySpec(rsaPublicKey.getEncoded())<span class="comment">;</span></span><br><span class="line">  keyFactory = KeyFactory.getInstance(<span class="string">"RSA"</span>)<span class="comment">;</span></span><br><span class="line">  PublicKey publicKey = keyFactory.generatePublic(x509EncodedKeySpec)<span class="comment">;</span></span><br><span class="line">  signature = Signature.getInstance(<span class="string">"MD5withRSA"</span>)<span class="comment">;</span></span><br><span class="line">  signature.initVerify(publicKey)<span class="comment">;</span></span><br><span class="line">  signature.update(src.getBytes())<span class="comment">;</span></span><br><span class="line">  boolean isVerified = signature.verify(signBytes)<span class="comment">;</span></span><br><span class="line"> </span><br><span class="line">  return isVerified<span class="comment">;</span></span><br><span class="line"> &#125;</span><br><span class="line"> catch(Exception e)</span><br><span class="line"> &#123;</span><br><span class="line">  e.printStackTrace()<span class="comment">;</span></span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> return false<span class="comment">;</span></span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陆 滨</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://yoursite.com/2019/10/20/encryption/" title="java中常用的加密方法">http://yoursite.com/2019/10/20/encryption/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/20/el-jstl/" rel="next" title="EL表达式和JSTL">
+                <i class="fa fa-chevron-left"></i> EL表达式和JSTL
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/20/hashmap/" rel="prev" title="hashmap详解">
+                hashmap详解 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/author.jpg" alt="陆 滨">
+            
+              <p class="site-author-name" itemprop="name">陆 滨</p>
+              <div class="site-description motion-element" itemprop="description">努力最后收获的就是失望？等待最后得到的就是幻想？</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ILikeAndroid" title="GitHub &rarr; https://github.com/ILikeAndroid" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:978203264@qq.com" title="E-Mail &rarr; mailto:978203264@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=556058208&auto=1&height=66"></iframe>
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#加密介绍"><span class="nav-number">1.</span> <span class="nav-text">加密介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加密的分类"><span class="nav-number">2.</span> <span class="nav-text">加密的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单向加密"><span class="nav-number">3.</span> <span class="nav-text">单向加密</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Base64加密"><span class="nav-number">3.1.</span> <span class="nav-text">Base64加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#md5消息摘要"><span class="nav-number">3.2.</span> <span class="nav-text">md5消息摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#sha-1消息摘要"><span class="nav-number">3.3.</span> <span class="nav-text">sha-1消息摘要</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对称加密"><span class="nav-number">4.</span> <span class="nav-text">对称加密</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DES"><span class="nav-number">4.1.</span> <span class="nav-text">DES</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3DES3DES"><span class="nav-number">4.2.</span> <span class="nav-text">3DES3DES</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AESAES"><span class="nav-number">4.3.</span> <span class="nav-text">AESAES</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PBE"><span class="nav-number">4.4.</span> <span class="nav-text">PBE</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非对称加密"><span class="nav-number">5.</span> <span class="nav-text">非对称加密</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RSA"><span class="nav-number">5.1.</span> <span class="nav-text">RSA</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DH算法"><span class="nav-number">5.2.</span> <span class="nav-text">DH算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数字签名证书"><span class="nav-number">5.3.</span> <span class="nav-text">数字签名证书</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陆 滨</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
