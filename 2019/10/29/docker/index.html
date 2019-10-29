@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="ubantu�ϰ�װdocker����Docker ����Go���Խ��п����ģ�Docker ֻ����Ӧ�ó��������⣬����libcontainer�������������ϣ�����������������룬��ʹ��Docker����������Ч������ؽ����˷����ϵͳ������ԣ�������������и��Զ����Ļ����У������໥Ӱ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="docker��ʹ�ã�һ��">
+<meta property="og:url" content="http://yoursite.com/2019/10/29/docker/index.html">
+<meta property="og:site_name" content="LuBin的个人博客">
+<meta property="og:description" content="ubantu�ϰ�װdocker����Docker ����Go���Խ��п����ģ�Docker ֻ����Ӧ�ó��������⣬����libcontainer�������������ϣ�����������������룬��ʹ��Docker����������Ч������ؽ����˷����ϵͳ������ԣ�������������и��Զ����Ļ����У������໥Ӱ">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://dockone.io/uploads/article/20190626/3b9079593f15903497a37c64a23b9c39.png">
+<meta property="og:updated_time" content="2019-10-29T07:08:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="docker��ʹ�ã�һ��">
+<meta name="twitter:description" content="ubantu�ϰ�װdocker����Docker ����Go���Խ��п����ģ�Docker ֻ����Ӧ�ó��������⣬����libcontainer�������������ϣ�����������������룬��ʹ��Docker����������Ч������ؽ����˷����ϵͳ������ԣ�������������и��Զ����Ļ����У������໥Ӱ">
+<meta name="twitter:image" content="http://dockone.io/uploads/article/20190626/3b9079593f15903497a37c64a23b9c39.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/10/29/docker/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>docker��ʹ�ã�һ�� | LuBin的个人博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LuBin的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">记录自己的学习经历</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/29/docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陆 滨">
+      <meta itemprop="description" content="努力最后收获的就是失望？等待最后得到的就是幻想？">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuBin的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">docker��ʹ�ã�һ��
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-29 19:32:19 / 修改时间：15:08:28" itemprop="dateCreated datePublished" datetime="2019-10-29T19:32:19+08:00">2019-10-29</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="ubantu�ϰ�װdocker"><a href="#ubantu�ϰ�װdocker" class="headerlink" title="ubantu�ϰ�װdocker"></a>ubantu�ϰ�װdocker</h2><h3 id="����"><a href="#����" class="headerlink" title="����"></a>����</h3><p>Docker ����Go���Խ��п����ģ�Docker ֻ����Ӧ�ó��������⣬����libcontainer�������������ϣ�����������������룬��ʹ��Docker����������Ч��<br>����ؽ����˷����ϵͳ������ԣ�������������и��Զ����Ļ����У������໥Ӱ�졣</p>
+<h3 id="�w�"><a href="#�w�" class="headerlink" title="�ŵ�"></a>�ŵ�</h3><p>1�����٣�һ�µؽ�������Ӧ�ó��������ǳ��ʺϳ������ɺͳ���������CI / CD����������<br>2����Ӧʽ�������չ��Docker �ǻ���������ƽ̨�������߶ȿ���ֲ�Ĺ������ء�Docker ���������ڿ�����Ա�ı����ϣ��������ĵ�������������ϣ��Ʒ���<br>�ϻ��ϻ��������С�</p>
+<h3 id="�ܹ�"><a href="#�ܹ�" class="headerlink" title="�ܹ�"></a>�ܹ�</h3><p>1.Docker daemon: �������������ϣ�Docker�ػ����̣��û�ͨ��Docker client(Docker����)��Docker daemon����<br>2.Docker client: Docker �����й��ߣ����û�ʹ��Docker����Ҫ��ʽ��Docker client��Docker daemonͨ�Ų���������ظ��û���Docker clientҲ����ͨ��<br>socket����RESTful api����Զ�̵�Docker daemon<br>3.Docker hub/registry: �����͹���Docker�����û������ϴ�������������ľ���</p>
+<h3 id="��װ"><a href="#��װ" class="headerlink" title="��װ"></a>��װ</h3><p>����apt����������Щʱ�����ض�����ʱ��ᱨ��</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##sudo��ʹ��root�û�ִ��������û���л�����root�û������������</span></span><br><span class="line">sudo apt-<span class="builtin-name">get</span> update -y</span><br></pre></td></tr></table></figure>
+
+<p>���ذ�װdocker</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">apt <span class="keyword">install</span>  -y docker.io</span><br></pre></td></tr></table></figure>
+
+<h2 id="docker�L���ʹ��"><a href="#docker�L���ʹ��" class="headerlink" title="docker�Ļ���ʹ��"></a>docker�Ļ���ʹ��</h2><h3 id="����image��"><a href="#����image��" class="headerlink" title="����image��"></a>����image��</h3><p>����Image������һ��ֻ���㣨read-only layer��</p>
+<p><img src="http://dockone.io/uploads/article/20190626/3b9079593f15903497a37c64a23b9c39.png" alt="image"></p>
+<p>����������һ�㣬�����㶼����һ��ָ��ָ����һ�㡣��Щ����Docker�ڲ���ʵ��ϸ�ڣ������ܹ����������ļ�ϵͳ�Ϸ��ʵ���ͳһ�ļ�ϵͳ��union file system��<br>�����ܹ�����ͬ�Ĳ����ϳ�һ���ļ�ϵͳ��Ϊ��Щ���ṩ��һ��ͳһ���ӽǣ������������˶��Ĵ��ڣ����û��ĽǶȿ�����ֻ����һ���ļ�ϵͳ��<br>�������ϣ��ҷ������Ǵ�����/var/lib/docker/aufsĿ¼�¡�</p>
+<h3 id="��������"><a href="#��������" class="headerlink" title="��������"></a>��������</h3><p>���������һϵ��Ԫ���ݣ�metadata�����ǹ��������Ķ�����Ϣ���������ܹ���Docker��ȡ���к͹���ʱ����Ϣ������������Ĳ����Ϣ��ÿһ�㶼������һ��ָ<br>�򸸲��ָ�롣���һ����û�����ָ�룬˵����������ײ㡣�Լ���ʶ���id���кš�</p>
+<h3 id="����-1"><a href="#����-1" class="headerlink" title="����"></a>����</h3><p>��ѯ����Ĭ���ǹ����ľ���ֿ⣬���Ҫ���������ľ���ֿ⣬��Ҫ��deamon.json�������ӣ������������滻��id��</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search <span class="string">[images-name]</span></span><br></pre></td></tr></table></figure>
+
+<p>�鿴�Լ��ľ���</p>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">docker images</span></span><br></pre></td></tr></table></figure>
+
+<p>��ȡ�ֿ�ľ���</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull <span class="string">[images-name]</span>:<span class="string">[�汾��]</span></span><br></pre></td></tr></table></figure>
+
+<p>ɾ������</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rmi <span class="string">[images-name]</span></span><br></pre></td></tr></table></figure>
+
+<p>���о��񣬳�Ϊ��������ʵ�������ھ�������������һ���ɶ�д��</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">run</span> -d -p �������˿�:docker�����Ķ˿� <span class="comment">--name ����������(�Լ�ȡ) ��������</span></span><br></pre></td></tr></table></figure>
+
+<p>���ǿ����Լ��Զ��徵����Ҫ�Լ�дһ��dockerfile�ļ����������﷨���򣬺��潲��</p>
+<h3 id="������container��"><a href="#������container��" class="headerlink" title="������container��"></a>������container��</h3><p>������container���Ķ���;���image������һģһ����Ҳ��һ�Ѳ��ͳһ�ӽǣ�Ψһ����������������������һ���ǿɶ���д�ġ�<br>���� = ���� + ��д�㡣���������Ķ��岢û���ἰ�Ƿ�Ҫ����������</p>
+<p>һ������̬������running container��������Ϊһ���ɶ�д��ͳһ�ļ�ϵͳ���ϸ���Ľ��̿ռ�Ͱ������еĽ��̡�������̬������ִ������</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">run</span><span class="bash"> ubuntu touch happiness.txt</span></span><br></pre></td></tr></table></figure>
+
+<p>���������ubuntu�����������У����������ܹ����������ļ�ϵͳ���ҵ�������ļ���</p>
+<h3 id="����-2"><a href="#����-2" class="headerlink" title="����"></a>����</h3><p>Ϊָ���ľ���image��������һ���ɶ�д�㣬������һ���µ�����</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">create</span> &lt;image-<span class="keyword">id</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>Ϊ�����ļ�ϵͳ������һ�����̸���ռ䡣ע�⣬ÿһ������ֻ�ܹ���һ�����̸���ռ䡣</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">start</span> &lt;<span class="keyword">container</span>-<span class="keyword">id</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>�г����������е�����,�������˷�����̬�����Ĵ���</p>
+<figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br><span class="line">##�г����е�����������������̬</span><br><span class="line">docker ps �Ca</span><br></pre></td></tr></table></figure>
+
+<p>ֹͣ���е�����̬��������</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">stop</span> &lt;<span class="keyword">container</span>-<span class="keyword">id</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>������cgroups�����Խ������еĽ��̿ռ���ͣ</p>
+<figure class="highlight mel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">pause</span> &lt;<span class="keyword">container</span>-id&gt;</span><br></pre></td></tr></table></figure>
+
+<p>�Ƴ����������Ŀɶ�д�㡣ע�⣬�������ֻ�ܶԷ�����̬����ִ��</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker rm &lt;container-<span class="built_in">id</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>�������Ŀɶ�д��ת��Ϊһ��ֻ���㣬�����Ͱ�һ������ת�����˲��ɱ�ľ���</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">commit</span> &lt;<span class="keyword">container</span>-<span class="keyword">id</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>�������е�����ִ��һ���½��̡�</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec &lt;<span class="built_in">running</span>-container-<span class="built_in">id</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>��ȡ���������߾�������Ԫ����</p>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect &lt;container-<span class="built_in">id</span>&gt; <span class="keyword">or</span> &lt;image-<span class="built_in">id</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>docker save����ᴴ��һ�������ѹ���ļ�������ļ��ܹ�������һ��������Docker��ʹ�á���export���ͬ���������Ϊÿһ���㶼������<br>���ǵ�Ԫ���ݡ��������ֻ�ܶԾ�����Ч</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">save</span> &lt;<span class="built_in">image</span>-id&gt;</span><br></pre></td></tr></table></figure>
+
+<p>�ݹ�����ָ���������ʷ����</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="keyword">history</span> <span class="symbol">&lt;image-id&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陆 滨</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://yoursite.com/2019/10/29/docker/" title="docker��ʹ�ã�һ��">http://yoursite.com/2019/10/29/docker/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/28/thread-tree/" rel="next" title="线索化二叉树">
+                <i class="fa fa-chevron-left"></i> 线索化二叉树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/author.jpg" alt="陆 滨">
+            
+              <p class="site-author-name" itemprop="name">陆 滨</p>
+              <div class="site-description motion-element" itemprop="description">努力最后收获的就是失望？等待最后得到的就是幻想？</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ILikeAndroid" title="GitHub &rarr; https://github.com/ILikeAndroid" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:978203264@qq.com" title="E-Mail &rarr; mailto:978203264@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=556058208&auto=1&height=66"></iframe>
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ubantu�ϰ�װdocker"><span class="nav-number">1.</span> <span class="nav-text">ubantu�ϰ�װdocker</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#����"><span class="nav-number">1.1.</span> <span class="nav-text">����</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#�w�"><span class="nav-number">1.2.</span> <span class="nav-text">�ŵ�</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#�ܹ�"><span class="nav-number">1.3.</span> <span class="nav-text">�ܹ�</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#��װ"><span class="nav-number">1.4.</span> <span class="nav-text">��װ</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#docker�L���ʹ��"><span class="nav-number">2.</span> <span class="nav-text">docker�Ļ���ʹ��</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#����image��"><span class="nav-number">2.1.</span> <span class="nav-text">����image��</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#��������"><span class="nav-number">2.2.</span> <span class="nav-text">��������</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#����-1"><span class="nav-number">2.3.</span> <span class="nav-text">����</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#������container��"><span class="nav-number">2.4.</span> <span class="nav-text">������container��</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#����-2"><span class="nav-number">2.5.</span> <span class="nav-text">����</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陆 滨</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
