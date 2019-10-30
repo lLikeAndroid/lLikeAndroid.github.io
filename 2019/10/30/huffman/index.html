@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="介绍当用 n 个结点（都做叶子结点且都有各自的权值）试图构建一棵树时，如果构建的这棵树的带权路径长度最小，称这棵树为“最优二叉树”，有时也叫“赫夫曼树”或者“哈夫曼树”。在构建哈弗曼树时，要使树的带权路径长度最小，只需要遵循一个原则，那就是：权重越大的结点离树根越近。在图 1 中，因为结点 a 的权值最大，所以理应直接作为根结点的孩子结点。 如下图就是： 关键词路径：在一棵树中，一个结点到另一个结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="赫夫曼树以及应用">
+<meta property="og:url" content="http://yoursite.com/2019/10/30/huffman/index.html">
+<meta property="og:site_name" content="LuBin的个人博客">
+<meta property="og:description" content="介绍当用 n 个结点（都做叶子结点且都有各自的权值）试图构建一棵树时，如果构建的这棵树的带权路径长度最小，称这棵树为“最优二叉树”，有时也叫“赫夫曼树”或者“哈夫曼树”。在构建哈弗曼树时，要使树的带权路径长度最小，只需要遵循一个原则，那就是：权重越大的结点离树根越近。在图 1 中，因为结点 a 的权值最大，所以理应直接作为根结点的孩子结点。 如下图就是： 关键词路径：在一棵树中，一个结点到另一个结">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://c.biancheng.net/uploads/allimg/190427/09563Tb0-0.png">
+<meta property="og:updated_time" content="2019-10-30T13:02:23.878Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="赫夫曼树以及应用">
+<meta name="twitter:description" content="介绍当用 n 个结点（都做叶子结点且都有各自的权值）试图构建一棵树时，如果构建的这棵树的带权路径长度最小，称这棵树为“最优二叉树”，有时也叫“赫夫曼树”或者“哈夫曼树”。在构建哈弗曼树时，要使树的带权路径长度最小，只需要遵循一个原则，那就是：权重越大的结点离树根越近。在图 1 中，因为结点 a 的权值最大，所以理应直接作为根结点的孩子结点。 如下图就是： 关键词路径：在一棵树中，一个结点到另一个结">
+<meta name="twitter:image" content="http://c.biancheng.net/uploads/allimg/190427/09563Tb0-0.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2019/10/30/huffman/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>赫夫曼树以及应用 | LuBin的个人博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LuBin的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">记录自己的学习经历</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/30/huffman/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陆 滨">
+      <meta itemprop="description" content="努力最后收获的就是失望？等待最后得到的就是幻想？">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuBin的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">赫夫曼树以及应用
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-10-30 20:26:44 / 修改时间：21:02:23" itemprop="dateCreated datePublished" datetime="2019-10-30T20:26:44+08:00">2019-10-30</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>当用 n 个结点（都做叶子结点且都有各自的权值）试图构建一棵树时，如果构建的这棵树的带权路径长度最小，称这棵树为“最优二叉树”，有时也叫“赫夫曼树”或者“哈夫曼树”。<br>在构建哈弗曼树时，要使树的带权路径长度最小，只需要遵循一个原则，那就是：权重越大的结点离树根越近。在图 1 中，因为结点 a 的权值最大，所以理应直接作为根结点的孩子结点。</p>
+<p>如下图就是：<br><img src="http://c.biancheng.net/uploads/allimg/190427/09563Tb0-0.png" alt="image"></p>
+<h2 id="关键词"><a href="#关键词" class="headerlink" title="关键词"></a>关键词</h2><p>路径：在一棵树中，一个结点到另一个结点之间的通路，称为路径。<br>路径长度：在一条路径中，每经过一个结点，路径长度都要加 1 。例如在一棵树中，规定根结点所在层数为1层，那么从根结点到第 i 层结点的路径长度为 i - 1 。<br>结点的权：给每一个结点赋予一个新的数值，被称为这个结点的权。<br>结点的带权路径长度：指的是从根结点到该结点之间的路径长度与该结点的权的乘积。<br>WPL：树的带权路径长度为树中所有叶子结点的带权路径长度之和。</p>
+<h2 id="构建最优二叉树"><a href="#构建最优二叉树" class="headerlink" title="构建最优二叉树"></a>构建最优二叉树</h2><p>对于给定的有各自权值的 n 个结点：<br>    1.在 n 个权值中选出两个最小的权值，对应的两个结点组成一个新的结点，两个结点作为新结点的孩子，且新的结点权值为左右孩子权值的和。<br>    2.在原有的 n 个结点中删除那两个最小的权值，同时将新的结点加入到 n–2 个权值的行列中，以此类推。<br>    3.重复 1 和 2 ，直到所以的结点构建成了一棵二叉树为止，这棵树就是哈夫曼树。</p>
+<h2 id="java代码"><a href="#java代码" class="headerlink" title="java代码"></a>java代码</h2><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line">import java.util.ArrayList;</span><br><span class="line">import java.util.Arrays;</span><br><span class="line">import java.util.Collections;</span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">public class HuffmanTree &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(<span class="keyword">String</span>[] args) &#123;</span><br><span class="line">        HuffmanTree tree = new HuffmanTree();</span><br><span class="line">        Integer[] array = &#123;<span class="number">1</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">2</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">8</span>,<span class="number">15</span>,<span class="number">10</span>,<span class="number">12</span>,<span class="number">13</span>,<span class="number">11</span>,<span class="number">14</span>&#125;;</span><br><span class="line">        <span class="keyword">Node</span> <span class="title">root</span> = tree.createTree(array);</span><br><span class="line">        tree.inTraverse(root);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public <span class="keyword">Node</span> <span class="title">createTree</span>(Integer[] array)&#123;</span><br><span class="line">        if (array == null || array.length == <span class="number">0</span>)&#123;</span><br><span class="line">            return null;</span><br><span class="line">        &#125;</span><br><span class="line">        List<span class="tag">&lt;Node&gt;</span> nodeList = new ArrayList<span class="tag">&lt;&gt;</span>();</span><br><span class="line">        <span class="keyword">Node</span> <span class="title">node</span>;</span><br><span class="line">        for (Integer item : array)&#123;</span><br><span class="line">            <span class="keyword">node</span> <span class="title">= new</span> <span class="keyword">Node</span><span class="title">();</span></span><br><span class="line"><span class="title">            node</span>.value = item;</span><br><span class="line">            nodeList.add(<span class="keyword">node</span><span class="title">);</span></span><br><span class="line"><span class="title">        &#125;</span></span><br><span class="line"><span class="title">        while</span> (nodeList.size()&gt;<span class="number">1</span>)&#123;</span><br><span class="line">            Collections.sort(nodeList);</span><br><span class="line">            <span class="keyword">Node</span> <span class="title">newNode</span> =  new <span class="keyword">Node</span><span class="title">();</span></span><br><span class="line"><span class="title">            newNode</span>.leftChild = nodeList.get(<span class="number">0</span>);</span><br><span class="line">            newNode.rightChild = nodeList.get(<span class="number">1</span>);</span><br><span class="line">            newNode.value = nodeList.get(<span class="number">0</span>).value + nodeList.get(<span class="number">1</span>).value;</span><br><span class="line">            nodeList.remove(<span class="number">0</span>);</span><br><span class="line">            nodeList.remove(<span class="number">0</span>);</span><br><span class="line">            nodeList.add(newNode);</span><br><span class="line">        &#125;</span><br><span class="line">        return nodeList.get(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void inTraverse(<span class="keyword">Node</span> <span class="title">node</span>)&#123;</span><br><span class="line">        System.out.println(<span class="keyword">node</span>.<span class="title">value</span>);</span><br><span class="line">        if (<span class="keyword">node</span>.<span class="title">leftChild</span>!=null)&#123;</span><br><span class="line">            inTraverse(<span class="keyword">node</span>.<span class="title">leftChild</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        if (<span class="keyword">node</span>.<span class="title">rightChild</span>!=null)&#123;</span><br><span class="line">            inTraverse(<span class="keyword">node</span>.<span class="title">rightChild</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class <span class="keyword">Node</span> <span class="title">implements</span> Comparable<span class="tag">&lt;Node&gt;</span>&#123;</span><br><span class="line"></span><br><span class="line">        Integer value;</span><br><span class="line">        <span class="keyword">Node</span> <span class="title">leftChild</span>;</span><br><span class="line">        <span class="keyword">Node</span> <span class="title">rightChild</span>;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public int compareTo(<span class="keyword">Node</span> <span class="title">o</span>) &#123;</span><br><span class="line">            return this.value - o.value;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public <span class="keyword">String</span> toString() &#123;</span><br><span class="line">            return <span class="string">"node="</span>+this.value;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><p>这个技术普遍用来构建哈弗曼编码，是一种编码方式，可变字长编码(VLC)的一种。Huffman于1952年提出一种编码方法，该方法完全依据字符出现<br>概率来构造异字头的平均长度最短的码字，有时称之为最佳编码，一般就叫做Huffman编码（有时也称为霍夫曼编码）。主要应用在数据压缩，加密<br>解密等场合。</p>
+<p>为什么要用哈弗曼编码？因为我们在使用普通编码的时候，一个编码可能会出现歧义，所以我们需要一个没有歧义的编码，并且要让长度尽可能的少。</p>
+<p>使用哈弗曼编码进行压缩，是一种无损失压缩，压缩率在50%左右。</p>
+<h2 id="哈弗曼编码数据压缩java代码"><a href="#哈弗曼编码数据压缩java代码" class="headerlink" title="哈弗曼编码数据压缩java代码"></a>哈弗曼编码数据压缩java代码</h2><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> class HuffmanCode&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> Map&lt;Byte, <span class="keyword">String</span>&gt; <span class="built_in">map</span> = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line"></span><br><span class="line">    HuffmanTree tree = <span class="keyword">new</span> HuffmanTree();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> main(<span class="keyword">String</span>[] args) &#123;</span><br><span class="line">        <span class="keyword">String</span> str = <span class="string">"i dokjhjknkjng vjkllskjcas asdfjasd askdj askdfj asjf"</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] <span class="keyword">array</span> = str.getBytes();</span><br><span class="line">        HuffmanCode code = <span class="keyword">new</span> HuffmanCode();</span><br><span class="line">        Node root = code.tree.createTree(<span class="keyword">array</span>);</span><br><span class="line">        code.getCode(root, <span class="string">""</span>,<span class="keyword">new</span> StringBuilder());</span><br><span class="line">        System.out.<span class="built_in">println</span>(<span class="built_in">map</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">String</span> getZip(<span class="keyword">byte</span>[] <span class="keyword">array</span>)&#123;</span><br><span class="line">        StringBuilder builder = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="built_in">for</span> (<span class="keyword">byte</span> item : <span class="keyword">array</span>)&#123;</span><br><span class="line">            builder.append(<span class="built_in">map</span>.<span class="built_in">get</span>(item));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">return</span> builder.toString();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 将获得的哈夫曼编码放入map里面</span></span><br><span class="line"><span class="comment">     * @param node</span></span><br><span class="line"><span class="comment">     * @param code</span></span><br><span class="line"><span class="comment">     * @param builder</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> getCode(Node node,<span class="keyword">String</span> code, StringBuilder builder)&#123;</span><br><span class="line">        builder.append(code);</span><br><span class="line">        <span class="built_in">if</span> (node.leftChild != null)&#123;</span><br><span class="line">            getCode(node.leftChild, <span class="string">"0"</span>, <span class="keyword">new</span> StringBuilder(builder));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">if</span> (node.rightChild != null)&#123;</span><br><span class="line">            getCode(node.rightChild, <span class="string">"1"</span>, <span class="keyword">new</span> StringBuilder(builder));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">if</span> (node.value != null)&#123;</span><br><span class="line">            <span class="built_in">map</span>.<span class="built_in">put</span>(node.value, builder.toString());</span><br><span class="line">            <span class="built_in">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class Node implements Comparable&lt;Node&gt;&#123;</span><br><span class="line"></span><br><span class="line">        Integer weight;</span><br><span class="line">        Byte value;</span><br><span class="line">        Node leftChild;</span><br><span class="line">        Node rightChild;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">int</span> compareTo(Node o) &#123;</span><br><span class="line">            <span class="built_in">return</span> <span class="keyword">this</span>.weight - o.weight;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">String</span> toString() &#123;</span><br><span class="line">            <span class="built_in">return</span> <span class="keyword">new</span> <span class="keyword">String</span>(<span class="string">"char:"</span>+<span class="keyword">this</span>.value+<span class="string">"weight:"</span>+<span class="keyword">this</span>.weight);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    class HuffmanTree&#123;</span><br><span class="line">        Map&lt;Byte, Integer&gt; <span class="built_in">map</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> HuffmanCode.Node createTree(<span class="keyword">byte</span>[] <span class="keyword">array</span>)&#123;</span><br><span class="line">            <span class="built_in">if</span> (<span class="keyword">array</span>.length==<span class="number">0</span> || <span class="keyword">array</span> == null)&#123;</span><br><span class="line">                <span class="built_in">return</span> null;</span><br><span class="line">            &#125;</span><br><span class="line">            calculateWeight(<span class="keyword">array</span>);</span><br><span class="line">            List&lt;HuffmanCode.Node&gt; nodeList = createNode();</span><br><span class="line">            <span class="built_in">while</span> (nodeList.<span class="built_in">size</span>() &gt; <span class="number">1</span>)&#123;</span><br><span class="line">                Collections.sort(nodeList);</span><br><span class="line">                System.out.<span class="built_in">println</span>(nodeList);</span><br><span class="line">                HuffmanCode.Node node = <span class="keyword">new</span> HuffmanCode.Node();</span><br><span class="line">                node.weight = nodeList.<span class="built_in">get</span>(<span class="number">0</span>).weight + nodeList.<span class="built_in">get</span>(<span class="number">1</span>).weight;</span><br><span class="line">                node.leftChild = nodeList.<span class="built_in">get</span>(<span class="number">0</span>);</span><br><span class="line">                node.rightChild = nodeList.<span class="built_in">get</span>(<span class="number">1</span>);</span><br><span class="line">                nodeList.<span class="built_in">remove</span>(nodeList.<span class="built_in">get</span>(<span class="number">0</span>));</span><br><span class="line">                nodeList.<span class="built_in">remove</span>(nodeList.<span class="built_in">get</span>(<span class="number">0</span>));</span><br><span class="line">                nodeList.add(node);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">return</span> nodeList.<span class="built_in">get</span>(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> List&lt;HuffmanCode.Node&gt; createNode()&#123;</span><br><span class="line">            <span class="built_in">if</span> (<span class="built_in">map</span> == null)&#123;</span><br><span class="line">                <span class="built_in">return</span> null;</span><br><span class="line">            &#125;</span><br><span class="line">            List&lt;HuffmanCode.Node&gt; nodeList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            <span class="built_in">for</span> (Map.Entry&lt;Byte, Integer&gt; item : <span class="built_in">map</span>.entrySet())&#123;</span><br><span class="line">                HuffmanCode.Node node = <span class="keyword">new</span> HuffmanCode.Node();</span><br><span class="line">                node.value = item.<span class="built_in">getKey</span>();</span><br><span class="line">                node.weight = item.getValue();</span><br><span class="line">                nodeList.add(node);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">return</span> nodeList;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">void</span> calculateWeight(<span class="keyword">byte</span>[] <span class="keyword">array</span>)&#123;</span><br><span class="line">            <span class="built_in">if</span> (<span class="keyword">array</span>.length==<span class="number">0</span> || <span class="keyword">array</span> == null)&#123;</span><br><span class="line">                <span class="built_in">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">map</span> = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">            <span class="built_in">for</span> (Byte item : <span class="keyword">array</span>)&#123;</span><br><span class="line">                <span class="built_in">if</span> (<span class="built_in">map</span>.<span class="built_in">get</span>(item) == null)&#123;</span><br><span class="line">                    <span class="built_in">map</span>.<span class="built_in">put</span>(item, <span class="number">1</span>);</span><br><span class="line">                &#125;<span class="built_in">else</span> &#123;</span><br><span class="line">                    <span class="built_in">map</span>.<span class="built_in">put</span>(item, <span class="built_in">map</span>.<span class="built_in">get</span>(item) + <span class="number">1</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陆 滨</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://yoursite.com/2019/10/30/huffman/" title="赫夫曼树以及应用">http://yoursite.com/2019/10/30/huffman/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/29/docker/" rel="next" title="docker的使用（一）">
+                <i class="fa fa-chevron-left"></i> docker的使用（一）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/author.jpg" alt="陆 滨">
+            
+              <p class="site-author-name" itemprop="name">陆 滨</p>
+              <div class="site-description motion-element" itemprop="description">努力最后收获的就是失望？等待最后得到的就是幻想？</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ILikeAndroid" title="GitHub &rarr; https://github.com/ILikeAndroid" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:978203264@qq.com" title="E-Mail &rarr; mailto:978203264@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=556058208&auto=1&height=66"></iframe>
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键词"><span class="nav-number">2.</span> <span class="nav-text">关键词</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建最优二叉树"><span class="nav-number">3.</span> <span class="nav-text">构建最优二叉树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#java代码"><span class="nav-number">4.</span> <span class="nav-text">java代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用场景"><span class="nav-number">5.</span> <span class="nav-text">应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈弗曼编码数据压缩java代码"><span class="nav-number">6.</span> <span class="nav-text">哈弗曼编码数据压缩java代码</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陆 滨</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
