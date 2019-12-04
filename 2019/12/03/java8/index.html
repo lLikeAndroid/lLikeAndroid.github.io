@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="LuBin的个人博客">
 <meta property="og:description" content="Lambda表达式Java 8是Java自Java 5（发布于2004年）之后的最重要的版本。这个版本包含语言、编译器、库、工具和JVM等方面的十多个新特性。 Lambda是一个匿名函数，可以理解为将代码像数据一样传递，使用它可以使代码跟加简洁，灵活。Lambda的实质是借口的实例，也就是说要使用Lambda必须要是接口，并且接口里面只有一个抽象方法。 Lambda表达式的格式：箭头操作符（lam">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-04T15:56:29.755Z">
+<meta property="og:updated_time" content="2019-12-04T17:21:25.703Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java8新特性">
 <meta name="twitter:description" content="Lambda表达式Java 8是Java自Java 5（发布于2004年）之后的最重要的版本。这个版本包含语言、编译器、库、工具和JVM等方面的十多个新特性。 Lambda是一个匿名函数，可以理解为将代码像数据一样传递，使用它可以使代码跟加简洁，灵活。Lambda的实质是借口的实例，也就是说要使用Lambda必须要是接口，并且接口里面只有一个抽象方法。 Lambda表达式的格式：箭头操作符（lam">
@@ -379,7 +379,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-12-04 23:56:29" itemprop="dateModified" datetime="2019-12-04T23:56:29+08:00">2019-12-04</time>
+                <time title="修改时间：2019-12-05 01:21:25" itemprop="dateModified" datetime="2019-12-05T01:21:25+08:00">2019-12-05</time>
               </span>
             
           
@@ -433,6 +433,17 @@
 <h2 id="stream-api"><a href="#stream-api" class="headerlink" title="stream api"></a>stream api</h2><p>stream 和 collection 集合的区划是：后者是一种静态的内存数据结构，而前者是有关计算的，主要是面向cpu，通过CPU计算。</p>
 <p>stream是数据渠道，用来操作数据源的元素序列，但是它不会自己存储元素，也不会改变源对象，会返回一个新结果的stream，并且操作延迟的。</p>
 <p>stram的操作流程是：首先stream实例化，然后进行中间操作，最后终止操作。操作延迟的意思也就是要终止操作后才会进行中间操作。并且终止<br>后不能再次使用，必须要重新创建。</p>
+<p>实例化的四种方式：</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//集合实例化Stream</span></span><br><span class="line"><span class="built_in">Stream</span>&lt;T&gt; stram1 = <span class="keyword">new</span> ArrayList().stream();  <span class="comment">//顺序流</span></span><br><span class="line"><span class="built_in">Stream</span>&lt;T&gt; stram1 = <span class="keyword">new</span> ArrayList().parallelStream();   <span class="comment">//并行流 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">//数组实例化Stream</span></span><br><span class="line"><span class="keyword">int</span>[] arr = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">4</span>,<span class="number">8</span>,<span class="number">9</span>&#125;</span><br><span class="line">IntStream stream = Arrays.stream(arr);   <span class="comment">//不同的参数返回不同的对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Stream类实例化</span></span><br><span class="line"><span class="built_in">Stream</span>&lt;Integer&gt; stream = <span class="built_in">Stream</span>.of(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//Stream类无限流</span></span><br><span class="line"><span class="built_in">Stream</span>.iterate(<span class="number">0</span>,t -&gt; t+<span class="number">2</span>);    <span class="comment">//迭代</span></span><br><span class="line"><span class="built_in">Stream</span>.generate(Math::<span class="built_in">random</span>);    <span class="comment">//生成</span></span><br></pre></td></tr></table></figure>
+
+<p>Stream可以分为串行与并行两种，串行流和并行流差别就是单线程和多线程的执行。</p>
+<p>中间操作：<br>    1.筛选和切片：<br>        filter-过滤，接收Lambda，从流中排除某些元素<br>        limit-截断流，使其元素不超过给定数量<br>        skip(n)-跳过元素，返回一个扔掉了前n个元素的流。若流中元素不足n个，则返回一个空流，与limit(n)互补、<br>        distinct-筛选，通过流所生成元素的hashCode()和equals()去除重复元素<br>    2.映射<br>        map——接收lambda，将元素转换成其他形式或提取信息。接收一个函数作为参数，该函数会被应用到每个元素上，并将其映射成一个新的元素。<br>        flatMap-接收一个函数作为参数，将流中的每个值都换成另一个流，然后把所有的流连接成一个流。<br>    3.排序<br>        sorted()-自然排序(Comparable)<br>        sorted(Comparator com)-定制排序(Comparator)</p>
+<p>终止操作：<br>    1.匹配和查找：<br>        allMatch 是否匹配所有<br>        anyMatch 是否匹配一个<br>        noneMatch 是否没有匹配一个<br>        findFirst 返回第一个<br>        count 返回总数<br>        max 返回最大<br>        min 返回最小<br>        forEach 内部迭代<br>    2.归约<br>        reduce 归约 将元素连续操作得到结果<br>    3.收集<br>        collect 收集 将流转换成其他的形式(其他集合)，接收Collector接口 用于Stream中元素各种汇总      特例 Collectors.joining()拼接字符串</p>
+<h2 id="Optional类"><a href="#Optional类" class="headerlink" title="Optional类"></a>Optional类</h2><p>Optional 类主要解决的问题是臭名昭著的空指针异常（NullPointerException） —— 每个 Java 程序员都非常了解的异常。<br>本质上，这是一个包含有可选值的包装类，这意味着 Optional 类既可以含有对象也可以为空。</p>
+<p>Optional.of(T t)   创建Optional类实例,t非空<br>Optional.empty()   创建空的Optional实例<br>Optional.ofNullable(T t)  创建Optional类实例,t可以空</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//创建<span class="keyword">Optional</span>类实例</span><br><span class="line"> <span class="keyword">Optional</span>&lt;User&gt; emptyOpt = <span class="keyword">Optional</span>.empty();</span><br></pre></td></tr></table></figure>
+
+<p>isPresent  检查一个Optional对象中是否有值，只有值非空才返回true。<br>orElse  检索Optional对象中的值，它被传入一个“默认参数‘。如果对象中存在一个值，则返回它，否则返回传入的“默认参数”<br>orElseGet  与orElsel类似，但是这个函数不接收一个“默认参数”，而是一个函数接口<br>orElseThrow  orElseThrow当遇到一个不存在的值的时候，并不返回一个默认值，而是抛出异常<br>get  使用get() API 也可以返回被包裹着的值。但是必须是值存在时，当值不存在时，它会抛出一个NoSuchElementException异常</p>
 
       
     </div>
@@ -644,7 +655,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lambda表达式"><span class="nav-number">1.</span> <span class="nav-text">Lambda表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数式接口"><span class="nav-number">2.</span> <span class="nav-text">函数式接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法引用"><span class="nav-number">3.</span> <span class="nav-text">方法引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stream-api"><span class="nav-number">4.</span> <span class="nav-text">stream api</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Lambda表达式"><span class="nav-number">1.</span> <span class="nav-text">Lambda表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数式接口"><span class="nav-number">2.</span> <span class="nav-text">函数式接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法引用"><span class="nav-number">3.</span> <span class="nav-text">方法引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stream-api"><span class="nav-number">4.</span> <span class="nav-text">stream api</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optional类"><span class="nav-number">5.</span> <span class="nav-text">Optional类</span></a></li></ol></div>
             
 
           </div>
