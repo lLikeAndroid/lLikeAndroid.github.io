@@ -101,7 +101,7 @@
 <meta property="og:site_name" content="LuBin的个人博客">
 <meta property="og:description" content="mysql 和 mybatis 版本不兼容异常信息为：java.sql.SQLException: Unknown system variable ‘query_cache_size’是因为mysql版本过低，和mybatis版本不兼容，所以报错只需要更改pom文件里面的mysql依赖的版本号就可以了 springboot工程没有使用注入datasource当springboot工程里面没有使用数">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-25T14:25:01.579Z">
+<meta property="og:updated_time" content="2020-01-05T13:05:48.994Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="开发中遇到的错">
 <meta name="twitter:description" content="mysql 和 mybatis 版本不兼容异常信息为：java.sql.SQLException: Unknown system variable ‘query_cache_size’是因为mysql版本过低，和mybatis版本不兼容，所以报错只需要更改pom文件里面的mysql依赖的版本号就可以了 springboot工程没有使用注入datasource当springboot工程里面没有使用数">
@@ -364,13 +364,23 @@
                 
               
 
-              <time title="创建时间：2019-12-25 22:15:30 / 修改时间：22:25:01" itemprop="dateCreated datePublished" datetime="2019-12-25T22:15:30+08:00">2019-12-25</time>
+              <time title="创建时间：2019-12-25 22:15:30" itemprop="dateCreated datePublished" datetime="2019-12-25T22:15:30+08:00">2019-12-25</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-01-05 21:05:48" itemprop="dateModified" datetime="2020-01-05T21:05:48+08:00">2020-01-05</time>
+              </span>
             
           
 
@@ -409,6 +419,28 @@
         <h2 id="mysql-和-mybatis-版本不兼容"><a href="#mysql-和-mybatis-版本不兼容" class="headerlink" title="mysql 和 mybatis 版本不兼容"></a>mysql 和 mybatis 版本不兼容</h2><p>异常信息为：java.sql.SQLException: Unknown system variable ‘query_cache_size’<br>是因为mysql版本过低，和mybatis版本不兼容，所以报错<br>只需要更改pom文件里面的mysql依赖的版本号就可以了</p>
 <h2 id="springboot工程没有使用注入datasource"><a href="#springboot工程没有使用注入datasource" class="headerlink" title="springboot工程没有使用注入datasource"></a>springboot工程没有使用注入datasource</h2><p>当springboot工程里面没有使用数据库的东西的时候，我们没有配置datasource的信息的时候，运行时会报错，说<br>sqlsessionfactory是需要的，所以我们要在运行入口类添加注解</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">SpringBootApplication</span>(<span class="keyword">exclude</span> = DataSourceAutoConfiguration.class)</span><br></pre></td></tr></table></figure>
+
+<h2 id="在springboot的datasource配置问题"><a href="#在springboot的datasource配置问题" class="headerlink" title="在springboot的datasource配置问题"></a>在springboot的datasource配置问题</h2><p>在datasource里面的URL后面添加了 zeroDateTimeBehavior=convertToNull 参数，结果运行报错<br>java.sql.SQLException: The connection property ‘zeroDateTimeBehavior’ acceptable values are: ‘CONVERT_TO_NULL’, ‘EXCEPTION’ or ‘ROUND’. The value ‘convertToNull’ is not acceptable.<br>报错信息为添加参数无效，将 zeroDateTimeBehavior=convertToNull 参数去掉就可以了。</p>
+<h2 id="idea中springboot的断点调试"><a href="#idea中springboot的断点调试" class="headerlink" title="idea中springboot的断点调试"></a>idea中springboot的断点调试</h2><p>打开Run/Debug Configurations，选择要调试的服务，然后在虚拟机参数设置（VM options）：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-Xms512m -Xmx512m -Xmn164m -XX:<span class="attribute">MaxPermSize</span>=250m -XX:<span class="attribute">ReservedCodeCacheSize</span>=64m -Dserver.<span class="attribute">port</span>=端口号 -ea</span><br></pre></td></tr></table></figure>
+
+<p>然后Working directory选项中选择</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta"><span class="meta-keyword">$MODULE</span>_WORKING_DIR$</span></span><br></pre></td></tr></table></figure>
+
+<p>然后点击debug运行就可以了</p>
+<h2 id="mysql对字符串排序"><a href="#mysql对字符串排序" class="headerlink" title="mysql对字符串排序"></a>mysql对字符串排序</h2><p>在对字符串排序是，我们只需要</p>
+<figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> 表名  <span class="keyword">ORDER</span> <span class="keyword">BY</span> 字段名+<span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> 表名  <span class="keyword">ORDER</span> <span class="keyword">BY</span> 字段名*<span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这样我们就将字符串变为了ascII码，mysql就可以对此进行排序</p>
+<h2 id="项目jdk版本和本地版本不一致"><a href="#项目jdk版本和本地版本不一致" class="headerlink" title="项目jdk版本和本地版本不一致"></a>项目jdk版本和本地版本不一致</h2><p>在开发的时候报错了</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">error:</span><span class="string">java:</span>不支持发行版本<span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+<p>我们在 IDEA—&gt;File—&gt;project structure 里面检查一下project和modules里面的jdk版本和本地的是否一致，不一致就改成一样的。<br>修改完毕之后到 Settings–&gt;Bulid, Execution,Deployment–&gt;java Compiler，Target bytecode version设为本地Java版本。</p>
+<h2 id="jdbc链接不到数据库"><a href="#jdbc链接不到数据库" class="headerlink" title="jdbc链接不到数据库"></a>jdbc链接不到数据库</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql Caused by: java<span class="selector-class">.sql</span><span class="selector-class">.SQLSyntaxErrorException</span>: Unknown database <span class="string">'sys'</span></span><br></pre></td></tr></table></figure>
+
+<p>首先检查这个数据库是否存在，jdbcurl填写是否正确，mysql是否启动，然后检查服务看3306是否冲突。<br>我的是禅道占用了3306端口，所以连接不上。</p>
+<h2 id="string-substring-方法截取字符串"><a href="#string-substring-方法截取字符串" class="headerlink" title="string.substring()方法截取字符串"></a>string.substring()方法截取字符串</h2><p>在使用string.substring()截取字符串的时候，参数名是beginIndex和endIndex，我以为就是开始的位置和结束的位置，以为是将该位置也算上，<br>其实在使用后，发现打印的字符串不对，没有将最后一个位置的字符算上，但是算上了开始的位置。</p>
+
       
     </div>
 
@@ -619,7 +651,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-和-mybatis-版本不兼容"><span class="nav-number">1.</span> <span class="nav-text">mysql 和 mybatis 版本不兼容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#springboot工程没有使用注入datasource"><span class="nav-number">2.</span> <span class="nav-text">springboot工程没有使用注入datasource</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql-和-mybatis-版本不兼容"><span class="nav-number">1.</span> <span class="nav-text">mysql 和 mybatis 版本不兼容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#springboot工程没有使用注入datasource"><span class="nav-number">2.</span> <span class="nav-text">springboot工程没有使用注入datasource</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在springboot的datasource配置问题"><span class="nav-number">3.</span> <span class="nav-text">在springboot的datasource配置问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#idea中springboot的断点调试"><span class="nav-number">4.</span> <span class="nav-text">idea中springboot的断点调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mysql对字符串排序"><span class="nav-number">5.</span> <span class="nav-text">mysql对字符串排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目jdk版本和本地版本不一致"><span class="nav-number">6.</span> <span class="nav-text">项目jdk版本和本地版本不一致</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#jdbc链接不到数据库"><span class="nav-number">7.</span> <span class="nav-text">jdbc链接不到数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#string-substring-方法截取字符串"><span class="nav-number">8.</span> <span class="nav-text">string.substring()方法截取字符串</span></a></li></ol></div>
             
 
           </div>
@@ -640,7 +672,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
