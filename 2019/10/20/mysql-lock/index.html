@@ -421,7 +421,7 @@
 <h2 id="表级锁"><a href="#表级锁" class="headerlink" title="表级锁"></a>表级锁</h2><p>MYISAM里默认的就是表级锁，锁定粒度最大，但是由于是将整张表都进行加锁，所以逻辑非常简单，以至于加锁要快于其他锁，对系统的操作影响最小，并<br>且死锁的发生率非常小，其他锁的冲突发生就很大。</p>
 <p>使用表级锁的引擎MyISAM、MEMORY、CSV 等一些非事务性存储引擎。</p>
 <p>使用方式是</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">Lock</span> <span class="keyword">tables</span> 表名 <span class="keyword">read</span> <span class="keyword">local</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Lock tables 表名 read local;</span><br></pre></td></tr></table></figure>
 
 <h2 id="页级锁"><a href="#页级锁" class="headerlink" title="页级锁"></a>页级锁</h2><p>页级锁是锁定一段范围的数据，粒度在表锁和行锁之间，所以性能是一般的，介于两者之间，使用的引擎是BDB</p>
 <h2 id="行级锁"><a href="#行级锁" class="headerlink" title="行级锁"></a>行级锁</h2><p>行级锁是对一行或者是多行进行上锁，粒度最小，但是消耗性能非常大，并且锁的冲突最大，发生死锁的概率最大，使用的引擎是INNODB，但是并发度很高</p>
@@ -432,7 +432,7 @@
 
 意向排它锁（intention exclusive lock,IX），事务有意向对表中的某些行加排他锁</code></pre><p>在InnoDB里，默认是行级锁，如果是索引普通列或者是没有索引列，那么就会使用表级锁，如果是索引索引列或者是主键，那么就上行级锁。</p>
 <p>上锁的方式，一般mysql是自动上锁的，如果是有特殊的要求，可以手动上锁</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> ... <span class="keyword">lock</span> <span class="keyword">in</span> <span class="keyword">share</span> <span class="keyword">mode</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> <span class="keyword">table</span> <span class="keyword">where</span> ... <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from table where ... lock in share mode;</span><br><span class="line">select * from table where ... for update;</span><br></pre></td></tr></table></figure>
 
 <p>上面一句是上共享锁，下面一句是上排他锁</p>
 <p>间隙锁（next-key lock）或者叫gap锁，就是当使用范围检索条件时并上锁时，InnoDB会给符合条件的已有数据记录的 索引项加锁；对于键值在条件范围内但并不存在的记录，叫<br>做“间隙（GAP)”，InnoDB也会对这个“间隙”加锁，这种锁机制就是所谓的间隙锁 （Next-Key锁）。<br>例如：select * from table where id&gt;100 for update; 这个语句不仅会100以内已有的数据，那些没有的数据也会上锁，也就是如果有id（101,102,103），那么会上锁101,102，<br>103，那些104,105,106…尽管不存在，也依然上锁 </p>
@@ -573,7 +573,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">37</span>
+                    <span class="site-state-item-count">38</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
