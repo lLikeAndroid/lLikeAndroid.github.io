@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="汇编语言介绍我们都知道在计算机里只有高低电平方式来区别，就如摩尔电码一样，特定的组合代表特定的意义，这就是以二进制的形式传递或者存储数据。而以二进制的形式代表的指令集一般叫机器语言，可是机器语言对于人类来说是非常麻烦的，所以为了简化编写机器语言，汇编就诞生了。对于不同的平台对应的机器语言不同，汇编和机器语言是一一对应的，所以汇编是不能移植到其他平台。 cpu架构最早出现的cpu是intel的一款c">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LuBin的个人博客">
+<meta property="og:url" content="http://yoursite.com/2020/04/14/assembly/index.html">
+<meta property="og:site_name" content="LuBin的个人博客">
+<meta property="og:description" content="汇编语言介绍我们都知道在计算机里只有高低电平方式来区别，就如摩尔电码一样，特定的组合代表特定的意义，这就是以二进制的形式传递或者存储数据。而以二进制的形式代表的指令集一般叫机器语言，可是机器语言对于人类来说是非常麻烦的，所以为了简化编写机器语言，汇编就诞生了。对于不同的平台对应的机器语言不同，汇编和机器语言是一一对应的，所以汇编是不能移植到其他平台。 cpu架构最早出现的cpu是intel的一款c">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-04-14T13:06:12.534Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LuBin的个人博客">
+<meta name="twitter:description" content="汇编语言介绍我们都知道在计算机里只有高低电平方式来区别，就如摩尔电码一样，特定的组合代表特定的意义，这就是以二进制的形式传递或者存储数据。而以二进制的形式代表的指令集一般叫机器语言，可是机器语言对于人类来说是非常麻烦的，所以为了简化编写机器语言，汇编就诞生了。对于不同的平台对应的机器语言不同，汇编和机器语言是一一对应的，所以汇编是不能移植到其他平台。 cpu架构最早出现的cpu是intel的一款c">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2020/04/14/assembly/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title> | LuBin的个人博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LuBin的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">记录自己的学习经历</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/14/assembly/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陆 滨">
+      <meta itemprop="description" content="努力最后收获的就是失望？等待最后得到的就是幻想？">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuBin的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-04-14 21:05:56 / 修改时间：21:06:12" itemprop="dateCreated datePublished" datetime="2020-04-14T21:05:56+08:00">2020-04-14</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="汇编语言"><a href="#汇编语言" class="headerlink" title="汇编语言"></a>汇编语言</h1><h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>我们都知道在计算机里只有高低电平方式来区别，就如摩尔电码一样，特定的组合代表特定的意义，这就是以二进制的形式传递或者存储数据。而以二进制的形式代表的指令集一般叫机器语言，可是机器语言对于人类来说是非常麻烦的，所以为了简化编写机器语言，汇编就诞生了。对于不同的平台对应的机器语言不同，汇编和机器语言是一一对应的，所以汇编是不能移植到其他平台。</p>
+<h2 id="cpu架构"><a href="#cpu架构" class="headerlink" title="cpu架构"></a>cpu架构</h2><p>最早出现的cpu是intel的一款cpu，但是以前的intel的cpu那时还没有申请专利，还是小公司，所以cpu的结构是和其他公司共享了，但是后面公司大了，申请专利了以后，其他公司也都已经有了技术去生产改进8086的cpu，以至于后面cpu都是利用8086来改进生产的，例如知名的amd公司的cpu。而8086之后出现的cpu都会兼容8086的指令集，所以我们将这些兼容的8086的指令集叫做X86架构。</p>
+<h3 id="CPU的结构"><a href="#CPU的结构" class="headerlink" title="CPU的结构"></a>CPU的结构</h3><p>CPU也就是中央处理单元，包含了有限的寄存器，一个高频时钟，一个控制单元，一个算数逻辑单元。作用如下：</p>
+<ul>
+<li>时钟 (clock) 对 CPU 内部操作与系统其他组件进行同步。</li>
+<li>控制单元 (control unit, CU) 协调参与机器指令执行的步骤序列。</li>
+<li>算术逻辑单元 (arithmetic logic unit, ALU) 执行算术运算，如加法和减法，以及逻辑运算，如 AND（与）、OR（或）和 NOT（非）。</li>
+</ul>
+<p>CPU 通过主板上 CPU 插座的引脚与计算机其他部分相连。大部分引脚连接的是数据总线、控制总线和地址总线。</p>
+<p>附加：总线 (bus) 是一组并行线，用于将数据从计算机一个部分传送到另一个部分。一个计算机系统通常包含四类总线：数据类、I/O 类、控制类和地址类。数据总线 (data bus) 在 CPU 和内存之间传输指令和数据。I/O 总线在 CPU 和系统输入 / 输出设备之间传输数据。控制总线 (control bus) 用二进制信号对所有连接在系统总线上设备的行为进行同步。当前执行指令在 CPU 和内存之间传输数据时，地址总线 (address bus) 用于保持指令和数据的地址。</p>
+<h3 id="处理器的寻址地址"><a href="#处理器的寻址地址" class="headerlink" title="处理器的寻址地址"></a>处理器的寻址地址</h3><p>我们以16位的8086来作为例子，内部结构有16位双向数据信号线，20位地址信号线，可寻址1m字节的存储单元，对应地址为0x00000-0xFFFFF 。</p>
+<p>由于存储地址是20位，但是寄存器是16位的，所以他们采用了分段存储的方式    来解决这个问题，一个段位64kb大小，这些就是所谓的段寄存器。但是段的地址可以允许部分重叠，完全重叠、连续排列等。</p>
+<p>而暂存单元里面有些地址是固定使用的，用户不能随便访问和改变，中断矢量区：00000H—003FFH。显示缓冲区：B0000H—B0F9FH。彩色显示器的显示缓冲区：B8000H—BBF3FH。启动区：FFFF0H—FFFFFH。</p>
+<h3 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h3><p>8086内部的寄存器可以分为通用寄存器和专用寄存器两大类，专用寄存器包括指针寄存器、变址寄存器等。</p>
+<p>8086有4个16位的通用寄存器（AX、BX、CX、DX），可以存放16位的操作数。其中AX称为累加器，BX称为基址寄存器，CX称为计数寄存器，DX称为数据寄存器。</p>
+<p>有两个16位的指针寄存器SP和BP，其中SP是堆栈指针寄存器，由它和堆栈段寄存器SS一起来确定堆栈在内存中的位臵；BP是基数指针寄存器，通常用于存放基地址。</p>
+<p>有两个16位的变址寄存器SI和DI，其中SI是源变址寄存器，DI是目的变址寄存器，都用于指令的变址寻址方式。</p>
+<p>有两个16位的控制寄存器IP和标志寄存器，其中IP是指令指针寄存器，用来控制CPU的指令执行顺序，它和代码段寄存器CS一起可以确定当前所要取的指令的内存地址。标志寄存器的内容被称为处理器状态字PSW，用来存放8086CPU在工作过程中的状态。</p>
+<p>标志寄存器的各个位代表的意义：</p>
+<table>
+<thead>
+<tr>
+<th>标志名称</th>
+<th>溢岀</th>
+<th>方向</th>
+<th>中断</th>
+<th>符号</th>
+<th>零</th>
+<th>辅助进位</th>
+<th>奇偶</th>
+<th>进位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>符号</td>
+<td>OV</td>
+<td>UP</td>
+<td>EI</td>
+<td>PL</td>
+<td>ZR</td>
+<td>AC</td>
+<td>PE</td>
+<td>CY</td>
+</tr>
+</tbody></table>
+<p> 有4个16位段寄存器，即代码段寄存器CS、数据段寄存器DS、堆栈段寄存器SS和附加段寄存器ES。这些段寄存器的内容与有效的地址偏移量一起，可确定内存的物理地址。通常CS划定并控制程序区，DS和ES控制数据区，SS控制堆栈区。</p>
+<p>计算机重启后会对cs赋值为FFFF0，其他寄存器全部为0。</p>
+<h2 id="汇编指令"><a href="#汇编指令" class="headerlink" title="汇编指令"></a>汇编指令</h2><h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><p>指令是一条语句，编译器会将语句逐条转换成机器语言指令，让cpu去加载和执行。</p>
+<p>一条指令由四个部分组成：标号，指令助记符，操作数，注释。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[label: ] mnemonic [operands] [;comment]</span><br></pre></td></tr></table></figure>
+
+<h3 id="保留字"><a href="#保留字" class="headerlink" title="保留字"></a>保留字</h3><p>这是汇编有特殊意义的字符且不分大小写。有以下保留字：</p>
+<p>$    ?    @b    @f    addr    basic    byte    c    carry?     parity?     pascal     qword      real4     real8     real10     sbyte     sdord     sign?     dword     far    far16     fortran    fword    near     near16     overflow?     stdcall     sword     syscall     tbyte     vararg    word     zero?</p>
+<h3 id="mov"><a href="#mov" class="headerlink" title="mov"></a>mov</h3><p>mov指令是进行赋值操作的，格式为：mov 目的操作数，源操作数 。目的操作数必须是一个容器。且两个操作数的数据宽度是一致的，不能同时都为内存单元。而且不允许立即数直接赋值到段寄存器中。</p>
+<p>例如：mov [0xb800],0x0100。这句的意思是把0100这个数据存储到ds寄存器的0xb800地址里。如果没有指定寄存器，那么默认就是ds。mov ax,0x0100是将0100赋值到ax里。mov ax,dx    。mov ax,[0x0100] ……</p>
+<p>但是在后面出现了新的技术，叫符号扩展，我们的源操作数的宽度可以小于目的操作数了，对于有符号和无符号的数，扩展是不一样的，所以提供了两个操作指令。movzx是无符号的数，movsx是有符号的数。movsx将对扩展位赋值为1，而movzx将赋值为0。</p>
+<h3 id="db，dw，dd，dq"><a href="#db，dw，dd，dq" class="headerlink" title="db，dw，dd，dq"></a>db，dw，dd，dq</h3><p>db指令是让编译器帮我们声明以及初始化一些数据，每个数据的宽度为1字节。dw每个数据的宽度为2个字节，dd为4个字节，dq为8个字节。这些指令称为伪指令。</p>
+<p>伪指令一个重要的功能就是定义程序区域段。</p>
+<h3 id><a href="#" class="headerlink" title="="></a>=</h3><p>=是伪指令，作用是让后面出现的标记替换成标记所存储的变量值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">count byte 2233;</span><br><span class="line">mov ax,count;</span><br></pre></td></tr></table></figure>
+
+<p>如果后面出现许多个count标记，那么那些标记都会替换为2233，但只限于这条指令后面的标记，前面的不换。extra：dup()可以存储数组和字符串。</p>
+<h3 id="proc和endp"><a href="#proc和endp" class="headerlink" title="proc和endp"></a>proc和endp</h3><p>这两个是伪指令，是创建过程的指令，过程也就相当于c语言的函数一样，是一个代码区间块，而且这两个指令是成对出现的。格式是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">simple proc</span><br><span class="line">.</span><br><span class="line">.</span><br><span class="line">ret</span><br><span class="line">simple endp</span><br></pre></td></tr></table></figure>
+
+<p>ret是让cpu强制返回到调用过程的地址。而过程的标记只会在其过程中可见，在外部是不可见的。所以如果需要打破这个限制，就使用标记::的形式来定义全局标记，进行跳转和调用。</p>
+<h3 id="call和ret"><a href="#call和ret" class="headerlink" title="call和ret"></a>call和ret</h3><p>call是调用过程的指令，而ret是过程返回的指令。call实际上是将下一条指令的地址压入栈里，然后将ip寄存器保存为过程的第一条指令的地址。而ret实际上是将栈的第一个地址弹出栈，然后将这个地址保存在ip寄存器里。</p>
+<h3 id="div"><a href="#div" class="headerlink" title="div"></a>div</h3><p>div指令是做除法的使用，而且分为多种情况。</p>
+<p>第一种16位除8位。格式为：div 除数 。除数是8位通用寄存器或者是内存单元提供。而被除数是保存在ax中的，是固定的。除完以后会覆盖ax的被除数，ah保存余数，al保存商。</p>
+<p>第二种32位除16位。格式为：div 除数 。除数是16位通用寄存器或者是内存单元提供。dx保存被除数高16位，ax保存被除数低16位。除完后商保存ax，余数保存dx。</p>
+<h3 id="xor"><a href="#xor" class="headerlink" title="xor"></a>xor</h3><p>xor指令是异或指令，格式：xor 目的操作数，源操作数。作用是对比两个操作数的每一位，相同为0，不同为1，然后将值重新保存在目的操作数里面。</p>
+<h3 id="add和sub"><a href="#add和sub" class="headerlink" title="add和sub"></a>add和sub</h3><p>该指令的限制和mov一样，add是将两个操作数相加然后存放在目的操作数的容器里。sub则是将目的操作数减去源操作数，然后存放在目的操作数里。</p>
+<h3 id="lahf和sahf"><a href="#lahf和sahf" class="headerlink" title="lahf和sahf"></a>lahf和sahf</h3><p>lahf是将标志寄存器里面的低字节复制到ah里。而sahf则相反，将ah里面的数据复制到标志寄存器里。</p>
+<h3 id="xchg"><a href="#xchg" class="headerlink" title="xchg"></a>xchg</h3><p>xchg是将两个操作数的数据交换，不能使用立即数作为操作数。</p>
+<h3 id="inc和dec"><a href="#inc和dec" class="headerlink" title="inc和dec"></a>inc和dec</h3><p>inc是将操作数加1，而dec是将操作数减1。例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">inc 1000h;</span><br><span class="line">dec 1000h;</span><br></pre></td></tr></table></figure>
+
+<h3 id="neg"><a href="#neg" class="headerlink" title="neg"></a>neg</h3><p>NEG（非）指令通过把操作数转换为其二进制补码，将操作数的符号取反。</p>
+<h3 id="uses"><a href="#uses" class="headerlink" title="uses"></a>uses</h3><p>uses是调用过程将寄存器压入，返回将寄存器弹出的自动生成代码的指令，这样我们就不用写这些代码了。但是要返回的寄存器是不能使用这个的，不然会数据丢失。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">simple proc uses eax ecx ebx</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">...</span><br><span class="line">ret</span><br><span class="line">simple endp</span><br></pre></td></tr></table></figure>
+
+<h3 id="jmp和loop"><a href="#jmp和loop" class="headerlink" title="jmp和loop"></a>jmp和loop</h3><p>这两个指令都是跳转到指定地址的指令，但是jmp是无条件跳转，而loop是有条件跳转。loop的跳转叫做ecx计数器循环，每次循环后都会将ecx的数据减1。如果ecx为0的话就不会循环。但是如果ecx初始化为0后，会执行宽度最大值的循环，因为每次循环最先执行ecx-1的操作，然后用值比较0。还有在实地址模式下，默认的是cx寄存器。loop跳转的范围是有限的，必须距离当前地址计数器-128到127字节范围类。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">flag:</span><br><span class="line">   .</span><br><span class="line">   .</span><br><span class="line">   jmp flag;</span><br><span class="line">   </span><br><span class="line">top:</span><br><span class="line">   .</span><br><span class="line">   .</span><br><span class="line">   loop top;</span><br></pre></td></tr></table></figure>
+
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><h3 id="offset"><a href="#offset" class="headerlink" title="offset"></a>offset</h3><p>offset是返回数据标号的偏移量，这个偏移量按字节计算，表示的是该数据标号距离数据段起始地址的距离。</p>
+<h3 id="ptr"><a href="#ptr" class="headerlink" title="ptr"></a>ptr</h3><p>ptr可以让数据标号的数据宽度重新改变。程序可能需要将两个较小的值送入一个较大的目的操作数。如下例所示，第一个字复制到 EAX 的低半部分，第二个字复制到高半部分。而 DWORD PTR 运算符能实现这种操作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wordList WORD 5678h,1234h</span><br><span class="line">mov eax, DWORD PTR wordList      ;</span><br></pre></td></tr></table></figure>
+
+<h3 id="type"><a href="#type" class="headerlink" title="type"></a>type</h3><p>type是返回变量的单个元素的大小，这个单个元素以字节为单位。如果变量大小是字节，返回为1，如果是字，返回为2。</p>
+<h3 id="lengthof"><a href="#lengthof" class="headerlink" title="lengthof"></a>lengthof</h3><p>LENGTHOF 运算符计算数组中元素的个数，元素个数是由数组标号同一行出现的数值来定义的。如果数组定义中出现了嵌套的 DUP 运算符，那么 LENGTHOF 返回的是两个数值的乘积。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">myArray BYTE 10,20,30,40,50,</span><br><span class="line">             60,70,80,90,100;</span><br><span class="line">lengthof myArray;</span><br></pre></td></tr></table></figure>
+
+<h3 id="label"><a href="#label" class="headerlink" title="label"></a>label</h3><p>LABEL 伪指令可以插入一个标号，并定义它的大小属性，但是不为这个标号分配存储空间。常见的用法是，为数据段中定义的下一个变量提供不同的名称和大小属性。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.data</span><br><span class="line">val16 LABEL WORD</span><br><span class="line">val32 DWORD 12345678h</span><br><span class="line">.code</span><br><span class="line">mov ax,val16          ; AX = 5678h</span><br><span class="line">mov dx,[val16+2]      ; DX = 1234h</span><br></pre></td></tr></table></figure>
+
+<h3 id="typedef"><a href="#typedef" class="headerlink" title="typedef"></a>typedef</h3><p>TYPEDEF 运算符可以创建用户定义类型，这些类型包含了定义变量时内置类型的所有状态。我们一般使用它去建立指针，因为建立的变量保存了目的变量的地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">PBYTE TYPEDEF PTR BYTE                ;字节指针</span><br><span class="line">PWORD TYPEDEF PTR WORD                ;字指针</span><br><span class="line">PDWORD TYPEDEF PTR DWORD            ;双字指针</span><br></pre></td></tr></table></figure>
+
+<h3 id="逻辑移位"><a href="#逻辑移位" class="headerlink" title="逻辑移位"></a>逻辑移位</h3><p>逻辑移位就是将目的操作数向左或者是向右移动位置，无论是向什么方向，空出来的位置都由0填补，而移出去的位保存在进位标志里（cf）。</p>
+<p>shl是逻辑向左，shr是逻辑向右移位。例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shl ax,2  ;ax内存数据向左移动2位</span><br><span class="line">shr ax,1</span><br></pre></td></tr></table></figure>
+
+<h3 id="算术移位"><a href="#算术移位" class="headerlink" title="算术移位"></a>算术移位</h3><p>算术移位和逻辑移位差不多，但是就是算术移位在向右移位时，会在高位以符号位的形式补上。所以是有符号数的使用。</p>
+<p>sal是算术向左，asr是算术向右。使用方法和逻辑移位一样。</p>
+<h3 id="循环移位"><a href="#循环移位" class="headerlink" title="循环移位"></a>循环移位</h3><p>循环移位也是移动位的位置，但是移出去的数会在另一端出现，也会保存在进位标志里。</p>
+<p>rol是循环向左，ror是循环向右。例子如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">; ah  1000 1100</span><br><span class="line">ror ah,2        ;ax 0010 0011  cf = 0</span><br><span class="line">rol ah,1        ;ax 0100 0110  cf = 0</span><br></pre></td></tr></table></figure>
+
+<h2 id="条件判断"><a href="#条件判断" class="headerlink" title="条件判断"></a>条件判断</h2><h3 id="and"><a href="#and" class="headerlink" title="and"></a>and</h3><p>and指令是按位与的指令，就是目的操作数的每一位和源操作数进行与操作，结果保存在目的操作数中，and指令一般的作用都是将数据位进行屏蔽的，也就是复位和清除的功能。例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">;ax    10110111 11101010</span><br><span class="line">and ax,11101110 11001100;</span><br><span class="line"></span><br><span class="line">;    10110111  11101010</span><br><span class="line">;    11101110  11001100</span><br><span class="line">;    10100110  11001000</span><br><span class="line">;  我们可以看到结果，设置1的位都是目的操作数的数据，而设置0的位都为0，</span><br><span class="line">;  所以我们就可以利用这一点，让个别的位上的数据清除。</span><br></pre></td></tr></table></figure>
+
+<h3 id="or"><a href="#or" class="headerlink" title="or"></a>or</h3><p>or指令是按位或的指令，就是目的操作数的每一位和源操作数进行或操作，结果保存在目的操作数中，or操作是将需要的位置为1，其他位不变，作用和and恰恰相反。这两个指令通常在标志寄存器里面用的非常频繁。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">;ax    10110111 11101010</span><br><span class="line">or ax,11101110 11001100;</span><br><span class="line"></span><br><span class="line">;    10110111  11101010</span><br><span class="line">;    11101110  11001100</span><br><span class="line">;    11111111  11101110</span><br><span class="line">;  我们可以看到结果，设置1的位都是目的操作数的数据，而设置0的位都为0，</span><br><span class="line">;  所以我们就可以利用这一点，让个别的位上的数据清除。</span><br></pre></td></tr></table></figure>
+
+<h3 id="cmp"><a href="#cmp" class="headerlink" title="cmp"></a>cmp</h3><p>cmp指令是用于比较目的操作数和源操作数的指令，比较的过程是让目的操作数减去源操作数，会影响进位标志位和零标志位，溢出和符号标志位，不会保存结果。无符号数的比较和有符号数的比较，影响的是不同的标志位。一般配合jmp指令作为if条件的判断跳转。</p>
+<h3 id="not"><a href="#not" class="headerlink" title="not"></a>not</h3><p>not指令是将操作数按位取反的功能。</p>
+<h3 id="test"><a href="#test" class="headerlink" title="test"></a>test</h3><p>test指令是让两个操作数之间做and操作，但是不会改变操作数。</p>
+<h3 id="跳转指令"><a href="#跳转指令" class="headerlink" title="跳转指令"></a>跳转指令</h3><table>
+<thead>
+<tr>
+<th>JC</th>
+<th>进位跳转（进位标志位置 1）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JNC</td>
+<td>无进位跳转（进位标志位清零）</td>
+</tr>
+<tr>
+<td>JZ</td>
+<td>为零跳转（零标志位置 1）</td>
+</tr>
+<tr>
+<td>JNZ</td>
+<td>非零跳转（零标志位清零）</td>
+</tr>
+<tr>
+<td>JO</td>
+<td>溢出跳转</td>
+</tr>
+<tr>
+<td>JNO</td>
+<td>无溢出跳转</td>
+</tr>
+<tr>
+<td>JS</td>
+<td>有符号跳转</td>
+</tr>
+<tr>
+<td>JNS</td>
+<td>无符号跳转</td>
+</tr>
+<tr>
+<td>JP</td>
+<td>偶校验跳转</td>
+</tr>
+<tr>
+<td>JNP</td>
+<td>奇校验跳转</td>
+</tr>
+<tr>
+<td>JE</td>
+<td>相等跳转 (leftOp=rightOp)</td>
+</tr>
+<tr>
+<td>JNE</td>
+<td>不相等跳转 (leftOp M rightOp)</td>
+</tr>
+<tr>
+<td>JA</td>
+<td>大于跳转（若 leftOp &gt; rightOp）</td>
+</tr>
+<tr>
+<td>JNBE</td>
+<td>不小于或等于跳转（与 JA 相同）</td>
+</tr>
+<tr>
+<td>JAE</td>
+<td>大于或等于跳转（若 leftOp ≥ rightOp）</td>
+</tr>
+<tr>
+<td>JNB</td>
+<td>不小于跳转（与 JAE 相同）</td>
+</tr>
+<tr>
+<td>JB</td>
+<td>小于跳转（若 leftOp &lt; rightOp）</td>
+</tr>
+<tr>
+<td>JNAE</td>
+<td>不大于或等于跳转（与 JB 相同）</td>
+</tr>
+<tr>
+<td>JBE</td>
+<td>小于或等于跳转（若 leftOp ≤ rightOp）</td>
+</tr>
+<tr>
+<td>JNA</td>
+<td>不大于跳转（与 JBE 相同）</td>
+</tr>
+<tr>
+<td>JG</td>
+<td>大于跳转（若 leftOp &gt; rightOp） 有符号数</td>
+</tr>
+<tr>
+<td>JNLE</td>
+<td>不小于或等于跳转（与 JG 相同）  有符号数</td>
+</tr>
+<tr>
+<td>JGE</td>
+<td>大于或等于跳转（若 leftOp ≥ rightOp）  有符号数</td>
+</tr>
+<tr>
+<td>JNL</td>
+<td>不小于跳转（与 JGE 相同） 有符号数</td>
+</tr>
+<tr>
+<td>JL</td>
+<td>小于跳转（若 leftOp &lt; rightOp）有符号数</td>
+</tr>
+<tr>
+<td>JNGE</td>
+<td>不大于或等于跳转（与 JL 相同）有符号数</td>
+</tr>
+<tr>
+<td>JLE</td>
+<td>小于或等于跳转（若 leftOp ≤ rightOp）有符号数</td>
+</tr>
+<tr>
+<td>JNG</td>
+<td>不大于跳转（与 JLE 相同）有符号数</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陆 滨</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://yoursite.com/2020/04/14/assembly/">http://yoursite.com/2020/04/14/assembly/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/04/08/neumorphism/" rel="next" title="2020流行的新拟物设计风格Neumorphism">
+                <i class="fa fa-chevron-left"></i> 2020流行的新拟物设计风格Neumorphism
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/author.jpg" alt="陆 滨">
+            
+              <p class="site-author-name" itemprop="name">陆 滨</p>
+              <div class="site-description motion-element" itemprop="description">努力最后收获的就是失望？等待最后得到的就是幻想？</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ILikeAndroid" title="GitHub &rarr; https://github.com/ILikeAndroid" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:978203264@qq.com" title="E-Mail &rarr; mailto:978203264@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=556058208&auto=1&height=66"></iframe>
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#汇编语言"><span class="nav-number">1.</span> <span class="nav-text">汇编语言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cpu架构"><span class="nav-number">1.2.</span> <span class="nav-text">cpu架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU的结构"><span class="nav-number">1.2.1.</span> <span class="nav-text">CPU的结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#处理器的寻址地址"><span class="nav-number">1.2.2.</span> <span class="nav-text">处理器的寻址地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#寄存器"><span class="nav-number">1.2.3.</span> <span class="nav-text">寄存器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#汇编指令"><span class="nav-number">1.3.</span> <span class="nav-text">汇编指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#结构"><span class="nav-number">1.3.1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#保留字"><span class="nav-number">1.3.2.</span> <span class="nav-text">保留字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mov"><span class="nav-number">1.3.3.</span> <span class="nav-text">mov</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#db，dw，dd，dq"><span class="nav-number">1.3.4.</span> <span class="nav-text">db，dw，dd，dq</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#null"><span class="nav-number">1.3.5.</span> <span class="nav-text">=</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#proc和endp"><span class="nav-number">1.3.6.</span> <span class="nav-text">proc和endp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#call和ret"><span class="nav-number">1.3.7.</span> <span class="nav-text">call和ret</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#div"><span class="nav-number">1.3.8.</span> <span class="nav-text">div</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xor"><span class="nav-number">1.3.9.</span> <span class="nav-text">xor</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add和sub"><span class="nav-number">1.3.10.</span> <span class="nav-text">add和sub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lahf和sahf"><span class="nav-number">1.3.11.</span> <span class="nav-text">lahf和sahf</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#xchg"><span class="nav-number">1.3.12.</span> <span class="nav-text">xchg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#inc和dec"><span class="nav-number">1.3.13.</span> <span class="nav-text">inc和dec</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#neg"><span class="nav-number">1.3.14.</span> <span class="nav-text">neg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uses"><span class="nav-number">1.3.15.</span> <span class="nav-text">uses</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jmp和loop"><span class="nav-number">1.3.16.</span> <span class="nav-text">jmp和loop</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符"><span class="nav-number">1.4.</span> <span class="nav-text">运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#offset"><span class="nav-number">1.4.1.</span> <span class="nav-text">offset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ptr"><span class="nav-number">1.4.2.</span> <span class="nav-text">ptr</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#type"><span class="nav-number">1.4.3.</span> <span class="nav-text">type</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lengthof"><span class="nav-number">1.4.4.</span> <span class="nav-text">lengthof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#label"><span class="nav-number">1.4.5.</span> <span class="nav-text">label</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#typedef"><span class="nav-number">1.4.6.</span> <span class="nav-text">typedef</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑移位"><span class="nav-number">1.4.7.</span> <span class="nav-text">逻辑移位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#算术移位"><span class="nav-number">1.4.8.</span> <span class="nav-text">算术移位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环移位"><span class="nav-number">1.4.9.</span> <span class="nav-text">循环移位</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件判断"><span class="nav-number">1.5.</span> <span class="nav-text">条件判断</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#and"><span class="nav-number">1.5.1.</span> <span class="nav-text">and</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#or"><span class="nav-number">1.5.2.</span> <span class="nav-text">or</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cmp"><span class="nav-number">1.5.3.</span> <span class="nav-text">cmp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#not"><span class="nav-number">1.5.4.</span> <span class="nav-text">not</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#test"><span class="nav-number">1.5.5.</span> <span class="nav-text">test</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#跳转指令"><span class="nav-number">1.5.6.</span> <span class="nav-text">跳转指令</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陆 滨</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
