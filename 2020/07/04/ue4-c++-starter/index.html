@@ -102,7 +102,7 @@
 <meta property="og:description" content="c++和蓝图说明虚幻中类的层级结构object类 ： 是一个最基础的父类，只用来存放数据。actor类 ： 是一个有视觉效果的，能放置到场景里面的类。pawn类 ： 可以被控制器持有的类，有行为动作，能运动。character类 ： 有角色移动或者是行为的功能。 而这四个类是属于继承的关系， 顺序是：object-&amp;gt;actor-&amp;gt;pawn-&amp;gt;character一般来说创建玩家，我">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://img-blog.csdn.net/20170514153803276?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveW91X2xhbl9oYWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
-<meta property="og:updated_time" content="2020-07-05T13:37:48.978Z">
+<meta property="og:updated_time" content="2020-07-07T13:19:58.523Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ue4的初始入门知识">
 <meta name="twitter:description" content="c++和蓝图说明虚幻中类的层级结构object类 ： 是一个最基础的父类，只用来存放数据。actor类 ： 是一个有视觉效果的，能放置到场景里面的类。pawn类 ： 可以被控制器持有的类，有行为动作，能运动。character类 ： 有角色移动或者是行为的功能。 而这四个类是属于继承的关系， 顺序是：object-&amp;gt;actor-&amp;gt;pawn-&amp;gt;character一般来说创建玩家，我">
@@ -381,7 +381,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2020-07-05 21:37:48" itemprop="dateModified" datetime="2020-07-05T21:37:48+08:00">2020-07-05</time>
+                <time title="修改时间：2020-07-07 21:19:58" itemprop="dateModified" datetime="2020-07-07T21:19:58+08:00">2020-07-07</time>
               </span>
             
           
@@ -422,9 +422,11 @@
 <p>而这四个类是属于继承的关系， 顺序是：object-&gt;actor-&gt;pawn-&gt;character<br>一般来说创建玩家，我们都是用的pawn类来创建。</p>
 <h2 id="虚幻中游戏的层级结构"><a href="#虚幻中游戏的层级结构" class="headerlink" title="虚幻中游戏的层级结构"></a>虚幻中游戏的层级结构</h2><p>package：相当于工程文件本身。有一个world。里面包含很多东西，例如meshes，texture。<br>world：游戏世界，一个世界可以有多个level。<br>level：level就是关卡。一个关卡有多个actor。<br>actor：就是对象，也就是level场景里面的不同的东西。一个actor可以有多个component。<br>component：组件，可以使脚本组件，也可以是构成的组件，例如：台灯里面有灯泡，灯罩等等。</p>
 <h2 id="ue中的反射和垃圾回收机制"><a href="#ue中的反射和垃圾回收机制" class="headerlink" title="ue中的反射和垃圾回收机制"></a>ue中的反射和垃圾回收机制</h2><p>C++本身并不支持任何的反射形式，所以虚幻引擎使用自身的一套系统来收集、查询和管理C++相关的类、结构体、函数、成员变量以及枚举器等信息。作用于编辑器中的细节面板、序列化、垃圾收集、网络应答以及蓝图与C++的通信等。<br>我们在编写代码的时候，需要事先标记那些你想要被反射系统访问的任何类型和属性，然后Unreal Header Tool (UHT) 工具将会在你编译项目的时候收集这些信息。如果要使用标记的功能，我们需要添加</p>
-<p>#include “FileName.generated.h”<br>放在我们编写文件的开头，这样UHT才会考虑这个文件。我们可以使用UENUM(), UCLASS(), USTRUCT(), UFUNCTION()和UPROPERTY()在头文件中来注明不同的（需要加入反射机制的）类型和成员变量，这些宏的每一个都要放在类型或者成员变量定义的前面，并且可以包含一些指定的关键字参数。<br>来看StrategyGame的例子：</p>
+<p>#include “FileName.generated.h”<br>放在我们编写文件的开头，这样UHT才会考虑这个文件。我们可以使用UENUM(), UCLASS(), USTRUCT(), UFUNCTION()和UPROPERTY()在头文件中来注明不同的（需要加入反射机制的）类型和成员变量，这些宏的每一个都要放在类型或者成员变量定义的前面，并且可以包含一些指定的关键字参数。</p>
+<p>来看StrategyGame的例子：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">//////////////////////////////////////////////////////////////////////////</span><br><span class="line">// Base class for mobile units (soldiers)</span><br><span class="line">#include &quot;StrategyTypes.h&quot;</span><br><span class="line">#include &quot;StrategyChar.generated.h&quot;</span><br><span class="line"></span><br><span class="line">UCLASS(Abstract)</span><br><span class="line">class AStrategyChar : public ACharacter, public IStrategyTeamInterface</span><br><span class="line">&#123;</span><br><span class="line">    GENERATED_UCLASS_BODY()</span><br><span class="line"></span><br><span class="line">    // 当前变量的值能够在编辑器的任意一个细节面板中编辑，并且显示在’Pawn’分组中</span><br><span class="line">    UPROPERTY(EditAnywhere, Category=Pawn)</span><br><span class="line">        int32 ResourcesToGather;</span><br><span class="line"></span><br><span class="line">    // 当前函数可以被蓝图函数里面调用</span><br><span class="line">    UFUNCTION(BlueprintCallable, Category=Attachment)</span><br><span class="line">        void SetWeaponAttachment(class UStrategyAttachment* Weapon);</span><br><span class="line"></span><br><span class="line">    UFUNCTION(BlueprintCallable, Category=Attachment)</span><br><span class="line">        bool IsWeaponAttached();</span><br><span class="line"></span><br><span class="line">protected:</span><br><span class="line">    // 当前变量的值能够在编辑器的蓝图类细节面板中编辑</span><br><span class="line">    UPROPERTY(EditDefaultsOnly, Category=Pawn)</span><br><span class="line">        UAnimMontage* MeleeAnim;</span><br><span class="line"></span><br><span class="line">    /** Armor attachment slot */</span><br><span class="line">    UPROPERTY()</span><br><span class="line">        UStrategyAttachment* ArmorSlot;</span><br><span class="line"></span><br><span class="line">    /** team number */</span><br><span class="line">    uint8 MyTeamNum;</span><br><span class="line">[more code omitted]</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
+<p>使用EditAnyWhere这个参数的时候要注意，不能再指针上面使用这个参数，否则在蓝图细节面板会有非常不方便的问题。</p>
 <p>GENERATED_UCLASS_BODY() / GENERATED_USTRUCT_BODY()这两个宏要求被添加到对应的类或者结构体中，因为他们会在类的定义体中添加额外的函数或者类型别名.</p>
 <p>Unreal Build Tool (UBT) 工具和 Unreal Header Tool (UHT)工具一致合作来产生运行时反射所需的数据，UBT工具必须去浏览头文件来作为它的工作，它需要记录那些至少包含一个反射类型属性的头文件的模块，如果这些头文件在编译结束时发现有改变，则UHT工具将会被调用来收集和更新反射数据，UHT工具解析那些头文件，然后建立一个反射数据的集合，并且产生包含反射数据（产生到per-module.generated.inl文件中）的C++代码、种类繁多的帮助和程序块（在per-header.generated.h文件中）。</p>
 <p>UNREAL PROPERTY SYSTEM 的类型继承体系：</p>
@@ -434,6 +436,11 @@
 <h2 id="gameplay框架"><a href="#gameplay框架" class="headerlink" title="gameplay框架"></a>gameplay框架</h2><p>gameplay框架是ue4官方提供给我们使用的一个快速构建游戏架构的框架。</p>
 <p><img src="http://img-blog.csdn.net/20170514153803276?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveW91X2xhbl9oYWk=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="avatar"></p>
 <p>上面这张图片是这个框架的基本结构图。<br>控制器类是继承aactor类，作用是控制pawn的行为的，分为AIController和PlayerController。AIController是用来控制非玩家的人物，例如：怪物。PlayerController则是控制玩家的，可以控制很多东西，例如：HUD（平头显示信息），用户输入，以及相机。<br>GameMode（游戏模式）。处理游戏的规则，只存在与服务器端，因此客户端相关的逻辑不能存放在GameMode中。<br>GameState（游戏状态）。记录游戏的数据，比如当前游戏的进度，世界任务的完成状态等，会自动同步到各个客户端。<br>PlayerState（玩家状态）。记录玩家个人的数据，比如名字分数等，会自动同步到各个客户端。</p>
+<h2 id="CreateDefaultSubobject-函数"><a href="#CreateDefaultSubobject-函数" class="headerlink" title="CreateDefaultSubobject()函数"></a>CreateDefaultSubobject()函数</h2><p>在虚幻引擎里面创建一个静态网格体是非常简单的，只需要鼠标点击转换就可以了，但是我们在c++里面应该怎么创建静态网格体呢，其实可以用CreateDefaultSubobject函数。<br>我们只需要在这个函数里面把泛型写成UStaticMeshComponent就可以了。例如</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UStaticMeshComponent* Actor = CreateDefaultSubobject&lt;UStaticMeshComponent&gt;(Text(&quot;&quot;));</span><br></pre></td></tr></table></figure>
+
+<p>我们使用这个函数还可以创建蓝图类的默认根组件，使用USceneComponent泛型。<br>但是我们使用这个函数是有限制的，我们必须在无参构造函数里面调用才行，否则会crash，并且必须使用指针类型接收函数返回值，否则crash。</p>
+<p>subobject是什么东西呢？英文翻译是：子物件，子对象的意思。我们从字面意思上也可以看得出，它就是我们创建对象的子对象，如果我们创建ULevel对象，那么子对象就是AActor，AActor就是subobject，我们就可以在ULevel的无参构造函数里面调用CreateDefaultSubobject()函数创建AActor对象。它和component的区别就是，component没有层级关系，它只是表示一个组件而已，没有子父的关系在里面。</p>
 
       
     </div>
@@ -645,7 +652,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#c-和蓝图说明"><span class="nav-number">1.</span> <span class="nav-text">c++和蓝图说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚幻中类的层级结构"><span class="nav-number">2.</span> <span class="nav-text">虚幻中类的层级结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚幻中游戏的层级结构"><span class="nav-number">3.</span> <span class="nav-text">虚幻中游戏的层级结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ue中的反射和垃圾回收机制"><span class="nav-number">4.</span> <span class="nav-text">ue中的反射和垃圾回收机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gameplay框架"><span class="nav-number">5.</span> <span class="nav-text">gameplay框架</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#c-和蓝图说明"><span class="nav-number">1.</span> <span class="nav-text">c++和蓝图说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚幻中类的层级结构"><span class="nav-number">2.</span> <span class="nav-text">虚幻中类的层级结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#虚幻中游戏的层级结构"><span class="nav-number">3.</span> <span class="nav-text">虚幻中游戏的层级结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ue中的反射和垃圾回收机制"><span class="nav-number">4.</span> <span class="nav-text">ue中的反射和垃圾回收机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gameplay框架"><span class="nav-number">5.</span> <span class="nav-text">gameplay框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CreateDefaultSubobject-函数"><span class="nav-number">6.</span> <span class="nav-text">CreateDefaultSubobject()函数</span></a></li></ol></div>
             
 
           </div>
