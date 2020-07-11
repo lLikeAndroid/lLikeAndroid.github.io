@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="题目一块矩形土地被分为N*M的单位正方形，现在这块土地上已经埋设有一些水管，水管将从坐标为(1,1)左上角左部边缘，延伸到(N,M)右下角右部边缘。每种管道将占据一个单位正方形土地。你现在可以旋转这些管道，使得构成一个管道系统，即创造一条从(1,1)到(N,M)的连通管道。标有树木的方格表示这里没有管道。障碍物用0表示。我们可以旋转其中的一些管道，使之构成一个连通的管道系统。如果通过旋转管道可以使">
+<meta property="og:type" content="article">
+<meta property="og:title" content="水管工游戏">
+<meta property="og:url" content="http://yoursite.com/2020/07/11/search-water-pipe/index.html">
+<meta property="og:site_name" content="LuBin的个人博客">
+<meta property="og:description" content="题目一块矩形土地被分为N*M的单位正方形，现在这块土地上已经埋设有一些水管，水管将从坐标为(1,1)左上角左部边缘，延伸到(N,M)右下角右部边缘。每种管道将占据一个单位正方形土地。你现在可以旋转这些管道，使得构成一个管道系统，即创造一条从(1,1)到(N,M)的连通管道。标有树木的方格表示这里没有管道。障碍物用0表示。我们可以旋转其中的一些管道，使之构成一个连通的管道系统。如果通过旋转管道可以使">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-blog.csdn.net/20160624151557693">
+<meta property="og:image" content="https://img-blog.csdn.net/20160624151936432">
+<meta property="og:image" content="https://img-blog.csdn.net/20160624152244910">
+<meta property="og:updated_time" content="2020-07-11T12:52:09.247Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="水管工游戏">
+<meta name="twitter:description" content="题目一块矩形土地被分为N*M的单位正方形，现在这块土地上已经埋设有一些水管，水管将从坐标为(1,1)左上角左部边缘，延伸到(N,M)右下角右部边缘。每种管道将占据一个单位正方形土地。你现在可以旋转这些管道，使得构成一个管道系统，即创造一条从(1,1)到(N,M)的连通管道。标有树木的方格表示这里没有管道。障碍物用0表示。我们可以旋转其中的一些管道，使之构成一个连通的管道系统。如果通过旋转管道可以使">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20160624151557693">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="http://yoursite.com/2020/07/11/search-water-pipe/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>水管工游戏 | LuBin的个人博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">LuBin的个人博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">记录自己的学习经历</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/11/search-water-pipe/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陆 滨">
+      <meta itemprop="description" content="努力最后收获的就是失望？等待最后得到的就是幻想？">
+      <meta itemprop="image" content="/images/author.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="LuBin的个人博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">水管工游戏
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-07-11 19:56:34 / 修改时间：20:52:09" itemprop="dateCreated datePublished" datetime="2020-07-11T19:56:34+08:00">2020-07-11</time>
+            </span>
+          
+
+          
+            
+
+            
+          
+
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>一块矩形土地被分为N*M的单位正方形，现在这块土地上已经埋设有一些水管，水管将从坐标为(1,1)左上角左部边缘，延伸到(N,M)右下角右部边缘。每种管道将占据一个单位正方形土地。你现在可以旋转这些管道，使得构成一个管道系统，即创造一条从(1,1)到(N,M)的连通管道。标有树木的方格表示这里没有管道。障碍物用0表示。我们可以旋转其中的一些管道，使之构成一个连通的管道系统。如果通过旋转管道可以使之构成一个连通的管道系统，就输出铺设的路径，否则输出impossible。</p>
+<p><img src="https://img-blog.csdn.net/20160624151557693" alt="avatar"></p>
+<p><img src="https://img-blog.csdn.net/20160624151936432" alt="avatar"></p>
+<p><img src="https://img-blog.csdn.net/20160624152244910" alt="avatar"></p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>例如：<br>5 4<br>5 3 5 3<br>1 5 3 0<br>2 3 5 1<br>6 1 1 5<br>1 5 5 4 </p>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>（1,1）（1,2）（2,2）（3,2）（3,3）（3,4）（4,4）（5,4）</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">#include&lt;stack&gt;</span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">typedef struct node &#123;</span><br><span class="line">	int x;</span><br><span class="line">	int y;</span><br><span class="line">&#125; node;</span><br><span class="line"></span><br><span class="line">int length_x = 4, length_y = 5;</span><br><span class="line">int map[5][4] = &#123; &#123; 5,3,5,3 &#125;,&#123; 1,5,3,0 &#125;,&#123; 2,3,5,1 &#125;,&#123; 6,1,1,5 &#125;,&#123; 1,5,5,4 &#125; &#125;;</span><br><span class="line">int book[5][4];</span><br><span class="line">node start, target;</span><br><span class="line">bool flag = false;</span><br><span class="line">stack&lt;node&gt; output_stack;</span><br><span class="line"></span><br><span class="line">void findPath(node now, int district) &#123;</span><br><span class="line"></span><br><span class="line">	if (now.y == target.y &amp;&amp; now.x == target.x + 1)</span><br><span class="line">	&#123;</span><br><span class="line">		flag = true;</span><br><span class="line">		while (!output_stack.empty())</span><br><span class="line">		&#123;</span><br><span class="line">			cout &lt;&lt; &quot;(&quot; &lt;&lt; output_stack.top().x &lt;&lt; &quot;,&quot; &lt;&lt; output_stack.top().y &lt;&lt; &quot;)&quot; &lt;&lt; endl;</span><br><span class="line">			output_stack.pop();</span><br><span class="line">		&#125;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if (now.x &gt;= length_x || now.x &lt; 0 || now.y &gt;= length_y || now.y &lt; 0)</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if (map[now.y][now.x] == 0)</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if (book[now.y][now.x] == 1)</span><br><span class="line">	&#123;</span><br><span class="line">		return;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	book[now.y][now.x] = 1;</span><br><span class="line">	output_stack.push(now);</span><br><span class="line"></span><br><span class="line">	if (map[now.y][now.x] &gt; 4 &amp;&amp; map[now.y][now.x] &lt; 7)</span><br><span class="line">	&#123;</span><br><span class="line">		if (district == 1)</span><br><span class="line">		&#123;</span><br><span class="line">			now.y += 1;</span><br><span class="line">			findPath(now, district);</span><br><span class="line">		&#125;</span><br><span class="line">		if (district == 2)</span><br><span class="line">		&#123;</span><br><span class="line">			now.x -= 1;</span><br><span class="line">			findPath(now, district);</span><br><span class="line">		&#125;</span><br><span class="line">		if (district == 3)</span><br><span class="line">		&#123;</span><br><span class="line">			now.y -= 1;</span><br><span class="line">			findPath(now, district);</span><br><span class="line">		&#125;</span><br><span class="line">		if (district == 4)</span><br><span class="line">		&#123;</span><br><span class="line">			now.x += 1;</span><br><span class="line">			findPath(now, district);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if (map[now.y][now.x] &gt; 0 &amp;&amp; map[now.y][now.x] &lt; 5)</span><br><span class="line">	&#123;</span><br><span class="line">		node new1 = now;</span><br><span class="line">		node new2 = now;</span><br><span class="line"></span><br><span class="line">		if (district == 1)</span><br><span class="line">		&#123;</span><br><span class="line">			new1.x += 1;</span><br><span class="line">			new2.x -= 1;</span><br><span class="line">			findPath(new1, 4);</span><br><span class="line">			findPath(new2, 2);</span><br><span class="line">		&#125;</span><br><span class="line">		if (district == 2)</span><br><span class="line">		&#123;</span><br><span class="line">			new1.y += 1;</span><br><span class="line">			new2.y -= 1;</span><br><span class="line">			findPath(new1, 1);</span><br><span class="line">			findPath(new2, 3);</span><br><span class="line">		&#125;</span><br><span class="line">		if (district == 3)</span><br><span class="line">		&#123;</span><br><span class="line">			new1.x += 1;</span><br><span class="line">			new2.x -= 1;</span><br><span class="line">			findPath(new1, 4);</span><br><span class="line">			findPath(new2, 2);</span><br><span class="line">		&#125;</span><br><span class="line">		if (district == 4)</span><br><span class="line">		&#123;</span><br><span class="line">			new1.y += 1;</span><br><span class="line">			new2.y -= 1;</span><br><span class="line">			findPath(new1, 1);</span><br><span class="line">			findPath(new2, 3);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	book[now.y][now.x] = 0;</span><br><span class="line"></span><br><span class="line">	while (!output_stack.empty()) &#123;</span><br><span class="line">		output_stack.pop();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main() &#123;</span><br><span class="line">	start.x = 0, start.y = 0;</span><br><span class="line">	target.x = 3, target.y = 4;</span><br><span class="line">	findPath(start, 1);</span><br><span class="line">	if (!flag)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; &quot;没有路&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>对于这种找到路径的问题，我们第一想法就是广搜和深搜。那么这个游戏的方法，我们可以从入水口判断出下一个水管是什么样的，所以用广搜的话，会多出一些没有用的判断，浪费一些时间，虽然对于电脑来说没有多大的影响，而且这种游戏也不会将地图设置多大，但是能用深搜何必用广搜呢。</p>
+<p>然后首先考虑递归需要迭代的参数，首先这种地图肯定坐标是要递归的，其次我们需要上一次的接水管的方向，这样递归就有一个问题，就是最后的水管要匹配两个方向，一个是入水口，一个是出水口。我们可以将最后的水管外面那个当成一个水管，那么最后一个就不用特殊处理了，但是如果把地图外的当成水管，那么判断超界又有问题了，所以必须把赢得判断放在超界的判断上面。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陆 滨</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="http://yoursite.com/2020/07/11/search-water-pipe/" title="水管工游戏">http://yoursite.com/2020/07/11/search-water-pipe/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/04/ue4-c++-starter/" rel="next" title="ue4的初始入门知识">
+                <i class="fa fa-chevron-left"></i> ue4的初始入门知识
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/author.jpg" alt="陆 滨">
+            
+              <p class="site-author-name" itemprop="name">陆 滨</p>
+              <div class="site-description motion-element" itemprop="description">努力最后收获的就是失望？等待最后得到的就是幻想？</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">43</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/ILikeAndroid" title="GitHub &rarr; https://github.com/ILikeAndroid" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                    
+                  
+                  
+                    
+                  
+                  <a href="mailto:978203264@qq.com" title="E-Mail &rarr; mailto:978203264@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            </div>
+          
+
+          
+             <div class="cc-license motion-element" itemprop="license">
+              
+              
+                
+              
+              
+              
+              <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+             </div>
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=556058208&auto=1&height=66"></iframe>
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">1.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入"><span class="nav-number">2.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出"><span class="nav-number">3.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">4.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思想"><span class="nav-number">5.</span> <span class="nav-text">思想</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陆 滨</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,255" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
