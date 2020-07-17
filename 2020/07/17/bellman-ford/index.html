@@ -94,19 +94,17 @@
 
 
 
-  <meta name="description" content="lombok官方介绍：Project Lombok makes java a spicier language by adding ‘handlers’ that know how to build and compile simple, boilerplate-free, not-quite-java code. 开发中经常需要写的javabean，都需要花时间去添加相应的getter/sett">
+  <meta name="description" content="简介贝尔曼-福特算法（英语：Bellman–Ford algorithm），求解单源最短路径问题的一种算法，由理查德·贝尔曼（Richard Bellman） 和 莱斯特·福特 创立的。有时候这种算法也被称为 Moore-Bellman-Ford 算法，因为 Edward F. Moore 也为这个算法的发展做出了贡献。它的原理是对图进行次松弛操作，得到所有可能的最短路径。其优于迪科斯彻算法的方面">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在开发中使用的idea插件">
-<meta property="og:url" content="http://yoursite.com/2019/12/06/idea-plugins/index.html">
+<meta property="og:title" content="bellman-ford算法">
+<meta property="og:url" content="http://yoursite.com/2020/07/17/bellman-ford/index.html">
 <meta property="og:site_name" content="LuBin的个人博客">
-<meta property="og:description" content="lombok官方介绍：Project Lombok makes java a spicier language by adding ‘handlers’ that know how to build and compile simple, boilerplate-free, not-quite-java code. 开发中经常需要写的javabean，都需要花时间去添加相应的getter/sett">
+<meta property="og:description" content="简介贝尔曼-福特算法（英语：Bellman–Ford algorithm），求解单源最短路径问题的一种算法，由理查德·贝尔曼（Richard Bellman） 和 莱斯特·福特 创立的。有时候这种算法也被称为 Moore-Bellman-Ford 算法，因为 Edward F. Moore 也为这个算法的发展做出了贡献。它的原理是对图进行次松弛操作，得到所有可能的最短路径。其优于迪科斯彻算法的方面">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://img-blog.csdn.net/20180612165933290?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NoZW5mZW5nYmFv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
-<meta property="og:updated_time" content="2019-12-06T15:52:37.022Z">
+<meta property="og:updated_time" content="2020-07-17T14:14:31.845Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在开发中使用的idea插件">
-<meta name="twitter:description" content="lombok官方介绍：Project Lombok makes java a spicier language by adding ‘handlers’ that know how to build and compile simple, boilerplate-free, not-quite-java code. 开发中经常需要写的javabean，都需要花时间去添加相应的getter/sett">
-<meta name="twitter:image" content="https://img-blog.csdn.net/20180612165933290?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NoZW5mZW5nYmFv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta name="twitter:title" content="bellman-ford算法">
+<meta name="twitter:description" content="简介贝尔曼-福特算法（英语：Bellman–Ford algorithm），求解单源最短路径问题的一种算法，由理查德·贝尔曼（Richard Bellman） 和 莱斯特·福特 创立的。有时候这种算法也被称为 Moore-Bellman-Ford 算法，因为 Edward F. Moore 也为这个算法的发展做出了贡献。它的原理是对图进行次松弛操作，得到所有可能的最短路径。其优于迪科斯彻算法的方面">
 
 
 
@@ -114,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/12/06/idea-plugins/">
+  <link rel="canonical" href="http://yoursite.com/2020/07/17/bellman-ford/">
 
 
 
@@ -124,7 +122,7 @@
   };
 </script>
 
-  <title>在开发中使用的idea插件 | LuBin的个人博客</title>
+  <title>bellman-ford算法 | LuBin的个人博客</title>
   
 
 
@@ -323,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/06/idea-plugins/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/17/bellman-ford/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陆 滨">
@@ -340,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">在开发中使用的idea插件
+          <h1 class="post-title" itemprop="name headline">bellman-ford算法
 
               
             
@@ -366,7 +364,7 @@
                 
               
 
-              <time title="创建时间：2019-12-06 22:09:14 / 修改时间：23:52:37" itemprop="dateCreated datePublished" datetime="2019-12-06T22:09:14+08:00">2019-12-06</time>
+              <time title="创建时间：2020-07-17 21:46:22 / 修改时间：22:14:31" itemprop="dateCreated datePublished" datetime="2020-07-17T21:46:22+08:00">2020-07-17</time>
             </span>
           
 
@@ -408,28 +406,13 @@
       
 
       
-        <h2 id="lombok"><a href="#lombok" class="headerlink" title="lombok"></a>lombok</h2><p>官方介绍：Project Lombok makes java a spicier language by adding ‘handlers’ that know how to build and compile simple, boilerplate-free, not-quite-java code.</p>
-<p>开发中经常需要写的javabean，都需要花时间去添加相应的getter/setter，也许还要去写构造器、equals等方法，而且需要维护，当属性多时会出现大量的<br>getter/setter方法，这些显得很冗长也没有太多技术含量，一旦修改属性，就容易出现忘记修改对应方法的失误。Lombok能通过注解的方式，在编译时自动<br>为属性生成构造器、getter/setter、equals、hashcode、toString方法。</p>
-<p>maven依赖</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.projectlombok&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;lombok&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.16.20&lt;/version&gt;</span><br><span class="line">    &lt;scope&gt;provided&lt;/scope&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>贝尔曼-福特算法（英语：Bellman–Ford algorithm），求解单源最短路径问题的一种算法，由理查德·贝尔曼（Richard Bellman） 和 莱斯特·福特 创立的。有时候这种算法也被称为 Moore-Bellman-Ford 算法，因为 Edward F. Moore 也为这个算法的发展做出了贡献。它的原理是对图进行次松弛操作，得到所有可能的最短路径。其优于迪科斯彻算法的方面是边的权值可以为负数、实现简单，缺点是时间复杂度过高。但算法可以进行若干种优化，提高了效率。其中一种优化是改变数据结构，改成队列，还有对无效点进行跳过等等。</p>
+<h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p>就是一个有向图，指定起点，查找到其他点的最短路径。<br>输入第一行是 顶点数 边数量<br>第二行是 起点  终点  权值<br>默认源点是1点</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>5 5<br>2 3 2<br>1 2 -3<br>1 5 5<br>4 5 2<br>3 4 3</p>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>0 -3 -1 2 4</p>
+<h2 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line"></span><br><span class="line">using namespace std;</span><br><span class="line"></span><br><span class="line">int vert_length = 5;</span><br><span class="line">int line_length = 5;</span><br><span class="line">int inf = 999999;</span><br><span class="line">int vert1[5] = &#123;1, 0, 0, 3, 2&#125;, vert2[5] = &#123; 2, 1, 4, 4, 3 &#125;, w[5] = &#123; 2, -3, 5, 2, 3 &#125;;</span><br><span class="line">int dis[5], book[5];</span><br><span class="line">int start;</span><br><span class="line"></span><br><span class="line">void init() &#123;</span><br><span class="line">	for (int i = 0; i &lt; vert_length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		if (i == start)</span><br><span class="line">		&#123;</span><br><span class="line">			dis[i] = 0;</span><br><span class="line">		&#125;</span><br><span class="line">		else</span><br><span class="line">		&#123;</span><br><span class="line">			dis[i] = inf;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void findPath() &#123;</span><br><span class="line">	</span><br><span class="line">	bool isLoop = false;</span><br><span class="line"></span><br><span class="line">	init();</span><br><span class="line"></span><br><span class="line">	for (int i = 0; i &lt; vert_length - 1; i++)</span><br><span class="line">	&#123;</span><br><span class="line">			for (int j = 0; j &lt; vert_length; j++)</span><br><span class="line">			&#123;</span><br><span class="line">				book[j] = dis[j];</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			for (int j = 0; j &lt; line_length; j++)</span><br><span class="line">			&#123;</span><br><span class="line">				if (dis[vert2[j]] &gt; dis[vert1[j]] + w[j])</span><br><span class="line">				&#123;</span><br><span class="line">					dis[vert2[j]] = dis[vert1[j]] + w[j];</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			bool isFinal = true;</span><br><span class="line"></span><br><span class="line">			for (int k = 0; k &lt; vert_length; k++)</span><br><span class="line">			&#123;</span><br><span class="line">				if (book[k] != dis[k]) &#123;</span><br><span class="line">					isFinal = false;</span><br><span class="line">					break;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">			if (isFinal)</span><br><span class="line">			&#123;</span><br><span class="line">				break;</span><br><span class="line">			&#125;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	for (int j = 0; j &lt; line_length; j++)</span><br><span class="line">	&#123;</span><br><span class="line">		if (dis[vert2[j]] &gt; dis[vert1[j]] + w[j])</span><br><span class="line">		&#123;</span><br><span class="line">			isLoop = true;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	if (isLoop) &#123;</span><br><span class="line">		cout &lt;&lt; &quot;存在负权回环&quot; &lt;&lt; endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">void main() &#123;</span><br><span class="line">	start = 0;</span><br><span class="line">	findPath();</span><br><span class="line">	for (int i = 0; i &lt; vert_length; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		cout &lt;&lt; dis[i] &lt;&lt; &quot; &quot;;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>@Data注解在类上，会为类的所有属性自动生成setter/getter、equals、canEqual、hashCode、toString方法，final属性，则不会为该属性生成setter方法。<br>如果觉得@Data太过残暴（因为@Data集合了@ToString、@EqualsAndHashCode、@Getter/@Setter、@RequiredArgsConstructor的所有特性）不够精细，可以<br>使用@Getter/@Setter注解，此注解在属性上，可以为相应的属性自动生成Getter/Setter方法。</p>
-<p>@NonNull注解用在属性或构造器上，Lombok会生成一个非空的声明，可用于校验参数，能帮助避免空指针。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import lombok.NonNull;</span><br><span class="line"></span><br><span class="line">public class NonNullExample extends Something &#123;</span><br><span class="line">  private String name;</span><br><span class="line">  </span><br><span class="line">  public NonNullExample(@NonNull Person person) &#123;</span><br><span class="line">    super(&quot;Hello&quot;);</span><br><span class="line">    this.name = person.getName();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>@Cleanup注解能帮助我们自动调用close()方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">import lombok.Cleanup;</span><br><span class="line">import java.io.*;</span><br><span class="line"></span><br><span class="line">public class CleanupExample &#123;</span><br><span class="line">  public static void main(String[] args) throws IOException &#123;</span><br><span class="line">    @Cleanup InputStream in = new FileInputStream(args[0]);</span><br><span class="line">    @Cleanup OutputStream out = new FileOutputStream(args[1]);</span><br><span class="line">    byte[] b = new byte[10000];</span><br><span class="line">    while (true) &#123;</span><br><span class="line">      int r = in.read(b);</span><br><span class="line">      if (r == -1) break;</span><br><span class="line">      out.write(b, 0, r);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>@EqualsAndHashCode默认情况下，会使用所有非静态（non-static）和非瞬态（non-transient）属性来生成equals和hasCode，也能通过exclude注解<br>来排除一些属性。callSuper=true时，会调用父类的equlas()方法</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">import lombok.EqualsAndHashCode;</span><br><span class="line"></span><br><span class="line">@EqualsAndHashCode(exclude=&#123;&quot;id&quot;, &quot;shape&quot;&#125;)</span><br><span class="line">public class EqualsAndHashCodeExample &#123;</span><br><span class="line">  private transient int transientVar = 10;</span><br><span class="line">  private String name;</span><br><span class="line">  private double score;</span><br><span class="line">  private Shape shape = new Square(5, 10);</span><br><span class="line">  private String[] tags;</span><br><span class="line">  private int id;</span><br><span class="line">  </span><br><span class="line">  @EqualsAndHashCode(callSuper=true)</span><br><span class="line">  public static class Square extends Shape &#123;</span><br><span class="line">    private final int width, height;</span><br><span class="line">    </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>@ToString类使用@ToString注解，Lombok会生成一个toString()方法，默认情况下，会输出类名、所有属性（会按照属性定义顺序），用逗号来分割。通过将<br>includeFieldNames参数设为true，就能明确的输出toString()属性。</p>
-<p>@NoArgsConstructor, @RequiredArgsConstructor and @AllArgsConstructor无参构造器、部分参数构造器、全参构造器。</p>
-<h2 id="CodeGlance"><a href="#CodeGlance" class="headerlink" title="CodeGlance"></a>CodeGlance</h2><p>这是一个类似于vscode的右边的代码缩略图，我们安装后可以快速拖滑代码。以下是效果：<br><img src="https://img-blog.csdn.net/20180612165933290?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NoZW5mZW5nYmFv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" alt="image"></p>
-<h2 id="Save-Actions"><a href="#Save-Actions" class="headerlink" title="Save Actions"></a>Save Actions</h2><p>团队多个人提交代码时，应保持代码格式统一。每次提交的时候，都需要格式化，否则代码样式就不一样，如果有人格式化，有人不格式化，当对比代码变更时，就非常困难。<br>这是一个自动代码格式化的插件，我们在进行保存代码后，就会自动格式化代码。</p>
-<h2 id="Alibaba-Java-Coding-Guidelines"><a href="#Alibaba-Java-Coding-Guidelines" class="headerlink" title="Alibaba Java Coding Guidelines"></a>Alibaba Java Coding Guidelines</h2><p>阿里巴巴于10月14号在杭州云栖大会上，正式发布《阿里巴巴Java开发规约》的扫描插件。该插件在扫描代码后，将不符合规约的代码按Blocker/Critical/Major三个等级显示在下方，甚至在IDEA上，该插件还基于Inspection机制提供了实时检测功能，编写代码的同时也能快速发现问题所在。对于历史代码，部分规则实现了批量一键修复的功能。</p>
-<h2 id="Alibaba-Cloud-Toolkit"><a href="#Alibaba-Cloud-Toolkit" class="headerlink" title="Alibaba Cloud Toolkit"></a>Alibaba Cloud Toolkit</h2><p>Alibaba Cloud Toolkit插件，可以帮助开发者高效开发并部署适合在云端运行的应用，人开发者项目不多也不大，如果使用jenkins等工具会比较麻烦。</p>
-<p>安装和配置的流程，主要有以下几步：<br>    1.在idea上安装Alibaba Cloud Toolkit插件<br>    2.重启idea应用<br>    3.配置Cloud Toolkit插件中的Accout信息<br>    4.在阿里云中获取用户AccessKey相关信息（AccessKey ID、    Access Key Secret）<br>    5.配置发不到ECS的相关服务器及命令信息<br>    6.测试并成功发布</p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>这个算法其实和dijkstra算法很像，核心就是插入一个点，看加起来的权值是否比原来不加的少。还有一个思想就是两个点的最短路径，一定是一个简单路径，不存在回环这种情况。<br>还有就是最外面的循环，第一次找到了通过两条边的最短路径，第二次找到通过三条边的最短路径，我们可以从中得到一种结论，这个就要自己好好思考了。</p>
 
       
     </div>
@@ -464,7 +447,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="http://yoursite.com/2019/12/06/idea-plugins/" title="在开发中使用的idea插件">http://yoursite.com/2019/12/06/idea-plugins/</a>
+    <a href="http://yoursite.com/2020/07/17/bellman-ford/" title="bellman-ford算法">http://yoursite.com/2020/07/17/bellman-ford/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -484,8 +467,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/12/03/java8/" rel="next" title="Java8新特性">
-                <i class="fa fa-chevron-left"></i> Java8新特性
+              <a href="/2020/07/14/dijkstra-one/" rel="next" title="Dijkstra算法--单源最短路径算法">
+                <i class="fa fa-chevron-left"></i> Dijkstra算法--单源最短路径算法
               </a>
             
           </div>
@@ -493,10 +476,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/12/21/redis/" rel="prev" title="redis的使用">
-                redis的使用 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -645,7 +624,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#lombok"><span class="nav-number">1.</span> <span class="nav-text">lombok</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用"><span class="nav-number">1.1.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CodeGlance"><span class="nav-number">2.</span> <span class="nav-text">CodeGlance</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Save-Actions"><span class="nav-number">3.</span> <span class="nav-text">Save Actions</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Alibaba-Java-Coding-Guidelines"><span class="nav-number">4.</span> <span class="nav-text">Alibaba Java Coding Guidelines</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Alibaba-Cloud-Toolkit"><span class="nav-number">5.</span> <span class="nav-text">Alibaba Cloud Toolkit</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#题目"><span class="nav-number">2.</span> <span class="nav-text">题目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入"><span class="nav-number">3.</span> <span class="nav-text">输入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输出"><span class="nav-number">4.</span> <span class="nav-text">输出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码"><span class="nav-number">5.</span> <span class="nav-text">代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">6.</span> <span class="nav-text">思路</span></a></li></ol></div>
             
 
           </div>
