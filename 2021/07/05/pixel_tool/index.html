@@ -94,19 +94,17 @@
 
 
 
-  <meta name="description" content="b树在计算机科学中，B树（B-tree）是一种树状数据结构，它能够存储数据、对其进行排序并允许以O(log n)的时间复杂度运行进行查找、顺序读取、插入和删除的数据结构，普遍运用在数据库和文件系统。我们描述一颗B树时需要指定它的阶数，阶数表示了一个结点最多有多少个孩子结点，，一般用字母m表示阶数。 使用B树的主要原因之一是它能够在单个节点中存储大量键，并且通过保持树的高度相对较小来存储大键值。 B">
+  <meta name="description" content="努力最后收获的就是失望？等待最后得到的就是幻想？">
 <meta property="og:type" content="article">
-<meta property="og:title" content="b树，b+树和b*树">
-<meta property="og:url" content="http://yoursite.com/2019/10/20/bT/index.html">
+<meta property="og:title" content="图像处理————将图片处理为像素风格和黑白风格">
+<meta property="og:url" content="http://yoursite.com/2021/07/05/pixel_tool/index.html">
 <meta property="og:site_name" content="LuBin的个人博客">
-<meta property="og:description" content="b树在计算机科学中，B树（B-tree）是一种树状数据结构，它能够存储数据、对其进行排序并允许以O(log n)的时间复杂度运行进行查找、顺序读取、插入和删除的数据结构，普遍运用在数据库和文件系统。我们描述一颗B树时需要指定它的阶数，阶数表示了一个结点最多有多少个孩子结点，，一般用字母m表示阶数。 使用B树的主要原因之一是它能够在单个节点中存储大量键，并且通过保持树的高度相对较小来存储大键值。 B">
+<meta property="og:description" content="努力最后收获的就是失望？等待最后得到的就是幻想？">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://www.yiibai.com/uploads/images/2018/11/12/085347_39239.png">
-<meta property="og:updated_time" content="2019-08-18T14:06:34.000Z">
+<meta property="og:updated_time" content="2021-07-04T16:11:11.862Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="b树，b+树和b*树">
-<meta name="twitter:description" content="b树在计算机科学中，B树（B-tree）是一种树状数据结构，它能够存储数据、对其进行排序并允许以O(log n)的时间复杂度运行进行查找、顺序读取、插入和删除的数据结构，普遍运用在数据库和文件系统。我们描述一颗B树时需要指定它的阶数，阶数表示了一个结点最多有多少个孩子结点，，一般用字母m表示阶数。 使用B树的主要原因之一是它能够在单个节点中存储大量键，并且通过保持树的高度相对较小来存储大键值。 B">
-<meta name="twitter:image" content="https://www.yiibai.com/uploads/images/2018/11/12/085347_39239.png">
+<meta name="twitter:title" content="图像处理————将图片处理为像素风格和黑白风格">
+<meta name="twitter:description" content="努力最后收获的就是失望？等待最后得到的就是幻想？">
 
 
 
@@ -114,7 +112,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/10/20/bT/">
+  <link rel="canonical" href="http://yoursite.com/2021/07/05/pixel_tool/">
 
 
 
@@ -124,7 +122,7 @@
   };
 </script>
 
-  <title>b树，b+树和b*树 | LuBin的个人博客</title>
+  <title>图像处理————将图片处理为像素风格和黑白风格 | LuBin的个人博客</title>
   
 
 
@@ -323,7 +321,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/20/bT/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/07/05/pixel_tool/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陆 滨">
@@ -340,7 +338,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">b树，b+树和b*树
+          <h1 class="post-title" itemprop="name headline">图像处理————将图片处理为像素风格和黑白风格
 
               
             
@@ -366,23 +364,13 @@
                 
               
 
-              <time title="创建时间：2019-10-20 20:29:43" itemprop="dateCreated datePublished" datetime="2019-10-20T20:29:43+08:00">2019-10-20</time>
+              <time title="创建时间：2021-07-05 00:05:19 / 修改时间：00:11:11" itemprop="dateCreated datePublished" datetime="2021-07-05T00:05:19+08:00">2021-07-05</time>
             </span>
           
 
           
             
 
-            
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2019-08-18 22:06:34" itemprop="dateModified" datetime="2019-08-18T22:06:34+08:00">2019-08-18</time>
-              </span>
             
           
 
@@ -418,27 +406,7 @@
       
 
       
-        <h2 id="b树"><a href="#b树" class="headerlink" title="b树"></a>b树</h2><p>在计算机科学中，B树（B-tree）是一种树状数据结构，它能够存储数据、对其进行排序并允许以O(log n)的时间复杂度运行进行查找、顺序读取、插入和删除的数据结构，普遍运用在数据库和文件系统。<br>我们描述一颗B树时需要指定它的阶数，阶数表示了一个结点最多有多少个孩子结点，，一般用字母m表示阶数。</p>
-<p>使用B树的主要原因之一是它能够在单个节点中存储大量键，并且通过保持树的高度相对较小来存储大键值。</p>
-<p>B树定义如下：<br>    1.每个结点最多有m-1个关键字。<br>    2.根结点至少有两个子女。<br>    3.非根结点至少有Math.ceil(m/2)-1个关键字。<br>    4.每个结点中的关键字都按照从小到大的顺序排列，每个关键字的左子树中的所有关键字都小于它，而右子树中的所有关键字都大于它。<br>    5.所有叶子结点都位于同一层，或者说根结点到每个叶子结点的长度都相同。</p>
-<p><img src="https://www.yiibai.com/uploads/images/2018/11/12/085347_39239.png" alt="avatar"></p>
-<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><p>在B树中搜索类似于二叉搜索树中的搜索。 例如，如果在以下B树中搜索数据项：49。 该过程将如下所示：</p>
-<p>将数据项49与根节点78进行比较。因为49 &lt;78因此，移动到其左子树。<br>因为，40 &lt;49 &lt;56，遍历右子树40。49&gt; 45，向右移动。<br>比较49。找到匹配，则返回。<br>在B树中搜索取决于树的高度。 搜索算法需要O(log n)时间来搜索B树中的任何元素。</p>
-<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>插入在叶节点级别完成。要将项目插入B树，需要遵循以下算法。</p>
-<p>遍历B树以找到可插入节点的适当叶节点。<br>如果叶节点包含少于m-1个键，则按递增顺序插入元素。<br>否则，如果叶节点包含m-1个键，则按照以下步骤操作。<br>按元素的递增顺序插入新元素。<br>将节点拆分为中间的两个节点。<br>将中值元素推送到其父节点。<br>如果父节点还包含m-1个键，则按照相同的步骤将其拆分。</p>
-<h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><p>还在叶节点处执行删除。 要删除的节点可以是叶节点或内部节点。 需要遵循以下算法才能从B树中删除节点。</p>
-<p>找到叶节点。如果叶节点中有多于m/2个键，则从节点中删除所需的键。<br>如果叶节点不包含m/2个键，则通过从8个或左兄弟中获取元素来完成键。</p>
-<p>如果左侧兄弟包含多于m/2个元素，则将其最大元素推送到其父元素，并将插入元素向下移动到删除键的节点。<br>如果右侧兄弟包含多于m/2个元素，则将其最小元素向上推送到父节点，并将插入元素向下移动到删除键的节点。<br>如果兄弟节点都不包含多于m/2个元素，则通过连接两个叶节点和父节点的插入元素来创建新的叶节点。<br>如果父节点的节点少于m/2，那么也应在父节点上应用上述过程。如果要删除的节点是内部节点，则将节点替换为其有序后继或前一个节点。<br>由于后继或前任将始终位于叶节点上，因此该过程将类似于从叶节点中删除节点。</p>
-<h2 id="b-树"><a href="#b-树" class="headerlink" title="b+树"></a>b+树</h2><p>B+树是B树的变体，也是一种多路搜索树：</p>
-<pre><code>1.其定义基本与B-树同，除了：
-2.非叶子结点的子树指针与关键字个数相同；
-3.非叶子结点的子树指针P[i]，指向关键字值属于[K[i], K[i+1])的子树（B-树是开区间）；
-5.为所有叶子结点增加一个链指针；
-6.所有关键字都在叶子结点出现；</code></pre><p>B+的搜索与B树也基本相同，区别是B+树只有达到叶子结点才命中，B树可以在非空子节点命中。<br>适合文件索引系统，增删文件（节点）时，效率更高，因为B+树的叶子节点包含所有关键字，并以有序的链表结构存储，这样可很好提高增删效率。<br>mysql里面的全文索引就是使用的B+树结构。</p>
-<h2 id="b-树-1"><a href="#b-树-1" class="headerlink" title="b*树"></a>b*树</h2><p>是B+树的变体，在B+树的非根和非叶子结点再增加指向兄弟的指针。<br>B<em>树定义了非叶子结点关键字个数至少为(2/3)</em>M，即块的最低使用率为2/3（代替B+树的1/2）。</p>
-<p>B+树的分裂：当一个结点满时，分配一个新的结点，并将原结点中1/2的数据复制到新结点，最后在父结点中增加新结点的指针；B+树的分裂只影响原结点和父结点，而不会影响兄弟结点，所以它不需要指向兄弟的指针。<br>B*树的分裂：当一个结点满时，如果它的下一个兄弟结点未满，那么将一部分数据移到兄弟结点中，再在原结点插入关键字，最后修改父结点中兄弟结点的关键字（因为兄弟结点的关键字范围改变了）；如果兄弟也满了，则在原结点与兄弟结点之间增加新结点，并各复制1/3的数据到新结点，最后在父结点增加新结点的指针。</p>
-<p>参考链接：<a href="https://www.2cto.com/net/201808/773535.html" target="_blank" rel="noopener">https://www.2cto.com/net/201808/773535.html</a><br>参考链接：<a href="https://www.yiibai.com/data_structure/b-tree.html" target="_blank" rel="noopener">https://www.yiibai.com/data_structure/b-tree.html</a></p>
-
+        
       
     </div>
 
@@ -472,7 +440,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="http://yoursite.com/2019/10/20/bT/" title="b树，b+树和b*树">http://yoursite.com/2019/10/20/bT/</a>
+    <a href="http://yoursite.com/2021/07/05/pixel_tool/" title="图像处理————将图片处理为像素风格和黑白风格">http://yoursite.com/2021/07/05/pixel_tool/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -492,15 +460,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2020/07/20/fastjson-problem/" rel="next" title="fastjson序列化出现&ref的符号">
+                <i class="fa fa-chevron-left"></i> fastjson序列化出现&ref的符号
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/10/20/computer/" rel="prev" title="电脑组装">
-                电脑组装 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -544,17 +512,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <div class="site-overview-wrap sidebar-panel">
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -638,23 +597,6 @@
         </div>
       </div>
       <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=556058208&auto=1&height=66"></iframe>
-      
-      <!--noindex-->
-        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-            
-            
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#b树"><span class="nav-number">1.</span> <span class="nav-text">b树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索"><span class="nav-number">1.1.</span> <span class="nav-text">搜索</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入"><span class="nav-number">1.2.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除"><span class="nav-number">1.3.</span> <span class="nav-text">删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#b-树"><span class="nav-number">2.</span> <span class="nav-text">b+树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#b-树-1"><span class="nav-number">3.</span> <span class="nav-text">b*树</span></a></li></ol></div>
-            
-
-          </div>
-        </div>
-      <!--/noindex-->
       
 
       
