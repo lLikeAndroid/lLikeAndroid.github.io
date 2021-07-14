@@ -94,17 +94,17 @@
 
 
 
-  <meta name="description" content="努力最后收获的就是失望？等待最后得到的就是幻想？">
+  <meta name="description" content="像素每一张图片的内容都是由一个小方格组成，每一个小方格都有自己的位置信息和颜色信息，这样的小方格就称为像素点，而像素点是图片的最小单位，这样的一个像素矩阵组成的图形就是我们所看到的图片。 分辨率也是用像素来作为单位的，通常是以一对数字出现，例如1024×768，但是也有单独出现的情况，例如相机。 像素也决定图像清晰度。像素分得越小，画面的总像素就越多，图像也就越清晰。 修改图片的像素值由于图片的像">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图像处理————将图片处理为像素风格和黑白风格">
 <meta property="og:url" content="http://yoursite.com/2021/07/05/pixel_tool/index.html">
 <meta property="og:site_name" content="LuBin的个人博客">
-<meta property="og:description" content="努力最后收获的就是失望？等待最后得到的就是幻想？">
+<meta property="og:description" content="像素每一张图片的内容都是由一个小方格组成，每一个小方格都有自己的位置信息和颜色信息，这样的小方格就称为像素点，而像素点是图片的最小单位，这样的一个像素矩阵组成的图形就是我们所看到的图片。 分辨率也是用像素来作为单位的，通常是以一对数字出现，例如1024×768，但是也有单独出现的情况，例如相机。 像素也决定图像清晰度。像素分得越小，画面的总像素就越多，图像也就越清晰。 修改图片的像素值由于图片的像">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-07-04T16:11:11.862Z">
+<meta property="og:updated_time" content="2021-07-14T17:46:39.435Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图像处理————将图片处理为像素风格和黑白风格">
-<meta name="twitter:description" content="努力最后收获的就是失望？等待最后得到的就是幻想？">
+<meta name="twitter:description" content="像素每一张图片的内容都是由一个小方格组成，每一个小方格都有自己的位置信息和颜色信息，这样的小方格就称为像素点，而像素点是图片的最小单位，这样的一个像素矩阵组成的图形就是我们所看到的图片。 分辨率也是用像素来作为单位的，通常是以一对数字出现，例如1024×768，但是也有单独出现的情况，例如相机。 像素也决定图像清晰度。像素分得越小，画面的总像素就越多，图像也就越清晰。 修改图片的像素值由于图片的像">
 
 
 
@@ -364,13 +364,23 @@
                 
               
 
-              <time title="创建时间：2021-07-05 00:05:19 / 修改时间：00:11:11" itemprop="dateCreated datePublished" datetime="2021-07-05T00:05:19+08:00">2021-07-05</time>
+              <time title="创建时间：2021-07-05 00:05:19" itemprop="dateCreated datePublished" datetime="2021-07-05T00:05:19+08:00">2021-07-05</time>
             </span>
           
 
           
             
 
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-07-15 01:46:39" itemprop="dateModified" datetime="2021-07-15T01:46:39+08:00">2021-07-15</time>
+              </span>
             
           
 
@@ -406,7 +416,31 @@
       
 
       
-        
+        <h2 id="像素"><a href="#像素" class="headerlink" title="像素"></a>像素</h2><p>每一张图片的内容都是由一个小方格组成，每一个小方格都有自己的位置信息和颜色信息，这样的小方格就称为像素点，而像素点是图片的最小单位，这样的一个像素矩阵组成的图形就是我们所看到的图片。</p>
+<p>分辨率也是用像素来作为单位的，通常是以一对数字出现，例如1024×768，但是也有单独出现的情况，例如相机。</p>
+<p>像素也决定图像清晰度。像素分得越小，画面的总像素就越多，图像也就越清晰。</p>
+<h2 id="修改图片的像素值"><a href="#修改图片的像素值" class="headerlink" title="修改图片的像素值"></a>修改图片的像素值</h2><p>由于图片的像素点是携带有信息的，其中就包括位置信息和颜色信息，而颜色信息一般是用rgb格式（rgb格式：称为光学三原色, 肉眼看到的颜色都可以用三原色混合叠加而成，r为红色，g为绿色，b为蓝色，<br>在计算机里用0到255的值来表示每种颜色的值），当然也有其他模式如十六进制格式。</p>
+<p>如果我们通过文件流形式读取到图片的每个像素的颜色值，那么我们就可以对其进行修改，实现各种各样的效果。例如：通过一种算式将每个像素转为只有黑和白两种颜色，这个就是ps里的黑白效果的实现，ps里面<br>很多的效果我们都可以自己编码实现，但是我们首先得知道其中的转化的算式是怎么来的，原理如何。由于图片里的像素信息是按矩阵的形式来放的，所以我们理所应当的可以用二维数组来获取像素的位置信息，知<br>道大小位置信息后，我们就可以自己实现图片裁剪功能。</p>
+<h2 id="获取像素值方式"><a href="#获取像素值方式" class="headerlink" title="获取像素值方式"></a>获取像素值方式</h2><p>js： js的方式可以用第三方框架，别人写好的js，或者是将图像绘制在canvas里，然后通过canvas的getImageData()方法获取，获取到的是rgba模式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">    // 通过js获取图像数据</span><br><span class="line">    var canvas_obj = document.getElementById(&quot;myCanvas&quot;);   // 获取canvas标签对象</span><br><span class="line">    var ctx = canvas_obj.getContext(&quot;2d&quot;);                  // 设置在画布上绘图的环境</span><br><span class="line">    var img_obj = document.getElementById(&quot;img&quot;);           // 获取img标签对象</span><br><span class="line">    ctx.drawImage(img_obj, 0, 0);                           // 将图片绘制到画布上</span><br><span class="line">    var imgData_obj = ctx.getImageData(0,0,canvas_obj.width,canvas_obj.height);    // 获取画布上的图像像素矩阵</span><br><span class="line">    var imgData = imgData_obj.data;     // 获取到的数据为一维数组，包含图像的RGBA四个通道数据</span><br><span class="line">    // console.log(imgData.length);</span><br><span class="line"></span><br><span class="line">    // 将获取到的图像数据去除A通道</span><br><span class="line">    var imgArr = [];</span><br><span class="line">    for(var i=0; i&lt;imgData.length; i += 4)&#123;</span><br><span class="line">        imgArr.push(imgData[i], imgData[i+1], imgData[i+2])</span><br><span class="line">    &#125;</span><br><span class="line">    // console.log(imgArr)</span><br><span class="line">    </span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>java： java也有很多别人写好的框架和工具类，也可以用自带的BufferedImage类读取。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">File file  = new File(&quot;......文件路径&quot;);</span><br><span class="line"></span><br><span class="line">BufferedImage bufImg = ImageIO.read(file);</span><br><span class="line"></span><br><span class="line">//然后就可以使用BufferedImage类的getWidth()，getHeight()，getRGB(i, j)方法</span><br></pre></td></tr></table></figure>
+
+<p>c++: 由于c++自己实现过于麻烦，所以大多数人都是使用opencv的方法或者是gdiplus.h里的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">GdiplusStartupInput gdiplusstartupinput;</span><br><span class="line">    ULONG_PTR gdiplustoken;</span><br><span class="line">    GdiplusStartup(&amp;gdiplustoken, &amp;gdiplusstartupinput, NULL);</span><br><span class="line"> </span><br><span class="line">    wstring infilename(L&quot;1.jpg&quot;);</span><br><span class="line">    string outfilename(&quot;color.txt&quot;);</span><br><span class="line"> </span><br><span class="line">    Bitmap* bmp = new Bitmap(infilename.c_str());</span><br><span class="line">    UINT height = bmp-&gt;GetHeight();</span><br><span class="line">    UINT width  = bmp-&gt;GetWidth();</span><br><span class="line">    cout &lt;&lt; &quot;width &quot; &lt;&lt; width &lt;&lt; &quot;, height &quot; &lt;&lt; height &lt;&lt; endl;</span><br><span class="line"> </span><br><span class="line">    Color color;</span><br><span class="line">    ofstream fout(outfilename.c_str());</span><br><span class="line"> </span><br><span class="line">    for (UINT y = 0; y &lt; height; y++)</span><br><span class="line">    for (UINT x = 0; x &lt; width ; x++) &#123;</span><br><span class="line">            bmp-&gt;GetPixel(x, y, &amp;color);</span><br><span class="line">            fout &lt;&lt; x &lt;&lt; &quot;,&quot; &lt;&lt; y &lt;&lt; &quot;;&quot;</span><br><span class="line">                 &lt;&lt; (int)color.GetRed()   &lt;&lt; &quot;,&quot;</span><br><span class="line">                 &lt;&lt; (int)color.GetGreen() &lt;&lt; &quot;,&quot;</span><br><span class="line">                 &lt;&lt; (int)color.GetBlue()  &lt;&lt; endl;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    fout.close();</span><br><span class="line"> </span><br><span class="line">    delete bmp;</span><br><span class="line">    GdiplusShutdown(gdiplustoken);</span><br></pre></td></tr></table></figure>
+
+<h2 id="灰度化和二值化"><a href="#灰度化和二值化" class="headerlink" title="灰度化和二值化"></a>灰度化和二值化</h2><p>灰度化： 对于每个像素的rgb值例如：（255,125,122），这个表示r=255，g=125，b=122，我们通过某种算法让其中r=g=b三值相等，这个过程就叫灰度化，这个相等的值叫灰度值。一般灰度化算法使用两种：<br>    1. 使用平均值算法，就是(r+b+g)/3<br>    2. r * 0.3+ g * 0.59 +b * 0.11</p>
+<p>阈值：阈值又叫临界值，不管你的图片是什么样的彩色，它最终都会把图片当黑白图片处理，也就是说你设定了一个阈值之后，它会以此值作标准，凡是比该值大的颜色就会转换成白色，低于该值的颜色就转换成黑色，所以最后的结果是，你得到一张黑白的图片。阈值的作用就是得到一张对比度不同的图片。</p>
+<p>二值化： 其实就是将超过阈值的灰度值转为白色，低于阈值的设置为黑色的过程。</p>
+<p>像素化： 对于像素值除了rgb其实还有一个a值，a代表透明度值，我们不对rgb值进行灰度化和二值化，只对透明度值进行二值化，这样我们就可以获得颜色分界明显的图片，也就是像素图，这个过程叫像素化。</p>
+<h2 id="样例代码"><a href="#样例代码" class="headerlink" title="样例代码"></a>样例代码</h2><p>使用js来写</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var thresholdConvert = function(ctx, imageData, threshold, mode) &#123;</span><br><span class="line">        var data = imageData.data;</span><br><span class="line">        for (var i = 0; i &lt; data.length; i += 4) &#123;</span><br><span class="line">            var red = data[i];</span><br><span class="line">            var green = data[i + 1];</span><br><span class="line">            var blue = data[i + 2];</span><br><span class="line">            var alpha = data[i + 3];</span><br><span class="line"></span><br><span class="line">            // 灰度计算公式</span><br><span class="line">            var gray = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 *data[i + 2];</span><br><span class="line"></span><br><span class="line">            var color = gray &gt;= threshold ? 255 : 0;</span><br><span class="line"></span><br><span class="line">            data[i]     = (mode == 0 &amp;&amp; color == 0) ? red : color;    // red</span><br><span class="line">            data[i + 1] = (mode == 0 &amp;&amp; color == 0) ? green : color;  // green</span><br><span class="line">            data[i + 2] = (mode == 0 &amp;&amp; color == 0) ? blue : color;   // blue</span><br><span class="line">            data[i + 3] = alpha &gt;= threshold ? 255 : 0;               // 去掉透明</span><br><span class="line">        &#125;</span><br><span class="line">        ctx.putImageData(imageData, 0, 0);</span><br><span class="line">    &#125;;</span><br></pre></td></tr></table></figure>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://blog.csdn.net/weixin_44554475/article/details/102478494" target="_blank" rel="noopener">https://blog.csdn.net/weixin_44554475/article/details/102478494</a></p>
+<p><a href="https://www.cnblogs.com/Toya/p/11431992.html" target="_blank" rel="noopener">https://www.cnblogs.com/Toya/p/11431992.html</a></p>
+<p><a href="https://github.com/chuiliu/the-pixel-art" target="_blank" rel="noopener">https://github.com/chuiliu/the-pixel-art</a></p>
+
       
     </div>
 
@@ -512,8 +546,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -597,6 +640,23 @@
         </div>
       </div>
       <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=556058208&auto=1&height=66"></iframe>
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#像素"><span class="nav-number">1.</span> <span class="nav-text">像素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改图片的像素值"><span class="nav-number">2.</span> <span class="nav-text">修改图片的像素值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取像素值方式"><span class="nav-number">3.</span> <span class="nav-text">获取像素值方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#灰度化和二值化"><span class="nav-number">4.</span> <span class="nav-text">灰度化和二值化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#样例代码"><span class="nav-number">5.</span> <span class="nav-text">样例代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">6.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
